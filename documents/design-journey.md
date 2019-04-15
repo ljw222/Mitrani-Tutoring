@@ -60,9 +60,16 @@ Example:
 ## Initial Design
 
 [Include exploratory idea sketches of your website.]
-![](about.jpg)
-![](studentcenter-no_login.jpg)
-![](studentcenter-with_login.jpg)
+
+### Initial card sort
+![Card sort 1](cardsort_1.jpg)
+
+### Exploratory sketches
+![About](exp-about.jpg)
+![Student center - no login](exp-studentcenter-no_login.jpg)
+![Student center - with login](exp-studentcenter-with_login.jpg)
+![Home](exp-home.png)
+![Testimonials](exp-testimonials.png)
 
 ## Information Architecture, Content, and Navigation
 
@@ -137,7 +144,7 @@ Content waiting to get from client:
     - IF NOT LOGGED IN: show login and info that you must login to access certain materials
     - IF LOGGED IN:
       - Welcome to student center
-      - View appointments
+      - View appointments + cancel
         - each appointment links to a single_appointment page where they can edit and cancel the appointment
           - Change appointment
           - Cancel appointment
@@ -164,12 +171,15 @@ Content waiting to get from client:
     - submit testimonial form on home, prek-5th, 6-12, testimonials, and student center IF logged in
       - the form is most relevant on each of these pages
 
-![Card sort](cardsort.jpg)
+![Card sort 2](cardsort_2.jpg)
 
 - Additional notes about organization/card sort:
   - The single testimony page is meant to display full, longer testimonials which the tables preview with shorter blurbs. This so that the table of testimonials does not become excessively long with large cells
   - The single appointment page is linked to from the view appointments on the student center. This makes it easier to edit and cancel specific appointment based on appointment id]
 
+Additional page exploratory sketches:
+![Single appointment](exp-single_apptmt.png)
+![Single testimony](exp-single_testimony.png)
 
 
 ## Interactivity
@@ -191,11 +201,7 @@ Content waiting to get from client:
 
 ## Work Distribution
 
-[Describe how each of your responsibilities will be distributed among your group members.]
-
-[Set internal deadlines. Determine your internal dependencies. Whose task needs to be completed first in order for another person's task to be relevant? Be specific in your task descriptions so that everyone knows what needs to be done and can track the progress effectively. Consider how much time will be needed to review and integrate each other's work. Most of all, make sure that tasks are balanced across the team.]
-
-
+Each person will be assigned 2-3 pages to be in charge of for design and coding. We will create a consistent header, nav, and footer for all pages. Ellie and Lucy will alternate to be in charge of sending direct correspondence with the client, while we all contribute and keep track of client/site notes on a shared google document for review and on this design journey. For each milestone, we will also divide up the sections evenly if possible. Jamie and Lucy will be more focused on design while Ellie will be more focused on technical task management; however, we will all contribute to and provide feedback for all aspects. If anyone is falling behind or needs help, we will communicate and actively offer assistance/guidance where necessary.
 
 ## Additional Comments
 
