@@ -25,7 +25,8 @@ Your Team Name: [Gray-Giraffe]
 ## Target Audience(s)
 
 [Tell us about the potential audience for this website. How, when, and where would they interact with the website? Get as much detail as possible from the client to help you find representative users.]
-  The target audience for this website are potential and existing clients of Laurie. For potential clients, this site will serve as an advertisement and endorsement to Laurie's tutoring services and qualifications. Potential clients will most likely be the parents of children that are in need of educational tutoring. Existing clients will be able to view existing and make new appointments.
+
+The target audience for this website are potential and existing clients of Laurie. For potential clients, this site will serve as an advertisement and endorsement to Laurie's tutoring services and qualifications. Potential clients will most likely be the parents of children that are in need of educational tutoring. Existing clients will be able to view existing and make new appointments.
 
 
 ## Client Requirements & Target Audiences' Needs
@@ -59,17 +60,20 @@ Example:
 
 ## Initial Design
 
-[Include exploratory idea sketches of your website.]
-
 ### Initial card sort
 ![Card sort 1](cardsort_1.jpg)
 
 ### Exploratory sketches
+
+Home
+![Home](exp-home.png)
+Testimonials
+![Testimonials](exp-testimonials.png)
+About
 ![About](exp-about.jpg)
+Student center
 ![Student center - no login](exp-studentcenter-no_login.jpg)
 ![Student center - with login](exp-studentcenter-with_login.jpg)
-![Home](exp-home.png)
-![Testimonials](exp-testimonials.png)
 
 ## Information Architecture, Content, and Navigation
 
@@ -82,9 +86,7 @@ Content waiting to get from client:
 - Description of the services offered for preschool/elementary students and middle/high school students
 
 
-[Document your process, we want to see how you came up with your content organization and website navigation.]
-
-[Note: There is no specific amount to write here. You simply need enough content to do the job.]
+[Document your process, we want to see how you came up with your content organization and website navigation. Note: There is no specific amount to write here. You simply need enough content to do the job.]
 
 - **Navigation**
   - Home (as title head)
@@ -175,10 +177,13 @@ Content waiting to get from client:
 
 - Additional notes about organization/card sort:
   - The single testimony page is meant to display full, longer testimonials which the tables preview with shorter blurbs. This so that the table of testimonials does not become excessively long with large cells
-  - The single appointment page is linked to from the view appointments on the student center. This makes it easier to edit and cancel specific appointment based on appointment id]
+  - The single appointment page is linked to from the view appointments on the student center. This makes it easier to edit and cancel specific appointment based on appointment id
 
 Additional page exploratory sketches:
+
+Single appointment
 ![Single appointment](exp-single_apptmt.png)
+Single testimony
 ![Single testimony](exp-single_testimony.png)
 
 
@@ -187,17 +192,12 @@ Additional page exploratory sketches:
 [What interactive features will your site have? What PHP elements will you include?]
 
 [Also, describe how the interactivity connects with the needs of the clients/target audience.]
-1)
-  We will have a page where the user can sign in, and view their existing appointments, make new appointments, edit appointments, as well as cancel appointments. This page will be userful to existing clients as they will have one central place to keep track of all information regarding tutoring appointments.
 
-  To implement this page, we will have to implement the login/logout feature, by creating session cookies and a table with user ids and their corresponding hashed passwords. To make a new appointment, there will be a form that the user can fill out. When the form is submitted, we will check that that specific time is available, and then insert the new appointment information into the database. Each appointment will also have a corresponding button where the user can cancel the appointment.
-2)
-  On the testimonials page, we will have a feature where the user can sort the testimonials. They will be able to sort by date, rating, and age group. This is important for potential clients, as they want to know whether this tutor is reputable.
+1) We will have a page where the user can sign in, and view their existing appointments, make new appointments, edit appointments, as well as cancel appointments. This page will be userful to existing clients as they will have one central place to keep track of all information regarding tutoring appointments. To implement this page, we will have to implement the login/logout feature, by creating session cookies and a table with user ids and their corresponding hashed passwords. To make a new appointment, there will be a form that the user can fill out. When the form is submitted, we will check that that specific time is available, and then insert the new appointment information into the database. Each appointment will also have a corresponding button where the user can cancel the appointment.
 
-  To implement this feature, we will have a drop down menu, where users can sort by specific tags.
+2) On the testimonials page, we will have a feature where the user can sort the testimonials. They will be able to sort by date, rating, and age group. This is important for potential clients, as they want to know whether this tutor is reputable. To implement this feature, we will have a drop down menu, where users can sort by specific tags.
 
-3)
-  On the testimonials and student center page, we will have a form so logged in users can submit testimonials. This is to ensure that only actual clients of Laurie can submit testimonials if they have proper login credentials. Once users submit testimonials, they will be added to the testimonials database table and show on the testimonials page.
+3) On the testimonials and student center page, we will have a form so logged in users can submit testimonials. This is to ensure that only actual clients of Laurie can submit testimonials if they have proper login credentials. Once users submit testimonials, they will be added to the testimonials database table and show on the testimonials page.
 
 ## Work Distribution
 
