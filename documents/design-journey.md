@@ -60,7 +60,9 @@ Example:
 ## Initial Design
 
 [Include exploratory idea sketches of your website.]
-
+![](about.jpg)
+![](studentcenter-no_login.jpg)
+![](studentcenter-with_login.jpg)
 
 ## Information Architecture, Content, and Navigation
 
