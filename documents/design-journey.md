@@ -68,6 +68,13 @@ Example:
 
 [Lay out the plan for how you'll organize the site and which content will go where. Note any content (e.g., text, image) that you need to make/get from the client.]
 
+Content waiting to get from client:
+- 1 picture of her (for the ‘About Me’ page)
+- Photos of her working with students
+- A description of herself and her experience (also for the ‘About Me’ page)
+- Description of the services offered for preschool/elementary students and middle/high school students
+
+
 [Document your process, we want to see how you came up with your content organization and website navigation.]
 
 [Note: There is no specific amount to write here. You simply need enough content to do the job.]
@@ -137,10 +144,32 @@ Example:
       - Schedule appointment
       - testimonial form
     - Footer (contact information)
+  - Single appointment
+    - Header
+    - Change appointment
+    - Cancel appointment
+    - Footer
+  - Single testimony
+    - Header
+    - Full testimony
+    - student info
+    - footer
 
 - **Process**
-  - [photo of card sort]
-  - [explanation of how your come up with your content organization and navigation.]
+  - Card sort
+    - header and footer are on all pages
+    - images with students on home, prek-5th, 6-12
+      - primarily used at top of page
+      - other pages may have other images
+    - submit testimonial form on home, prek-5th, 6-12, testimonials, and student center IF logged in
+      - the form is most relevant on each of these pages
+
+![Card sort](cardsort.jpg)
+
+- Additional notes about organization/card sort:
+  - The single testimony page is meant to display full, longer testimonials which the tables preview with shorter blurbs. This so that the table of testimonials does not become excessively long with large cells
+  - The single appointment page is linked to from the view appointments on the student center. This makes it easier to edit and cancel specific appointment based on appointment id]
+
 
 
 ## Interactivity
@@ -165,6 +194,8 @@ Example:
 [Describe how each of your responsibilities will be distributed among your group members.]
 
 [Set internal deadlines. Determine your internal dependencies. Whose task needs to be completed first in order for another person's task to be relevant? Be specific in your task descriptions so that everyone knows what needs to be done and can track the progress effectively. Consider how much time will be needed to review and integrate each other's work. Most of all, make sure that tasks are balanced across the team.]
+
+
 
 ## Additional Comments
 
