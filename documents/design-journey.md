@@ -1,6 +1,6 @@
 # Project 4: Design Journey
 
-Your Team Name: [your team name]
+Your Team Name: [Gray-Giraffe]
 
 **All images must be visible in Markdown Preview. No credit will be provided for images in your repository that are not properly linked in Markdown. Assume all file paths are case sensitive!**
 
@@ -25,6 +25,7 @@ Your Team Name: [your team name]
 ## Target Audience(s)
 
 [Tell us about the potential audience for this website. How, when, and where would they interact with the website? Get as much detail as possible from the client to help you find representative users.]
+  The target audience for this website are potential and existing clients of Laurie. For potential clients, this site will serve as an advertisement and endorsement to Laurie's tutoring services and qualifications. Potential clients will most likely be the parents of children that are in need of educational tutoring. Existing clients will be able to view existing and make new appointments.
 
 
 ## Client Requirements & Target Audiences' Needs
@@ -32,13 +33,28 @@ Your Team Name: [your team name]
 [Collect your client's needs and wants for the website. Come up with several appropriate design ideas on how those needs may be met. In the **Rationale** field, justify your ideas and add any additional comments you have. There is no specific number of needs required for this, but you need enough to do the job.]
 
 Example:
-- (_pick one:_) Client Requirement/Target Audience Need
+- Target Audience Need
   - **Requirement or Need** [What does your client and audience need or want?]
-    - Client wants to cater to people who speak different languages.
+    - Potential clients need to what specific services are available for their children
   - **Design Ideas and Choices** [How will you meet those needs or wants?]
-    - Create web-pages manually in multiple languages.
+    - Create pages for different age groups with details about the specific services offered for that age group
   - **Rationale** [Justify your decisions; additional notes.]
-    - Create multiple pages in multiple languages manually.
+    - Rather than listing all of the services for all children preschool to high school in one place, this split will make it easier and more clear for potential clients to get a better understanding about what exactly will be offered to their child.
+- Target Audience Need
+  - **Requirement or Need** [What does your client and audience need or want?]
+    - Potential clients need to know why they should pick Laurie as their tutor
+  - **Design Ideas and Choices** [How will you meet those needs or wants?]
+    - Create an about page that lists Laurie's qualifications, as well as a page with testimonials from prior/existing clients
+  - **Rationale** [Justify your decisions; additional notes.]
+    - Listing Lauries qualifications, as well as adding testemonials will build up her brand, and show potential clients that they should hire her.
+- Target Audience Need
+  - **Requirement or Need** [What does your client and audience need or want?]
+    - Existing clients need to know when they are scheduled to meet with Laurie
+  - **Design Ideas and Choices** [How will you meet those needs or wants?]
+    - Create a page where users can sign in and view their existing appointments as well as make new ones
+  - **Rationale** [Justify your decisions; additional notes.]
+    - Creating a seperate page for users to log in will make it easy for existing clients to keep track of tutoring appointments.
+
 
 
 ## Initial Design
@@ -79,7 +95,14 @@ Example:
 [What interactive features will your site have? What PHP elements will you include?]
 
 [Also, describe how the interactivity connects with the needs of the clients/target audience.]
+1)
+  We will have a page where the user can sign in, and view their existing appointments, make new appointments, as well as cancel appointments. This page will be userful to existing clients as they will have one central place to keep track of all information regarding tutoring appointments.
 
+  To implement this page, we will have to implement the login/logout feature, by creating session cookies and a table with user ids and their corresponding hashed passwords. To make a new appointment, there will be a form that the user can fill out. When the form is submitted, we will check that that specific time is available, and then insert the new appointment information into the database. Each appointment will also have a corresponding button where the user can cancel the appointment.
+2)
+  On the reviews/testimonials page, we will have a feature where the user can sort the reviews. They will be able to sort by date, rating, and age group. This is important for potential clients, as they want to know whether this tutor is reputable.
+
+  To implement this feature, we will have a drop down menu, where users can sort by specific tags.
 
 ## Work Distribution
 
