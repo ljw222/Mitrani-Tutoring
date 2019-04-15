@@ -70,20 +70,71 @@ Example:
 
 [Note: There is no specific amount to write here. You simply need enough content to do the job.]
 
-Example:
 - **Navigation**
-  - Home
-  - Portfolio
-    - Websites
-    - Mobile Apps
-    - Tablets
-  - About Me
+  - Home (as title head)
+  - Pre-K - 5th
+  - 6th - 12th
+  - Testimonials
+  - About Laurie
+  - Student Center: Login to make appt with/delete appt with laurie
+
 
 - **Content** (List all the content corresponding to main navigation and sub-categories.)
-  - *Portfolio*: list all the projects (as images) this client has worked on. When the image is hovered over, display a description of the project; add a search function to enable users search for specific projects;
-  - *Websites*: showcase all the websites designed by the client, with thumbnail images and a brief description for each design;
-  - *Mobile Apps*: showcase all the mobile apps designed by the client, with thumbnail images and a brief description for each design;
-  - *Tablets*: showcase all the tablet applications designed by the client, with thumbnail images and a brief description for each design;
+  - Home
+    - Header title
+    - (Slideshow?) Images of Laurie working with her students
+    - About the site and the organization
+    - Kinds of services offered
+    - Why tutoring is important
+    - IF LOGGED IN: show testimonial form
+    - Footer (contact information)
+  - Pre-K - 5th
+    - Header title
+    - Image with pre-k - 5th students
+    - Information about services for pre-k - 5th students only
+    - Link to testimonial page with pre-k - 5th filter
+    - IF LOGGED IN: show testimonial form
+    - Footer (contact information)
+  - 6th - 12th
+    - Header title
+    - Image with 6th - 12th grades students
+    - Information about services for 6th - 12th grades students only
+    - Link to testimonial page with 6th - 12th grades filter
+    - IF LOGGED IN: show testimonial form
+    - Footer (contact information)
+  - Testimonials
+    - Header title
+    - Brief information about testimonials coming from students
+    - Interactive sorting form functions for the database table
+    - Testimonials table
+      - Link to view testimonial on separate full page
+        - single_testimonial.php
+      - Preview of testimonial with snapshot (testimonial)
+      - Rating out of 5 stars (rating)
+      - Grade of user who submitted (age group)
+      - year submitted (date)
+    - Notification to login to submit a testimonial
+    - IF LOGGED IN: show testimonial form
+    - Footer (contact information)
+  - About Laurie
+    - Header title
+    - Blurb bio with headshot
+    - More detailed background experience (like resume?)
+    - Links to media like LinkedIn, examples of work, etc.
+    - Contact information: phone, email
+    - Footer (contact information)
+  - Student Center: also show username if logged in
+    - Header title
+    - IF NOT LOGGED IN: show login and info that you must login to access certain materials
+    - IF LOGGED IN:
+      - Welcome to student center
+      - View appointments
+        - each appointment links to a single_appointment page where they can edit and cancel the appointment
+          - Change appointment
+          - Cancel appointment
+      - Schedule appointment
+      - testimonial form
+    - Footer (contact information)
 
 - **Process**
   - [photo of card sort]
@@ -96,13 +147,16 @@ Example:
 
 [Also, describe how the interactivity connects with the needs of the clients/target audience.]
 1)
-  We will have a page where the user can sign in, and view their existing appointments, make new appointments, as well as cancel appointments. This page will be userful to existing clients as they will have one central place to keep track of all information regarding tutoring appointments.
+  We will have a page where the user can sign in, and view their existing appointments, make new appointments, edit appointments, as well as cancel appointments. This page will be userful to existing clients as they will have one central place to keep track of all information regarding tutoring appointments.
 
   To implement this page, we will have to implement the login/logout feature, by creating session cookies and a table with user ids and their corresponding hashed passwords. To make a new appointment, there will be a form that the user can fill out. When the form is submitted, we will check that that specific time is available, and then insert the new appointment information into the database. Each appointment will also have a corresponding button where the user can cancel the appointment.
 2)
-  On the reviews/testimonials page, we will have a feature where the user can sort the reviews. They will be able to sort by date, rating, and age group. This is important for potential clients, as they want to know whether this tutor is reputable.
+  On the testimonials page, we will have a feature where the user can sort the testimonials. They will be able to sort by date, rating, and age group. This is important for potential clients, as they want to know whether this tutor is reputable.
 
   To implement this feature, we will have a drop down menu, where users can sort by specific tags.
+
+3)
+  On the testimonials and student center page, we will have a form so logged in users can submit testimonials. This is to ensure that only actual clients of Laurie can submit testimonials if they have proper login credentials. Once users submit testimonials, they will be added to the testimonials database table and show on the testimonials page.
 
 ## Work Distribution
 
