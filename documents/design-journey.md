@@ -70,6 +70,8 @@ Example:
 
 Home
 ![Home](exp-home.png)
+Prek/Elementary and 6th/12th
+![Services](exp-services.jpeg)
 Testimonials
 ![Testimonials](exp-testimonials.png)
 About
