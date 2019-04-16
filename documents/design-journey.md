@@ -11,16 +11,19 @@ Your Team Name: [Gray-Giraffe]
 
 [NOTE: If you are redesigning an existing website, give us the current URL and some screenshots of the current site. Tell us how you plan to update the site in a significant way that meets the final project requirements.]
 
+Our client is Laurie Mitrani, a certified teacher and UVA grad. She is an educational consultant and tutor who wishes to have a website in which families can view her educational services for elementary age through high school students. Currently, most of her clients are found through word of mouth, so with a website that has information about her work, she can hopefully expand her client network with greater reach and exposure.
 
 ## Meeting Notes
 
 [By this point, you have met once with your client to discuss all their requirements. Include your notes from the meeting, an email they sent you, or whatever you used to keep track of what was discussed at the meeting. Include these artifacts here.]
 
+ Our client meeting notes are included on the following google document:
+ https://docs.google.com/document/d/1viX_9RcYsVAC91IHfR2XvH-lHVhr6DNDR1_88FB-sKU/edit?usp=sharing
 
 ## Purpose & Content
 
 [Tell us the purpose of the website and what it is all about.]
-
+The purpose of this website is to give Laurie's company/tutoring business and online presence. She currently gets business through word of mouth, but the website will allow anybody to learn about the educational services she offers, her experience, and allow them to get in contact with Laurie if they are interested. The site will include testimonials, a brief bio, and descriptions of the services that she offers, grouped by age group.
 
 ## Target Audience(s)
 
