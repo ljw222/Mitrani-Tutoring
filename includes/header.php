@@ -2,6 +2,14 @@
     <nav class = "header_nav">
         <ul class = "header_ul">
         <?php
+
+
+        if ( is_user_logged_in() ) {
+              // Add a logout query string parameter
+              $logout_url = htmlspecialchars( $_SERVER['PHP_SELF'] ) . '?' . http_build_query( array( 'logout' => '' ) );
+
+              ?> <div class="logout_link"><?php echo '<a class="logout" href="' . $logout_url . '">Sign Out ' . htmlspecialchars($current_user['username']) . '</a>'; ?></div><?php
+        }
             $pages = [
                 ['k-12.php', 'Pre-K - 5th'],
                 ['6-12.php', '6th - 12th'],

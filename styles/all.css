@@ -16,7 +16,7 @@
 
 .header_li{
     list-style-type: none;
-    display: inline;
+    display: inline-block;
     padding-right: 65px;
     padding-left: 65px;
     padding-top: 18px;
@@ -26,6 +26,10 @@
     border-bottom: 1px solid black;
     border-left: 1px solid black;
     background-color: #abd2fa;
+}
+
+a.logout{
+    display: inline;
 }
 
 .home{
@@ -40,4 +44,52 @@
 
 .header_a:hover{
     color: mediumvioletred;
+}
+
+.current_page{
+    text-decoration: underline;
+}
+
+h1{
+    padding-top: 30px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.about_flex{
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.headshot{
+    display:inline-block;
+    padding-right: 10px;
+}
+
+.about_me{
+    display:inline-block;
+    padding-left: 10px;
+}
+
+#login_form li{
+    list-style: none;
+}
+
+#signup_form li{
+    list-style: none;
+}
+
+input{
+    display: inline;
+}
+
+.subject{
+    padding-left: 40px;
+}
+
+h2{
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
 }
