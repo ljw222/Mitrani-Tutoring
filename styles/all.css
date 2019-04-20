@@ -125,3 +125,9 @@ form .text_label{
 #signup_form button{
     margin-left: 200px;
 }
+
+.footer{
+    padding-bottom: 5px;
+    border-top: 1px solid black;
+    margin-top:20px;
+}

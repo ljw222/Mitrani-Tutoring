@@ -47,14 +47,14 @@ include("includes/init.php");
     <fieldset>
       <legend>Schedule an appointment!</legend>
       <ul>
-        <li>
+        <!-- <li>
           <label for="firstname" class="text_label">Student First Name:</label>
           <input id="firstname" type="text" name="firstname" />
         </li>
         <li>
           <label for="lastname" class="text_label">Student Last Name:</label>
           <input id="lastname" type="text" name="lastname" />
-        </li>
+        </li> -->
         <li>
           <label for="date" class="text_label">Date:</label>
           <input id="date" type="date" name="date" />

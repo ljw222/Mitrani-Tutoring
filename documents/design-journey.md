@@ -218,12 +218,12 @@ Each person will be assigned 2-3 pages to be in charge of for design and coding.
 ## Client Feedback
 
 [Share the feedback notes you received from your client about your initial design.]
-
+Our client was very happy with the design that we have so far.
 
 ## Iterated Design
 
 [Improve your design based on the feedback you received from your client.]
-
+One of the things that we realized while corresponding with our client is that there isn't too much content to fill the pre-k-5th, 6th-12th grade pages, as well as the testimonial page. Therefore, we will probably include some supplementary information for the version of the site that we turn in for this class so that there is sufficient content on each page.
 
 ## Evaluate your Design
 
@@ -282,15 +282,49 @@ Task 2:
 
 [Describe the structure of your database. You may use words or a picture. A bulleted list is probably the simplest way to do this.]
 
-Table: movies
-* field 1: description...
-* field...
+Table: Users
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: username TEXT NOT NULL UNIQUE
+* field 3: password TEXT NOT NULL
+* field 4: first_name TEXT NOT NULL
+* field 5: last_name TEXT NOT NULL
+* field 6: grade INTEGER NOT NULL
 
+Table: Sessions
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: user_id INTEGER NOT NULL
+* field 3: session TEXT NOT NULL UNIQUE
+
+Table: Appointment
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: date TEXT NOT NULL
+* field 3: time TEXT NOT NULL
+* field 4: subject_id INTEGER NOT NULL UNIQUE
+* field 5: duration INTEGER NOT NULL
+* field 6: user_id INTEGER NOT NULL
+
+Table: Subject
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: subject TEXT NOT NULL UNIQUE
+
+Table: Testimonials
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: user_id INTEGER NOT NULL UNIQUE
+* field 3: testimonial TEXT NOT NULL UNIQUE
+* field 4: rating INTEGER NOT NULL
+* field 5: date TEXT NOT NULL
 
 ## Database Queries
 
 [Plan your database queries. You may use natural language, pseudocode, or SQL.]
-
+To get existing appointment:
+  Select all appointments from the Appointment table where the user_id is equal to the one of the user who is signed in
+To make an appointmnet:
+  Insert date, time, current user id, subject_ids, duration into the appointment table
+To add a testimonial
+  Insert current user id, testimonial, rating, and date into the testimonial table
+To sort testimonials
+  Select all of the testimonials in the table that match the selected rating/date/user grade
 
 ## PHP File Structure
 
