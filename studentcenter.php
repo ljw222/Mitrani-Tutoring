@@ -17,7 +17,6 @@ include("includes/init.php");
   <?php include("includes/header.php"); ?>
 
   <h1>Student Center</h1>
-  <h2>Welcome Back <?php echo htmlspecialchars($current_user['username']); ?>!</h2>
   <?php
   if ( !is_user_logged_in() ){ ?>
     <h2>Sign in to view existing appointments, schedule an appointment, or cancel an appointment.</h2>
@@ -41,6 +40,7 @@ include("includes/init.php");
   <?php
   }
   else{ ?>
+    <h2>Welcome Back <?php echo htmlspecialchars($current_user['username']); ?>!</h2>
     <p>Existing appointments:</p>
 
     <form id="signup_form" action="<?php echo htmlspecialchars( $_SERVER['PHP_SELF'] ); ?>" method="post">
@@ -85,16 +85,14 @@ include("includes/init.php");
           </select>
         </li>
         <li>
-          <button name="login" type="submit">Submit</button>
+          <button name="submit" type="submit">Submit</button>
         </li>
       </ul>
     </fieldset>
     </form>
   <?php
   } ?>
-
-
-
-
   <legend>
+
+  <?php include("includes/footer.php"); ?>
 </body>

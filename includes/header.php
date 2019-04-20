@@ -11,7 +11,7 @@
               ?> <div class="logout_link"><?php echo '<a class="logout" href="' . $logout_url . '">Sign Out ' . htmlspecialchars($current_user['username']) . '</a>'; ?></div><?php
         }
             $pages = [
-                ['k-12.php', 'Pre-K - 5th'],
+                ['k-5.php', 'Pre-K - 5th'],
                 ['6-12.php', '6th - 12th'],
                 ['testimonials.php', 'Testimonials'],
                 ['about.php', 'About Me']

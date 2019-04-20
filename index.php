@@ -1,6 +1,7 @@
 <?php
- // INCLUDE ON EVERY TOP-LEVEL PAGE!
+// DO NOT REMOVE!
 include("includes/init.php");
+// DO NOT REMOVE!
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,13 +9,10 @@ include("includes/init.php");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <link href="styles/all.css" type="text/css" rel="stylesheet">
   <title>Home</title>
 </head>
 
 <body>
-
-  <!-- TODO: This should be your main page for your site. -->
-
+  <?php include("includes/header.php"); ?>
 </body>
-</html>

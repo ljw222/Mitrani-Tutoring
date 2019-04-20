@@ -85,11 +85,43 @@ input{
 }
 
 .subject{
-    padding-left: 40px;
+    padding-left: 200px;
 }
 
 h2{
     text-align: center;
     font-weight: normal;
     font-size: 20px;
+}
+
+.phone, .email{
+    display: inline-block;
+}
+
+#login_form{
+    padding-bottom: 20px;
+}
+
+#login_form .text_label{
+    padding-bottom: 15px;
+    padding-left: 40%;
+}
+
+#login_form button{
+    margin-left: 55%;
+}
+
+form .text_label{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+
+#signup_form .text_label{
+    width: 200px;
+    padding-bottom:15px;
+}
+
+#signup_form button{
+    margin-left: 200px;
 }
