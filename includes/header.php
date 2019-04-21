@@ -1,8 +1,8 @@
 <h1 class = "header_h1">MITRANI TUTORING</h1>
     <nav class = "header_nav">
+        <a class="studentcenter" href ="studentcenter.php">Student Center</a>
         <ul class = "header_ul">
         <?php
-
 
         if ( is_user_logged_in() ) {
               // Add a logout query string parameter
