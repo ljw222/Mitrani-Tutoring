@@ -330,9 +330,16 @@ To sort testimonials
 
 [List the PHP files you will have. You will probably want to do this with a bulleted list.]
 
-* index.php - main page.
 * includes/init.php - stuff that useful for every web page.
-* TODO
+* includes/header.php- header for each page
+* includes/footer.php- footer for each page
+* index.php- main page
+* k-5th.php- info about k-5th grade services
+* 6-12.php- info about 6-12th grade services
+* testimonials.php- student/parent testimonials about Laurie's services
+* about.php- info about Laurie
+* studentcenter.php- info for existing students about appointments
+
 
 
 ## Pseudocode
@@ -348,7 +355,41 @@ include init.php
 
 TODO
 ```
-
+### header.php
+  if the current page is "Pre-K - 5th":
+    underline "Pre-K - 5th" in the nav bar
+  if the current page is "6th - 12th":
+    underline "6th - 12th" in the nav bar
+  if the current page is "Testimonials":
+    underline "Testimonials" in the nav bar
+  if the current page is "About Me":
+    underline "About Me" in the nav bar
+  if the user is logged in:
+    show the sign out link (display: "Sign Out ___username___" )
+### index.php
+### k-5.php
+### 6-12.php
+### testimonials.php
+### about.php
+  include init.php, header.php, footer.php
+### studentcenter.php
+  include init.php, header.php
+  if no user is logged in:
+    display: "Sign in to view existing appointments, schedule an appointment, or cancel an appointment."
+    display the login form
+  if a user is logged in:
+    display: "Welcome Back ___username___!"
+    show existing appointments
+    display the form to make a new appointment
+  if the login form is submitted:
+    refresh the page to show the contents for a signed in user
+  if the new appointment form is submitted:
+    make a new appointment (sql)
+    display text confirming that the appointment was made
+    update the "existing appointments" information
+  include footer.php
+### footer.php
+  n/a
 
 ## Additional Comments
 
