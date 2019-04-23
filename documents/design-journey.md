@@ -206,7 +206,7 @@ Single testimony
 
 ## Work Distribution
 
-Each person will be assigned 2-3 pages to be in charge of for design and coding. We will create a consistent header, nav, and footer for all pages. Ellie and Lucy will alternate to be in charge of sending direct correspondence with the client, while we all contribute and keep track of client/site notes on a shared google document for review and on this design journey. For each milestone, we will also divide up the sections evenly if possible. Jamie and Lucy will be more focused on design while Ellie will be more focused on technical task management; however, we will all contribute to and provide feedback for all aspects. If anyone is falling behind or needs help, we will communicate and actively offer assistance/guidance where necessary.
+Each person will be assigned 2-3 pages to be in charge of for design and coding. We will create a consistent header, nav, and footer for all pages. Ellie and Lucy will alternate to be in charge of sending direct correspondence with the client, while we all contribute and keep track of client/site notes on a shared google document for review and on this design journey. For each milestone, we will also divide up the sections evenly if possible. Jamie will be more focused on design while Ellie will be more focused on technical task division and Lucy in charge of task management; however, we will all contribute to and provide feedback for all aspects. If anyone is falling behind or needs help, we will communicate and actively offer assistance/guidance where necessary. We will all make sure we are coding and designing evenly among our members.
 
 ## Additional Comments
 
@@ -378,10 +378,20 @@ There is a form message to let her know that she has canceled her appointment su
 An issue that was brought to our attention was the need for clear and constant feedback to the user. In order to let the user know that they have successfully made changes to their appointments, such as adding or canceling an appointment. If there is no feedback for the user, they may or may not know that they have accomplished these tasks successfully, other than the fact that they will be able to view new appointments in their student center or can no longer view an appointment that they canceled.
 
 ## Final Design
+Updated sketches:
 
-[Include sketches of your finalized design.]
+About Me
+![About Me](final-about.jpg)
+Testimonials
+![Testimonials](final-testimonials.jpg)
+PreK-5
+![PreK-5](final-k-5.jpg)
+6-12
+![6-12](final-6-12.jpg)
 
 [What changes did you make to your final design based on the results on your cognitive walkthrough?]
+- More consistency for easier understanding and use
+- better use of images to draw in users
 
 
 ## Database Schema
@@ -446,8 +456,6 @@ To sort testimonials
 * about.php- info about Laurie
 * studentcenter.php- info for existing students about appointments
 
-
-
 ## Pseudocode
 
 [For each PHP file, plan out your pseudocode. You probably want a subheading for each file.]
@@ -455,52 +463,85 @@ To sort testimonials
 ### index.php
 
 ```
-Pseudocode for index.php...
+include init.php, header.php
+if user is logged in
+  show testimonial form (include testimonial_form.php)
+else if user is logged out
+  show link to testimonies
+include footer.php
 
-include init.php
-
-TODO
 ```
 ### header.php
-  if the current page is "Pre-K - 5th":
-    underline "Pre-K - 5th" in the nav bar
-  if the current page is "6th - 12th":
-    underline "6th - 12th" in the nav bar
-  if the current page is "Testimonials":
-    underline "Testimonials" in the nav bar
-  if the current page is "About Me":
-    underline "About Me" in the nav bar
-  if the user is logged in:
-    show the sign out link (display: "Sign Out ___username___" )
-### index.php
+```
+if the current page is "Pre-K - 5th":
+  underline "Pre-K - 5th" in the nav bar
+if the current page is "6th - 12th":
+  underline "6th - 12th" in the nav bar
+if the current page is "Testimonials":
+  underline "Testimonials" in the nav bar
+if the current page is "About Me":
+  underline "About Me" in the nav bar
+if the user is logged in:
+  show the sign out link (display: "Sign Out ___username___" )
+```
 ### k-5.php
 ### 6-12.php
 ### testimonials.php
+```
+include init.php
+PHP FOR SORT BY:
+  if GET submit_sortby:
+    get values for date, grade, and rating IF isset()
+    filter values for date, grade, and rating
+    SQL query for those specified values from testimonials database
+    show table with sql query
+  else:
+    SQL query for all values from testimonials database
+    show table with sql query
+PHP FOR SORT BY SELECT-OPTIONS:
+  get all the records from data for specified label (i.e. date)
+  save records as $all_LABELS
+  for loop through records to create options
+PHP FOR TESTIMONIALS:
+  if user is logged in
+    show testimonial form (include testimonial_form.php)
+  else if user is logged out
+    show link to login to submit testimonials
+  include footer.php
+
+```
 ### about.php
-  include init.php, header.php, footer.php
+```
+include init.php, header.php, footer.php
+```
 ### studentcenter.php
-    include init.php, header.php
-    if no user is logged in:
-      display: "Sign in to view existing appointments, schedule an appointment, or cancel an appointment."
-      display the login form
-    if a user is logged in:
-      display: "Welcome Back ___username___!"
-      show existing appointments
-      display the form to make a new appointment
-    if the login form is submitted:
-      refresh the page to show the contents for a signed in user
-    if the new appointment form is submitted:
-      make a new appointment (sql)
-      display text confirming that the appointment was made
-      update the "existing appointments" information
-    include footer.php
+```
+include init.php, header.php
+if no user is logged in:
+  display: "Sign in to view existing appointments, schedule an appointment, or cancel an appointment."
+  display the login form
+if a user is logged in:
+  display: "Welcome Back ___username___!"
+  show existing appointments
+  display the form to make a new appointment
+if the login form is submitted:
+  refresh the page to show the contents for a signed in user
+if the new appointment form is submitted:
+  make a new appointment (sql)
+  display text confirming that the appointment was made
+  update the "existing appointments" information
+include footer.php
+```
 
 ### footer.php
   n/a
 
 ## Additional Comments
 
-[Add any additional comments you have here.]
+TO DO:
+- init.php function with php for testimonial_form.php
+- testimonials.php needs php for sort by
+- include testimonials database for table in testimonials.php
 
 
 --- <!-- ^^^ Milestone 2; vvv Milestone 3 -->

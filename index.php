@@ -20,7 +20,7 @@ include("includes/init.php");
     <h1>Mitrani Tutoring</h1>
     <div>
       <h2>Who we are</h2>
-      <p>Mitrani Tutoring enables students from Pre-K through high school to excel in their academic life. Led by certified educator and parent Laurie Mitrani, Mitrani Tutoring offers remedial and enrichment services in a multitude of subjects. Services are tailored to each student's individual needs and interests, and tutoring is offered in various locations.</p>
+      <p>Mitrani Tutoring enables students from Pre-K through high school to excel in their academic life. Provided by certified educator Laurie Mitrani, Mitrani Tutoring offers remedial and enrichment services in a multitude of subjects. Services are tailored to each student's individual needs and interests, and tutoring is offered in various locations.</p>
     </div>
   </div>
 

@@ -55,6 +55,7 @@ a {
 
 a.logout{
     display: inline;
+    font-size: 20px;
 }
 
 .home{
@@ -181,17 +182,35 @@ form .text_label{
 }
 
 #sortby-form>select {
-    width: 50px;
+    text-align: center;
     height: 20px;
-    margin: 5px 10px;
-}
-
-ul {
-    /* padding-left:0; */
+    margin: 5px;
 }
 
 .footer{
-    padding-bottom: 5px;
-    border-top: 1px solid black;
+    /* padding-bottom: 5px; */
+    /* border-top: 1px solid black; */
     margin-top:20px;
+    display: flex;
+    background-color: lightgrey;
+    padding: 3px;
+    font-size: 80%;
+}
+
+.footer>div {
+    display: flex;
+    flex: 1 1 0;
+    margin: 0px;
+}
+
+.phone {
+    text-align: right;
+    padding-right: 40px;
+    border-right: 1px solid black;
+    justify-content: end;
+}
+
+.email {
+    text-align: left;
+    padding-left: 40px;
 }

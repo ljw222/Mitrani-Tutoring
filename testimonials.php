@@ -29,7 +29,9 @@ include("includes/init.php");
       <select name="date">
         <?php
         // SQL QUERY FOR DATES
-        $all_dates = [];
+        // will save records as $all_dates, but temporary fake list
+        $all_dates = [2012, 2013, 2014];
+        echo "<option selected disabled>Date</option>";
         foreach ($all_dates as $date) {
           echo "<option value='" . $date . "'>" . $date . "</option>";
         }
@@ -38,7 +40,8 @@ include("includes/init.php");
       <select name="grade">
         <?php
         // SQL QUERY FOR GRADES
-        $all_grades = [];
+        $all_grades = [4, 5, 6];
+        echo "<option selected disabled>Grade </option>";
         foreach ($all_grades as $grade) {
           echo "<option value='" . $grade . "'>" . $grade . "</option>";
         }
@@ -47,7 +50,8 @@ include("includes/init.php");
       <select name="rating">
         <?php
         // SQL QUERY FOR RATINGS
-        $all_ratings = [];
+        $all_ratings = [1, 2, 3, 4, 5];
+        echo "<option selected disabled>Rating </option>";
         foreach ($all_ratings as $rating) {
           echo "<option value='" . $rating . "'>" . $rating . "</option>";
         }
