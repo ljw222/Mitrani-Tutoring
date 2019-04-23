@@ -218,11 +218,13 @@ Each person will be assigned 2-3 pages to be in charge of for design and coding.
 ## Client Feedback
 
 [Share the feedback notes you received from your client about your initial design.]
+
 Our client was very happy with the design that we have so far.
 
 ## Iterated Design
 
 [Improve your design based on the feedback you received from your client.]
+
 One of the things that we realized while corresponding with our client is that there isn't too much content to fill the pre-k-5th, 6th-12th grade pages, as well as the testimonial page. Therefore, we will probably include some supplementary information for the version of the site that we turn in for this class so that there is sufficient content on each page.
 
 ## Evaluate your Design
@@ -236,6 +238,7 @@ I've selected **[Abby]** as my persona.
 I've selected my persona because... [Tell us why you picked your persona in 1-3 sentences. Your explanation should include why your persona will help you address gender-inclusiveness bugs in your design.]
 
 I've selected Abby as my persona as she fits the persona that may be similar to many parents who are trying to book appointments with Laurie. A good portion of the target audience for this site, such as stay-at-home moms, may not have high computer self-efficacy. Furthermore as the intent for this site is to be as accessible to a variety of families, in order to increase Laurie's flow of business.
+
 ### Tasks
 
 [You will need to evaluate at least 2 tasks (known as scenarios in the GenderMag literature). List your tasks here. These tasks are the same as the task you learned in INFO/CS 1300.]
@@ -572,7 +575,6 @@ TO DO:
 - include testimonials database for table in testimonials.php
 - update testimonial_form.php css
 - update single pages with php and sql
-
 
 --- <!-- ^^^ Milestone 2; vvv Milestone 3 -->
 
