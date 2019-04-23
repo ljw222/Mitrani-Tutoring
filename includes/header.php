@@ -1,3 +1,4 @@
+<!-- <div id="full-header"> -->
 <div id="header-div">
     <h1 class = "header_h1"><a href="index.php">MITRANI TUTORING</a></h1>
     <div class="studentcenter-div">
@@ -39,3 +40,4 @@
     </ul>
 
 </nav>
+<!-- </div> -->

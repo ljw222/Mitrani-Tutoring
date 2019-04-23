@@ -2,10 +2,18 @@ a {
     text-decoration: none;
 }
 
+/* #full-header {
+    position: sticky;
+    top: 0px;
+} */
+
 #header-div {
     display: flex;
     flex-direction: row;
     width: 100%;
+    position: sticky;
+    top: 0px;
+    background-color: rgb(255, 255, 255, 0.7);
 }
 
 .header_h1{
