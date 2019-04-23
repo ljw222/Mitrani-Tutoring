@@ -76,9 +76,10 @@ a.logout{
 }
 
 h1{
-    padding-top: 30px;
+    /* padding-top: 30px; */
     text-align: center;
     font-size: 30px;
+    text-transform: uppercase;
 }
 
 .about_flex{
@@ -113,14 +114,11 @@ input{
     padding-left: 200px;
 }
 
-h1 {
-    text-transform: uppercase;
-}
-
 h2{
     text-align: center;
     font-weight: normal;
     font-size: 20px;
+    font-style: italic;
 }
 
 .phone, .email{
@@ -155,14 +153,45 @@ form .text_label{
     margin-left: 200px;
 }
 
+.top-page-div {
+    margin: 20px;
+    border: 1px solid black;
+    padding: 20px;
+    background-color: lavender;
+}
+
+.top-page-div>div {
+    margin: 0px 80px;
+    padding: 10px 40px;
+    background-color: white;
+    /* WILL REPLACE BACKGROUND WITH IMAGE */
+    margin-bottom: 20px;
+}
+
+.body-div {
+    margin: 40px 80px;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+#sortby-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#sortby-form>select {
+    width: 50px;
+    height: 20px;
+    margin: 5px 10px;
+}
+
+ul {
+    /* padding-left:0; */
+}
+
 .footer{
     padding-bottom: 5px;
     border-top: 1px solid black;
     margin-top:20px;
-}
-
-
-
-ul {
-    /* padding-left:0; */
 }

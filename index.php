@@ -55,7 +55,7 @@ include("includes/init.php");
   if (is_user_logged_in()) {
     include("includes/testimonial_form.php");
   } else {
-    echo "<h2>Don't just take our word for it</h2>";
+    echo "<h2>Don't just take our word for it!</h2>";
     echo "<p><a href='testimonials.php'>See what our students and parents have to say in their testimonials.</a></p>";
   }
   ;?>
