@@ -231,24 +231,27 @@ One of the things that we realized while corresponding with our client is that t
 
 [Pick a persona that you believe will help you address the gender bias within your design.]
 
-I've selected **[Abby/Patricia/Patrick/Tim]** as my persona.
+I've selected **[Abby]** as my persona.
 
 I've selected my persona because... [Tell us why you picked your persona in 1-3 sentences. Your explanation should include why your persona will help you address gender-inclusiveness bugs in your design.]
 
+I've selected Abby as my persona as she fits the persona that may be similar to many parents who are trying to book appointments with Laurie. A good portion of the target audience for this site, such as stay-at-home moms, may not have high computer self-efficacy. Furthermore as the intent for this site is to be as accessible to a variety of families, in order to increase Laurie's flow of business.
 ### Tasks
 
 [You will need to evaluate at least 2 tasks (known as scenarios in the GenderMag literature). List your tasks here. These tasks are the same as the task you learned in INFO/CS 1300.]
 
 [For each task, list the ideal set of actions that you would like your users to take when working towards the task.]
 
-Task 1: [describe your task]
+Task 1: [Book an appointment with Laurie]
 
-  1. [action 1...]
-  2. [action 2...]
-  3. ...
+  1. [Log into the Student Center]
+  2. [Fill out date, time, subject, and duration for appointment]
+  3. [Hit submit]
 
-Task 2:
+Task 2: [Cancel an appointment with Laurie]
 
+1. [Log into the Student Center]
+2. [Hit cancel]
 
 ### Cognitive Walkthrough
 
@@ -260,8 +263,110 @@ Task 2:
 
 [You may need to add additional subgoals and/or actions for each task.]
 
+**Task name: [Book an appointment with Laurie]**
 
+[Add as many subgoals as you needs]
+**Subgoal # [1] : [Get to the 'create appointment' form]**
+	(e.g., "# 1 : Select the section of the document you want to print")
+
+  - Will [persona name] have formed this sub-goal as a step to their overall goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Motivations/Strategies.)
+    Getting to a form to create and submit information is something universal to many websites and tasks, such as booking a doctor's appointment, so Abby will most likely have thought of this.
+
+[Add as many actions as you need...]
+**Action # [1] : [Log into Student Center]**
+	(e.g., "# 1 : Put the mouse at the beginning of the section you want to print")
+
+  - Will [persona name] know what to do at this step?
+    - Yes, maybe or no: [maybe]
+    - Why? (Especially consider [persona name]'s Knowledge/Skills, Motivations/Strategies, Self-Efficacy and Tinkering.)
+  Abby may not know that the way to get to the appointment form is through logging into her student center, as the form is not obviously placed on a separate tab or page.
+
+  - If [persona name] does the right thing, will she know that she did the right thing, and is making progress towards her goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Self-Efficacy and Attitude toward Risk.)
+Once logged into student center, the form to create an appointment appears and has intuitive input labels.
+**Subgoal # [2] : [Complete the form]**
+	(e.g., "# 1 : Select the section of the document you want to print")
+
+  - Will [persona name] have formed this sub-goal as a step to their overall goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Motivations/Strategies.)
+    Filling out a form with the correct information is something universal to creating any appointment, so Abby will have likely formed this sub-goal.
+
+[Add as many actions as you need...]
+**Action # [2] : [Enter date, time, subject, and duration]**
+	(e.g., "# 1 : Put the mouse at the beginning of the section you want to print")
+
+  - Will [persona name] know what to do at this step?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Knowledge/Skills, Motivations/Strategies, Self-Efficacy and Tinkering.)
+  The input labels are clearly marked, and Abby will understand to mark the fields accordingly.
+
+  - If [persona name] does the right thing, will she know that she did the right thing, and is making progress towards her goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Self-Efficacy and Attitude toward Risk.)
+There is form feedback to let her know if she has completed the fields correctly.
+
+**Action # [3] : [Hit submit]**
+	(e.g., "# 1 : Put the mouse at the beginning of the section you want to print")
+
+  - Will [persona name] know what to do at this step?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Knowledge/Skills, Motivations/Strategies, Self-Efficacy and Tinkering.)
+  Once the form has been filled out, it is the natural next step to submit the form. Abby will have done this on other forms she has used in the past.
+
+  - If [persona name] does the right thing, will she know that she did the right thing, and is making progress towards her goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Self-Efficacy and Attitude toward Risk.)
+There is form feedback to let her know that her appointment has been created and she will be able to view her appointment on her student center.
 #### Task 2 - Cognitive Walkthrough
+**Task name: [Cancel an appointment]**
+
+[Add as many subgoals as you needs]
+**Subgoal # [1] : [Get to the appointment that has been canceled]**
+	(e.g., "# 1 : Select the section of the document you want to print")
+
+  - Will [persona name] have formed this sub-goal as a step to their overall goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Motivations/Strategies.)
+    Abby has an appointment in mind that she wishes to cancel, and will need to access this appointment specifically. This is a subogal she has had experience with in canceling appointments for other areas.
+
+[Add as many actions as you need...]
+**Action # [1] : [Log into Student Center]**
+	(e.g., "# 1 : Put the mouse at the beginning of the section you want to print")
+
+  - Will [persona name] know what to do at this step?
+    - Yes, maybe or no: [maybe]
+    - Why? (Especially consider [persona name]'s Knowledge/Skills, Motivations/Strategies, Self-Efficacy and Tinkering.)
+  Since the information is personal to Abby, she will most likely know that she has to log in to view the appointment
+
+  - If [persona name] does the right thing, will she know that she did the right thing, and is making progress towards her goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Self-Efficacy and Attitude toward Risk.)
+Her appointment that she wishes to cancel can be easily viewed once she logs into the student center.
+**Subgoal # [2] : [Clear the appointment]**
+	(e.g., "# 1 : Select the section of the document you want to print")
+
+  - Will [persona name] have formed this sub-goal as a step to their overall goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Motivations/Strategies.)
+    If she wishes to cancel a certain appointment, it will be realtively intuitive to Abby to want to clear it off of her appointments section.
+
+[Add as many actions as you need...]
+**Action # [2] : [Hit 'cancel appointment' button]**
+	(e.g., "# 1 : Put the mouse at the beginning of the section you want to print")
+
+  - Will [persona name] know what to do at this step?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Knowledge/Skills, Motivations/Strategies, Self-Efficacy and Tinkering.)
+  The cancel appointments button is clearly marked under the given appointment.
+
+  - If [persona name] does the right thing, will she know that she did the right thing, and is making progress towards her goal?
+    - Yes, maybe or no: [yes]
+    - Why? (Especially consider [persona name]'s Self-Efficacy and Attitude toward Risk.)
+There is a form message to let her know that she has canceled her appointment successfully and she will no longer be able to view the canceled appointment in her appointments section.
 
 
 ### Cognitive Walk-though Results
@@ -269,7 +374,7 @@ Task 2:
 [Did you discover any issues with your design? What were they? How will you change your design to address the gender-inclusiveness bugs you discovered?]
 
 [Your responses here should be **very** thorough and thoughtful.]
-
+An issue that was brought to our attention was the need for clear and constant feedback to the user. In order to let the user know that they have successfully made changes to their appointments, such as adding or canceling an appointment. If there is no feedback for the user, they may or may not know that they have accomplished these tasks successfully, other than the fact that they will be able to view new appointments in their student center or can no longer view an appointment that they canceled.
 
 ## Final Design
 
