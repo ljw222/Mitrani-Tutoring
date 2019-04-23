@@ -1,10 +1,35 @@
+a {
+    text-decoration: none;
+}
+
+#header-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .header_h1{
-    text-align: center;
-    margin-bottom: 5px;
+    text-align: left;
+    padding: 20px;
     font-family: serif;
     color: darkblue;
     font-size: 40px;
+    display: flex;
+    flex: 1 1 0;
+    margin: 0px;
+}
 
+.studentcenter-div {
+    text-align: right;
+    display: flex;
+    flex: 1 1 0;
+    padding: 20px;
+    justify-content: end;
+    align-items: center;
+}
+.studentcenter{
+    text-align: right;
+    font-size: 20px;
 }
 
 .header_ul{
@@ -88,6 +113,10 @@ input{
     padding-left: 200px;
 }
 
+h1 {
+    text-transform: uppercase;
+}
+
 h2{
     text-align: center;
     font-weight: normal;
@@ -132,10 +161,8 @@ form .text_label{
     margin-top:20px;
 }
 
-.studentcenter{
-    margin-left:80%;
-}
 
-ul{
-    padding-left:0;
+
+ul {
+    /* padding-left:0; */
 }
