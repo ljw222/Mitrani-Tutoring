@@ -1,5 +1,16 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 a {
     text-decoration: none;
+    color: navy;
+    text-shadow: azure;
+}
+
+a:hover {
+    color: green;
+    /* text-shadow: 1px 1px navy; */
 }
 
 /* #full-header {
@@ -16,15 +27,30 @@ a {
     background-color: rgb(255, 255, 255, 0.7);
 }
 
-.header_h1{
+#title-diag {
+    display: flex;
+    background-color: rgb(0, 128, 0, 0.8);
+    clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 0% 100%);
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path */
+    padding: 0px 40px 0px 0px;
+}
+
+.header_h1 {
     text-align: left;
     padding: 20px;
-    font-family: serif;
-    color: darkblue;
     font-size: 40px;
     display: flex;
     flex: 1 1 0;
     margin: 0px;
+}
+
+.header_h1 a {
+    color: azure;
+}
+
+.header_h1:hover a {
+    color: navy;
+    /* text-shadow: 2px 2px azure */
 }
 
 .studentcenter-div {
@@ -40,56 +66,96 @@ a {
     font-size: 20px;
 }
 
-.header_ul{
-    text-align: center;
-    padding-inline-start: 0px;
-    padding-top: 10px;
-    margin-top: 0px;
-}
-
-.header_li{
-    list-style-type: none;
-    display: inline-block;
-    padding-right: 65px;
-    padding-left: 65px;
-    padding-top: 18px;
-    padding-bottom: 16px;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    background-color: #abd2fa;
-}
-
 a.logout{
     display: inline;
     font-size: 20px;
+}
+
+.header_ul{
+    text-align: center;
+    /* padding-inline-start: 0px;
+    padding-top: 10px;
+    margin-top: 0px; */
+    display: flex;
+    flex-direction: row;
+}
+
+.header_li{
+    /* list-style-type: none; */
+    /* display: inline-block; */
+    display: flex;
+    flex: 1 1 0;
+    padding: 20px;
+    justify-content: center;
+    /* padding-right: 65px;
+    padding-left: 65px;
+    padding-top: 18px;
+    padding-bottom: 16px;
+    background-color: #abd2fa; */
+    border: 1px solid white;
+    background-color: rgb(0, 0, 0, 0.8);
+
+}
+
+.header_a{
+    text-decoration: none;
+    font-size: 20px;
+    /* color: #3A275E; */
+    color: white;
+}
+
+.header_li:hover {
+    background-color: white;
+}
+
+.header_li:hover .header_a {
+    color: rgb(0, 0, 0, 0.8);
+}
+/*
+.header_a:hover{
+    color: mediumvioletred;
+} */
+
+.current_page{
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.top-page-div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 40px;
+    height: 300px;
+    background-size: contain;
+    justify-content: center;
+    align-items: center;
+}
+
+#index-img {
+    background-image: url("../images/academic-setup.jpg");
+    /* Photo by Element5 Digital on Unsplash */
+}
+
+.top-page-div>div {
+    /* margin: 0px 80px; */
+    padding: 10px 40px;
+    background-color: rgb(255, 255, 255, 0.8);
+    margin: 20px 0px;
+    max-width: 500px;
+}
+
+h1{
+    /* padding-top: 30px; */
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .home{
     border-left: 1px solid black;
 }
 
-.header_a{
-    text-decoration: none;
-    font-size: 20px;
-    color: #3A275E;
-}
-
-.header_a:hover{
-    color: mediumvioletred;
-}
-
-.current_page{
-    text-decoration: underline;
-}
-
-h1{
-    /* padding-top: 30px; */
-    text-align: center;
-    font-size: 30px;
-    text-transform: uppercase;
-}
 
 .about_flex{
     display: flex;
@@ -162,20 +228,6 @@ form .text_label{
     margin-left: 200px;
 }
 
-.top-page-div {
-    margin: 20px;
-    border: 1px solid black;
-    padding: 20px;
-    background-color: lavender;
-}
-
-.top-page-div>div {
-    margin: 0px 80px;
-    padding: 10px 40px;
-    background-color: white;
-    /* WILL REPLACE BACKGROUND WITH IMAGE */
-    margin-bottom: 20px;
-}
 
 .body-div {
     margin: 40px 80px;

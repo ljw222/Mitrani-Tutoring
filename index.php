@@ -16,7 +16,11 @@ include("includes/init.php");
 <body>
   <?php include("includes/header.php"); ?>
 
-  <div class="top-page-div">
+  <div class="top-page-div" id="index-img">
+    <!-- <img src="images/academic-setup.jpg" alt="background" /> -->
+    <!-- Photo by Element5 Digital on Unsplash -->
+    <!-- <img src="images/elementary.jpg" alt="young girl studying" /> -->
+    <!-- Photo by pan xiaozhen on Unsplash -->
     <h1>Mitrani Tutoring</h1>
     <div>
       <h2>Who we are</h2>
@@ -51,14 +55,13 @@ include("includes/init.php");
   </div>
 
   <div class="body-div">
-  <?php
-  if (is_user_logged_in()) {
-    include("includes/testimonial_form.php");
-  } else {
-    echo "<h2>Don't just take our word for it!</h2>";
-    echo "<p><a href='testimonials.php'>See what our students and parents have to say in their testimonials.</a></p>";
-  }
-  ;?>
+    <?php
+    if (is_user_logged_in()) {
+      include("includes/testimonial_form.php");
+    } else {
+      echo "<h2>Don't just take our word for it!</h2>";
+      echo "<p><a href='testimonials.php'>See what our students and parents have to say in their testimonials.</a></p>";
+    }; ?>
   </div>
 
   <?php include("includes/footer.php"); ?>
