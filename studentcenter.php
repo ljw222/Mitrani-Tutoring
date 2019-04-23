@@ -42,6 +42,8 @@ include("includes/init.php");
   else{ ?>
     <h2>Welcome Back <?php echo htmlspecialchars($current_user['username']); ?>!</h2>
     <p>Existing appointments:</p>
+    <!-- TEMP -->
+    <a href="single_appointment.php" target="_blank">single_appointment</a>
 
     <form id="signup_form" action="<?php echo htmlspecialchars( $_SERVER['PHP_SELF'] ); ?>" method="post">
     <fieldset>

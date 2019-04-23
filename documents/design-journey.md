@@ -536,12 +536,42 @@ include footer.php
 ### footer.php
   n/a
 
+### testimonial_form.php
+```
+if isset(submit):
+  current user = current user first name, last name
+  grade = current user grade
+  date = date(YYYY)
+
+  testimonial = get+filter textarea
+  rating = get+filter rating number
+
+  if all set:
+    insert into testimonials:
+      user_id = current user id
+      testimonial
+      rating
+      date
+
+      if successful:
+        show success message thank you
+      else:
+        show error message
+  else:
+    show error message
+```
+
 ## Additional Comments
+
+NOTES:
+- will update other pages to better match final design sketches and for consistency in next milestone (will be easier with databases)
 
 TO DO:
 - init.php function with php for testimonial_form.php
 - testimonials.php needs php for sort by
 - include testimonials database for table in testimonials.php
+- update testimonial_form.php css
+- update single pages with php and sql
 
 
 --- <!-- ^^^ Milestone 2; vvv Milestone 3 -->

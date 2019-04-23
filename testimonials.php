@@ -61,6 +61,7 @@ include("includes/init.php");
     </form>
 
     <p>WILL INSERT TABLE HERE</p>
+    <a href="single_testimony.php" target="_blank">single_testimony</a>
   </div>
 
   <div class="body-div">
