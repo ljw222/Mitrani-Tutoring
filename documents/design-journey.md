@@ -374,6 +374,7 @@ There is a form message to let her know that she has canceled her appointment su
 [Did you discover any issues with your design? What were they? How will you change your design to address the gender-inclusiveness bugs you discovered?]
 
 [Your responses here should be **very** thorough and thoughtful.]
+
 An issue that was brought to our attention was the need for clear and constant feedback to the user. In order to let the user know that they have successfully made changes to their appointments, such as adding or canceling an appointment. If there is no feedback for the user, they may or may not know that they have accomplished these tasks successfully, other than the fact that they will be able to view new appointments in their student center or can no longer view an appointment that they canceled.
 
 ## Final Design
@@ -478,21 +479,22 @@ TODO
 ### about.php
   include init.php, header.php, footer.php
 ### studentcenter.php
-  include init.php, header.php
-  if no user is logged in:
-    display: "Sign in to view existing appointments, schedule an appointment, or cancel an appointment."
-    display the login form
-  if a user is logged in:
-    display: "Welcome Back ___username___!"
-    show existing appointments
-    display the form to make a new appointment
-  if the login form is submitted:
-    refresh the page to show the contents for a signed in user
-  if the new appointment form is submitted:
-    make a new appointment (sql)
-    display text confirming that the appointment was made
-    update the "existing appointments" information
-  include footer.php
+    include init.php, header.php
+    if no user is logged in:
+      display: "Sign in to view existing appointments, schedule an appointment, or cancel an appointment."
+      display the login form
+    if a user is logged in:
+      display: "Welcome Back ___username___!"
+      show existing appointments
+      display the form to make a new appointment
+    if the login form is submitted:
+      refresh the page to show the contents for a signed in user
+    if the new appointment form is submitted:
+      make a new appointment (sql)
+      display text confirming that the appointment was made
+      update the "existing appointments" information
+    include footer.php
+
 ### footer.php
   n/a
 
