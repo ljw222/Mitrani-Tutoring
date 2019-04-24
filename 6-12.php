@@ -15,19 +15,25 @@ include("includes/init.php");
 
 <body>
   <?php include("includes/header.php"); ?>
-  <div class="top-page-div" id="612-div">
+  <div class="top-page-div" id="gr612-div">
     <h1>6th - 12th Grade</h1>
     <div>
+      <h2>Our services</h2>
       <p>Blurb.</p>
     </div>
+    <p class="source">Source: <a href="https://burst.shopify.com/photos/thoughtful-students-talk?q=education">Burst</a></p>
   </div>
-  <ul>
-    <li>Reading: decoding and comprehension</li>
-    <li>Math Skills</li>
-    <li>Writing Skills</li>
-    <li>Organizational skills</li>
-    <li>Study Skills/Test Taking Skills</li>
-    <li>Homework/Project Assistance</li>
-  </ul>
+
+  <div class="body-div">
+    <ul>
+      <li>Reading: decoding and comprehension</li>
+      <li>Math Skills</li>
+      <li>Writing Skills</li>
+      <li>Organizational skills</li>
+      <li>Study Skills/Test Taking Skills</li>
+      <li>Homework/Project Assistance</li>
+    </ul>
+  </div>
+
   <?php include("includes/footer.php"); ?>
 </body>

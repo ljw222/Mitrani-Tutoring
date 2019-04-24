@@ -4,13 +4,12 @@ body {
 
 a {
     text-decoration: none;
-    color: navy;
-    text-shadow: azure;
+    text-shadow: aliceblue;
+    color: rgb(180, 0, 0);
 }
 
 a:hover {
-    color: green;
-    /* text-shadow: 1px 1px navy; */
+    color: rgb(17, 128, 255);
 }
 
 /* #full-header {
@@ -38,7 +37,6 @@ a:hover {
 .header_h1 {
     text-align: left;
     padding: 20px;
-    /* font-size: 40px; */
     font-size: 2em;
     display: flex;
     flex: 1 1 0;
@@ -51,8 +49,7 @@ a:hover {
 }
 
 .header_h1:hover a {
-    color: navy;
-    /* text-shadow: 2px 2px azure */
+    color: rgb(0, 0, 0, 0.8);
 }
 
 .studentcenter-div {
@@ -75,25 +72,15 @@ a.logout{
 
 .header_ul{
     text-align: center;
-    /* padding-inline-start: 0px;
-    padding-top: 10px;
-    margin-top: 0px; */
     display: flex;
     flex-direction: row;
 }
 
 .header_li{
-    /* list-style-type: none; */
-    /* display: inline-block; */
     display: flex;
     flex: 1 1 0;
     padding: 20px;
     justify-content: center;
-    /* padding-right: 65px;
-    padding-left: 65px;
-    padding-top: 18px;
-    padding-bottom: 16px;
-    background-color: #abd2fa; */
     border: 1px solid white;
     background-color: rgb(0, 0, 0, 0.8);
 
@@ -102,7 +89,6 @@ a.logout{
 .header_a{
     text-decoration: none;
     font-size: 20px;
-    /* color: #3A275E; */
     color: white;
 }
 
@@ -113,10 +99,6 @@ a.logout{
 .header_li:hover .header_a {
     color: rgb(0, 0, 0, 0.8);
 }
-/*
-.header_a:hover{
-    color: mediumvioletred;
-} */
 
 .current_page{
     color: white;
@@ -128,41 +110,63 @@ a.logout{
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    padding: 40px;
-    height: 300px;
+    padding: 20px;
+    height: 320px;
     background-size: cover;
     /* justify-content: center; */
     align-items: center;
-    background-image: url("../images/office-setup.jpg");
-    /* Photo by Element5 Digital on Unsplash */
-    background-position: 50% 15%;
-}
 
-#index-img {
-    background-image: url("../images/office-setup.jpg");
-    /* Photo by Element5 Digital on Unsplash */
-    /* background-position: 50% 65%; */
-    background-position: 50% 15%;
+    background-image: url("../images/academic2.jpg");
+    /* Photo by Thomas Kolnowski on Unsplash */
+    background-position: 50% 30%;
 }
 
 #testimonials-div {
-    background-image: url("../images/office-setup.jpg");
-    /* Photo by Element5 Digital on Unsplash */
-    background-position: 50% 15%;
+    background-image: url("../images/notes.jpg");
+    background-position: 50% 60%;
+    /* Photo by Marten Bjork on Unsplash */
 }
 
 #prek5-div {
     background-image: url("../images/elementary.jpg");
     /* Photo by pan xiaozhen on Unsplash */
     background-position: 50% 50%;
+    background-image: url("../images/elementary2.jpg");
+    /* Pexels: https://www.pexels.com/photo/girls-on-desk-looking-at-notebook-159823/ */
+    background-position: 50% 30%;
+
+    background-image: url("../images/elementary3.jpg");
+    /* https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/ */
+    background-position: 50% 75%;
+}
+
+#gr612-div {
+    background-image: url("../images/highschool.jpg");
+    /* Pexels: https://www.pexels.com/photo/girls-on-desk-looking-at-notebook-159823/ */
+    background-position: 50% 35%;
+}
+
+/* #about-div {
+
+} */
+
+#studentcenter-div {
+    background-image: url("../images/office-setup.jpg");
+    /* Photo by Element5 Digital on Unsplash */
+    background-position: 50% 15%;
 }
 
 .top-page-div>div {
     /* margin: 0px 80px; */
     padding: 10px 40px;
     background-color: rgb(255, 255, 255, 0.8);
-    margin: 20px 0px;
+    margin: 10px 0px;
     max-width: 500px;
+    min-height: 165px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .source {
@@ -180,7 +184,24 @@ h1 {
     font-size: 40px;
     text-align: center;
     text-transform: uppercase;
-    text-shadow: 2px 2px rgb(248, 248, 255, 0.8);
+    text-shadow: 2px 2px rgb(248, 248, 255, .90);
+}
+
+
+h2{
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
+    font-style: italic;
+    margin: 0px;
+}
+
+
+.body-div {
+    margin: 40px 80px;
+    border: 2px solid rgb(0, 0, 0, 0.8);
+    padding: 20px 40px;
+    background-color: rgb(240, 248, 255, 0.5);
 }
 
 .home{
@@ -220,12 +241,6 @@ input{
     padding-left: 200px;
 }
 
-h2{
-    text-align: center;
-    font-weight: normal;
-    font-size: 20px;
-    font-style: italic;
-}
 
 .phone, .email{
     display: inline-block;
@@ -259,13 +274,6 @@ form .text_label{
     margin-left: 200px;
 }
 
-
-.body-div {
-    margin: 40px 80px;
-    border: 1px solid black;
-    padding: 20px;
-}
-
 #sortby-form {
     display: flex;
     flex-direction: row;
@@ -296,11 +304,10 @@ form .text_label{
 }
 
 .footer{
-    /* padding-bottom: 5px; */
-    /* border-top: 1px solid black; */
     margin-top:20px;
     display: flex;
-    background-color: lightgrey;
+    background-color: rgb(0, 0, 0, 0.8);
+    color: lightgrey;
     padding: 3px;
     font-size: 80%;
 }
@@ -314,7 +321,7 @@ form .text_label{
 .phone {
     text-align: right;
     padding-right: 40px;
-    border-right: 1px solid black;
+    border-right: 1px solid white;
     justify-content: end;
 }
 

@@ -16,7 +16,7 @@ include("includes/init.php");
 <body>
   <?php include("includes/header.php"); ?>
 
-  <div class="top-page-div" id="index-img">
+  <div class="top-page-div">
     <!-- <img src="images/academic-setup.jpg" alt="background" /> -->
     <!-- Photo by Element5 Digital on Unsplash -->
     <!-- <img src="images/elementary.jpg" alt="young girl studying" /> -->
@@ -27,12 +27,13 @@ include("includes/init.php");
     <!-- office setup: https://www.pexels.com/photo/desk-office-pen-ruler-2097/ -->
     <!-- middle school: https://www.pexels.com/photo/homework-paper-pen-person-267491/ -->
     <!-- high school: https://burst.shopify.com/photos/thoughtful-students-talk?q=education -->
+    <!-- elementary3: https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/ -->
     <h1>Mitrani Tutoring</h1>
     <div>
       <h2>Who we are</h2>
       <p>Mitrani Tutoring enables students from Pre-K through high school to excel in their academic life. Provided by certified educator Laurie Mitrani, Mitrani Tutoring offers remedial and enrichment services in a multitude of subjects. Services are tailored to each student's individual needs and interests, and tutoring is offered in various locations.</p>
     </div>
-    <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
+    <p class="source">Source: <a href="https://unsplash.com/photos/gqsY28obvH8">Unsplash</a></p>
   </div>
 
   <div class="body-div">

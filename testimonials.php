@@ -19,8 +19,10 @@ include("includes/init.php");
   <div class="top-page-div" id="testimonials-div">
     <h1>Testimonials</h1>
     <div>
-      <p>Curious what our students and parents think of Mitrani Tutoring? Explore their testimonials below to find out.</p>
+      <h2>About the testimonials</h2>
+      <p>These reviews were submitted by past and current students and parents of Mitrani Tutoring. Curious what they thought of their experiences? Explore below to find out.</p>
     </div>
+    <p class="source">Source: <a href="https://unsplash.com/photos/rH8O0FHFpfw">Unsplash</a></p>
   </div>
 
   <div class="body-div">
