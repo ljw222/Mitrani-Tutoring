@@ -151,6 +151,12 @@ a.logout{
     background-position: 50% 15%;
 }
 
+#prek5-div {
+    background-image: url("../images/elementary.jpg");
+    /* Photo by pan xiaozhen on Unsplash */
+    background-position: 50% 50%;
+}
+
 .top-page-div>div {
     /* margin: 0px 80px; */
     padding: 10px 40px;
