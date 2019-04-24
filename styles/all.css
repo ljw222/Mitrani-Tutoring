@@ -76,28 +76,21 @@ a.logout{
     flex-direction: row;
 }
 
-.header_li{
+.header_a{
     display: flex;
     flex: 1 1 0;
     padding: 20px;
     justify-content: center;
     border: 1px solid white;
     background-color: rgb(0, 0, 0, 0.8);
-
-}
-
-.header_a{
     text-decoration: none;
     font-size: 20px;
     color: white;
 }
 
-.header_li:hover {
+.header_a:hover {
     background-color: white;
-}
-
-.header_li:hover .header_a {
-    color: rgb(0, 0, 0, 0.8);
+    /* color: rgb(0, 0, 0, 0.8); */
 }
 
 .current_page{

@@ -35,9 +35,9 @@
         $current_file = basename($_SERVER['PHP_SELF']);
 
         if ($current_file == $page[0]) { //if on current page
-            echo "<div class='header_li current_page'><a class = 'header_a' href ='".$page[0]."'>".$page[1]."</a></div>";
+            echo "<a class = 'header_a current_page' href ='".$page[0]."'>".$page[1]."</a>";
         } else {
-            echo "<div class='header_li'><a class = 'header_a' href ='".$page[0]."'>".$page[1]."</a></div>";
+            echo "<a class = 'header_a' href ='".$page[0]."'>".$page[1]."</a>";
         }
     }
     ?>
