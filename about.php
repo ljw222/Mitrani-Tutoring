@@ -16,7 +16,13 @@ include("includes/init.php");
 <body>
   <?php include("includes/header.php"); ?>
 
-  <h1>About Me</h1>
+  <div class="top-page-div" id="about-div">
+    <h1>About Me</h1>
+    <div>
+      <p>Blurb.</p>
+    </div>
+  </div>
+
   <div class="about_flex">
     <div class="headshot">
       <!-- Source: Laurie Mitrani -->

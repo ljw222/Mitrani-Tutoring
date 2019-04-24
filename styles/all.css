@@ -151,8 +151,6 @@ a.logout{
     background-position: 50% 15%;
 }
 
-
-
 .top-page-div>div {
     /* margin: 0px 80px; */
     padding: 10px 40px;
@@ -168,7 +166,7 @@ a.logout{
     font-size: 80%;
     color: gray;
     padding: 5px;
-    margin: 0px;
+    /* margin: 0px; */
 }
 
 h1 {

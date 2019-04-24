@@ -15,15 +15,20 @@ include("includes/init.php");
 
 <body>
   <?php include("includes/header.php"); ?>
-<h1>Services for Pre-K - Elementary School Students</h1>
-<ul>
-  <li>Reading: decoding and comprehension</li>
-  <li>Math Skills: computation and word problems</li>
-  <li>Writing Skills</li>
-  <li>Organizational skills</li>
-  <li>Study skills (upper elementary)</li>
-  <li>Homework assistance</li>
-  <li>Standardized Test prep</li>
-</ul>
+  <div class="top-page-div" id="prek5-div">
+    <h1>Pre-K - 5th Grade</h1>
+    <div>
+      <p>Blurb.</p>
+    </div>
+  </div>
+  <ul>
+    <li>Reading: decoding and comprehension</li>
+    <li>Math Skills: computation and word problems</li>
+    <li>Writing Skills</li>
+    <li>Organizational skills</li>
+    <li>Study skills (upper elementary)</li>
+    <li>Homework assistance</li>
+    <li>Standardized Test prep</li>
+  </ul>
   <?php include("includes/footer.php"); ?>
 </body>
