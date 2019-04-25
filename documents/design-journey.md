@@ -401,7 +401,10 @@ PreK-5
 
 [Describe the structure of your database. You may use words or a picture. A bulleted list is probably the simplest way to do this.]
 
-Table: Users
+Image of table planning:
+![Tables](tables.jpg)
+
+Table: users
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: username TEXT NOT NULL UNIQUE
 * field 3: password TEXT NOT NULL
@@ -409,28 +412,46 @@ Table: Users
 * field 5: last_name TEXT NOT NULL
 * field 6: grade INTEGER NOT NULL
 
-Table: Sessions
+Table: sessions
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: user_id INTEGER NOT NULL
 * field 3: session TEXT NOT NULL UNIQUE
 
-Table: Appointment
+Table: appointments
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: time_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 3: user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+
+Table: appointment_subjects
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: appointment_id INTEGER NOT NULL
+* field 3: subject_id INTEGER NOT NULL
+
+Table: times
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: date TEXT NOT NULL
+<<<<<<< HEAD
 * field 3: time TEXT NOT NULL
 * field 5: duration INTEGER NOT NULL
 * field 6: user_id INTEGER NOT NULL
+=======
+* field 3: time_start TEXT NOT NULL
+* field 4: time_end TEXT NOT NULL
+* field 5: available BOOLEAN NOT NULL
+>>>>>>> 61c14e612537a6747bfe17f53d8d9a62aa485384
 
-Table: Subject
+Table: subjects
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: subject TEXT NOT NULL UNIQUE
 
 Table: Testimonials
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
-* field 2: user_id INTEGER NOT NULL UNIQUE
-* field 3: testimonial TEXT NOT NULL UNIQUE
-* field 4: rating INTEGER NOT NULL
-* field 5: date TEXT NOT NULL
+* field 2: testimonial TEXT NOT NULL UNIQUE
+* field 3: rating INTEGER NOT NULL
+* field 4: date TEXT NOT NULL
+* field 5: role TEXT NOT NULL
+* field 6: user_id INTEGER NOT NULL UNIQUE
+
 
 ## Database Queries
 
@@ -487,7 +508,9 @@ if the user is logged in:
   show the sign out link (display: "Sign Out ___username___" )
 ```
 ### k-5.php
+
 ### 6-12.php
+
 ### testimonials.php
 ```
 include init.php
