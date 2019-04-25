@@ -430,15 +430,9 @@ Table: appointment_subjects
 Table: times
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: date TEXT NOT NULL
-<<<<<<< HEAD
-* field 3: time TEXT NOT NULL
-* field 5: duration INTEGER NOT NULL
-* field 6: user_id INTEGER NOT NULL
-=======
 * field 3: time_start TEXT NOT NULL
 * field 4: time_end TEXT NOT NULL
 * field 5: available BOOLEAN NOT NULL
->>>>>>> 61c14e612537a6747bfe17f53d8d9a62aa485384
 
 Table: subjects
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
