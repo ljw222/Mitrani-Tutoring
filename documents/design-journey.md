@@ -501,8 +501,8 @@ if the user is logged in:
 include init.php
 PHP FOR SORT BY:
   if GET submit_sortby:
-    get values for date, grade, and rating IF isset()
-    filter values for date, grade, and rating
+    get values for date, grade, rating, and role IF isset()
+    filter values for date, grade, rating and role
     SQL query for those specified values from testimonials database
     show table with sql query
   else:
@@ -555,6 +555,7 @@ if isset(submit):
 
   testimonial = get+filter textarea
   rating = get+filter rating number
+  role = get+filter option for parent/student
 
   if all set:
     insert into testimonials:
@@ -562,6 +563,7 @@ if isset(submit):
       testimonial
       rating
       date
+      role
 
       if successful:
         show success message thank you

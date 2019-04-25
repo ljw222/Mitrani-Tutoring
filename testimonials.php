@@ -59,6 +59,11 @@ include("includes/init.php");
         }
         ?>
       </select>
+      <select name="role" id="role">
+        <option selected disabled>Role</option>
+        <option value="parent">Parent</option>
+        <option value="student">Student</option>
+      </select>
       <button type="submit" name="submit-sortby">Go</button>
     </form>
 
