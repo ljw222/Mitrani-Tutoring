@@ -401,6 +401,9 @@ PreK-5
 
 [Describe the structure of your database. You may use words or a picture. A bulleted list is probably the simplest way to do this.]
 
+Image of table planning:
+![Tables](tables.jpg)
+
 Table: users
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: username TEXT NOT NULL UNIQUE
