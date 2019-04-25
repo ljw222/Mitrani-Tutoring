@@ -426,6 +426,11 @@ Table: Subject
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: subject TEXT NOT NULL UNIQUE
 
+Table: Appointment_Subject
+* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
+* field 2: subject_id INTEGER NOT NULL
+* field 3: appointment_id INTEGER NOT NULL
+
 Table: Testimonials
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: user_id INTEGER NOT NULL UNIQUE
@@ -488,7 +493,9 @@ if the user is logged in:
   show the sign out link (display: "Sign Out ___username___" )
 ```
 ### k-5.php
+
 ### 6-12.php
+
 ### testimonials.php
 ```
 include init.php

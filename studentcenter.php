@@ -86,8 +86,6 @@ include("includes/init.php");
             <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Organizational Skills</p>
             <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Study Skills</p>
             <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Standardized Test Preparation</p>
-            <p class="subject"><input type="checkbox" value="other" name="other_check">Other:
-              <input type="text" name="other_tag"></p>
           </li>
           <li>
             <label for="duration" class="text_label">Duration:</label>
