@@ -292,7 +292,7 @@ form .text_label{
 #testimony-credits>div {
     text-align: left;
     width: 200px;
-    background-color: lightgray;
+    background-color: rgba(17, 148, 255, 0.2);
     padding: 20px;
 }
 

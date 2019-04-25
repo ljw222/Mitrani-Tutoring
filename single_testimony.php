@@ -39,8 +39,8 @@ include("includes/init.php");
                 for ($star = 1; $star <= $id["rating"]; $star++) {
                     echo "<img class='rating_star' src='images/star.png' alt='rating star'/>";
                 };
-                echo "<p>Grade " . $id["grade"] . "</p>";
-                echo "<p>" . $id["date"] . "</p>";
+                echo "<p><em>Grade " . $id["grade"] . "</em></p>";
+                echo "<p><em>" . $id["date"] . "</em></p>";
                 ?>
             </div>
         </div>
