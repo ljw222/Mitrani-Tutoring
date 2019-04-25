@@ -418,7 +418,6 @@ Table: Appointment
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: date TEXT NOT NULL
 * field 3: time TEXT NOT NULL
-* field 4: subject_id INTEGER NOT NULL UNIQUE
 * field 5: duration INTEGER NOT NULL
 * field 6: user_id INTEGER NOT NULL
 

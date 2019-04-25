@@ -16,9 +16,9 @@ include("includes/init.php");
 <body>
     <?php include("includes/header.php"); ?>
 
-    <div class="top-page-div">
+    <div class="top-page-div" id="one-appointment-div">
         <h1>View Appointment</h1>
-        <h2>For <?php echo $current_user["first_name"] . " " . $current_user["last_name"]; ?></h2>
+        <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
     </div>
 
     <div class="body-div">
@@ -44,15 +44,15 @@ include("includes/init.php");
             ?>
             <form id="edit_appt_form" action="" method="POST">
                 <?php
-                    foreach ($fields as $field) {
-                        echo "CREATE AN INPUT";
-                    }
+                foreach ($fields as $field) {
+                    echo "CREATE AN INPUT";
+                }
                 ?>
                 <button type="submit" name="edit_appt_submit">Submit</button>
             </form>
         <?php
-        }
-        ?>
+    }
+    ?>
     </div>
 
     <div class="body-div">
