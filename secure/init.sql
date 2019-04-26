@@ -21,9 +21,9 @@ CREATE TABLE sessions (
 
 --Appointments Table
 CREATE TABLE appointments (
-    idd INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    time_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    time_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL
 );
 
 --Times Table
@@ -71,14 +71,12 @@ INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, '
 
 --Times Table
     --right now just info for 4/29 from 3pm-6pm
-INSERT INTO appointments (id,date,time_start,time_end,available) VALUES (1, "4/29","15:00", "15:30",1); --3pm
-INSERT INTO appointments (id,date,time_start,time_end,available) VALUES (2, "4/29","15:30", "16:00",0); --3:30pm, taken by fred
-INSERT INTO appointments (id,date,time_start,time_end,available) VALUES (3, "4/29","16:00", "16:30",1); --4pm
-INSERT INTO appointments (id,date,time_start,time_end,available) VALUES (4, "4/29","16:30", "17:00",1); --4:30pm
-INSERT INTO appointments (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
-INSERT INTO appointments (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
-
-
+INSERT INTO times (id,date,time_start,time_end,available) VALUES (1, "4/29","15:00", "15:30",1); --3pm
+INSERT INTO times (id,date,time_start,time_end,available) VALUES (2, "4/29","15:30", "16:00",0); --3:30pm, taken by fred
+INSERT INTO times (id,date,time_start,time_end,available) VALUES (3, "4/29","16:00", "16:30",1); --4pm
+INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","16:30", "17:00",1); --4:30pm
+INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
+INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
