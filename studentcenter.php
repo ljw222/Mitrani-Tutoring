@@ -88,14 +88,6 @@ include("includes/init.php");
             <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Standardized Test Preparation</p>
           </li>
           <li>
-            <label for="duration" class="text_label">Duration:</label>
-            <select name="duration">
-              <option value="30">30 minutes</option>
-              <option value="45">45 minutes</option>
-              <option value="60">60 minutes</option>
-            </select>
-          </li>
-          <li>
             <button name="submit" type="submit">Submit</button>
           </li>
         </ul>

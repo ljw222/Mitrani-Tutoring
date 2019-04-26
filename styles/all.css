@@ -116,8 +116,15 @@ a.logout{
 
 #testimonials-div {
     background-image: url("../images/notes.jpg");
-    background-position: 50% 60%;
-    /* Photo by Marten Bjork on Unsplash */
+    /* Photo by LUM3N on Unsplash */
+    background-position: 50% 30%;
+}
+
+#one-testimony-div {
+    background-image: url("../images/notes.jpg");
+    /* Photo by LUM3N on Unsplash */
+    background-position: 50% 30%;
+    height: 100px;
 }
 
 #prek5-div {
@@ -139,14 +146,17 @@ a.logout{
     background-position: 50% 35%;
 }
 
-/* #about-div {
-
-} */
-
 #studentcenter-div {
     background-image: url("../images/office-setup.jpg");
     /* Photo by Element5 Digital on Unsplash */
     background-position: 50% 15%;
+}
+
+#one-appointment-div {
+    background-image: url("../images/office-setup.jpg");
+    /* Photo by Element5 Digital on Unsplash */
+    background-position: 50% 10%;
+    height: 100px;
 }
 
 .top-page-div>div {
@@ -309,6 +319,14 @@ form .text_label{
     display: flex;
     flex: 1 1 0;
     margin: 0px;
+    align-items: center;
+}
+
+.icon {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
 }
 
 .phone {
