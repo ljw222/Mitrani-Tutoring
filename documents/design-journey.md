@@ -380,6 +380,9 @@ There is a form message to let her know that she has canceled her appointment su
 
 An issue that was brought to our attention was the need for clear and constant feedback to the user. In order to let the user know that they have successfully made changes to their appointments, such as adding or canceling an appointment. If there is no feedback for the user, they may or may not know that they have accomplished these tasks successfully, other than the fact that they will be able to view new appointments in their student center or can no longer view an appointment that they canceled.
 
+Another design issue that was discovered through the cognitive walkthrough was the possibility of Abby not knowing how to access the 'create apppointment' form. Therefore we will include a message at the top of the Student Center page that prompts the user to log in in order to schedule an appointment.
+
+A similar design issue that came up from task 2, was needing to be able to log in to the student center to have the ability to delete an appointment. To address this design issue, we will also include a note at the top of the student center page to log in to delete an appointment.
 ## Final Design
 Updated sketches:
 
