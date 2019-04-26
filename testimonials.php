@@ -2,6 +2,8 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +33,8 @@ include("includes/init.php");
       <select name="date">
         <?php
         // SQL QUERY FOR DATES
-        // will save records as $all_dates, but temporary fake list
-        $all_dates = [2012, 2013, 2014];
+        $result = exec_sql_query($db, "SELECT date FROM testimonials", $params = array());
+        $all_dates = $result->fetchAll();
         echo "<option selected disabled>Date</option>";
         foreach ($all_dates as $date) {
           echo "<option value='" . $date . "'>" . $date . "</option>";
@@ -42,7 +44,9 @@ include("includes/init.php");
       <select name="grade">
         <?php
         // SQL QUERY FOR GRADES
-        $all_grades = [4, 5, 6];
+        $sql = "SELECT grade FROM users JOIN testimonials ON users.id = testimonials.user_id";
+        $result = exec_sql_query($db, $sql, $params = array());
+        $all_grades = $result->fetchAll();
         echo "<option selected disabled>Grade </option>";
         foreach ($all_grades as $grade) {
           echo "<option value='" . $grade . "'>" . $grade . "</option>";
@@ -52,7 +56,8 @@ include("includes/init.php");
       <select name="rating">
         <?php
         // SQL QUERY FOR RATINGS
-        $all_ratings = [1, 2, 3, 4, 5];
+        $result = exec_sql_query($db, "SELECT rating FROM testimonials", $params = array());
+        $all_ratings = $result->fetchAll();
         echo "<option selected disabled>Rating </option>";
         foreach ($all_ratings as $rating) {
           echo "<option value='" . $rating . "'>" . $rating . "</option>";
