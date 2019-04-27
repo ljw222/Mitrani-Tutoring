@@ -55,7 +55,7 @@ CREATE TABLE testimonials (
     rating INTEGER NOT NULL,
     date TEXT NOT NULL,
     role TEXT NOT NULL,
-    user_id INTEGER NOT NULL UNIQUE
+    user_id INTEGER NOT NULL
 );
 
 
@@ -99,6 +99,7 @@ INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (2, 1, 
 
 --Testimonials Table
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 2);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding.", 5, "2015", "Student", 2);
 
 
 COMMIT;

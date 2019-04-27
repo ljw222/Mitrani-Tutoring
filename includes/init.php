@@ -191,5 +191,13 @@ if ( isset($current_user) && ( isset($_GET['logout']) || isset($_POST['logout'])
     log_out();
 }
 
+function print_record($record) {
+  $categories = ["testimonial", "rating", "grade", "date", "role"];
+  echo "<tr>";
+  foreach ($categories as $category) {
+    echo "<td>".$record[$category]."</td>";
+  }
+  echo "</tr>";
+}
 
 ?>
