@@ -191,11 +191,25 @@ if ( isset($current_user) && ( isset($_GET['logout']) || isset($_POST['logout'])
     log_out();
 }
 
+function print_stars($num_of_stars) {
+  for ($star = 0; $star < $num_of_stars; $star++) {
+    echo "<img class='rating_star' src='images/star.png' alt='rating star'/>";
+  }
+}
+
 function print_record($record) {
   $categories = ["testimonial", "rating", "grade", "date", "role"];
   echo "<tr>";
   foreach ($categories as $category) {
-    echo "<td>".$record[$category]."</td>";
+    if ($category == "rating") {
+      echo "<td class='rating-div'>";
+      echo print_stars($record["rating"]);
+      echo "</td>";
+    } elseif ($category == "testimonial") {
+      echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+    } else {
+      echo "<td>" . $record[$category] . "</td>";
+    }
   }
   echo "</tr>";
 }

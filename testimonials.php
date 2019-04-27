@@ -39,7 +39,7 @@ if (isset($_POST["submit-sortby"])) {
   }
 
   if (isset($sort_values_str)) { // specified WHERE ...
-    $sql = "SELECT testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $sort_values_str";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $sort_values_str";
     $result = exec_sql_query($db, $sql, $params = $given_sorts);
     if ($result) {
       $records = $result->fetchAll();
@@ -50,7 +50,7 @@ if (isset($_POST["submit-sortby"])) {
       }
     }
   } else { // show all
-    $sql = "SELECT testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
     $result = exec_sql_query($db, $sql, $params = array());
     if ($result) {
       $records = $result->fetchAll();
@@ -86,8 +86,8 @@ if (isset($_POST["submit-sortby"])) {
     <p class="source">Source: <a href="https://unsplash.com/photos/_lhefRJtT0U">Unsplash</a></p>
   </div>
 
-  <div class="body-div">
-    <form id="sortby-form" action="testimonials.php" method="POST">
+  <div class="body-div" id="testimonial-table-div">
+    <form id="sortby-form" action="testimonials.php#testimonial-table-div" method="POST">
       <p>Sort by:</p>
       <select name="date">
         <?php
@@ -97,7 +97,12 @@ if (isset($_POST["submit-sortby"])) {
         $all_dates = $result->fetchAll();
         echo "<option selected disabled>Date</option>";
         foreach ($all_dates as $date) {
-          echo "<option value='" . $date["date"] . "'>" . $date["date"] . "</option>";
+          if (isset($_POST['date']) && ($_POST['date'] == $date)) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $date["date"] . "' ".$selected.">" . $date["date"] . "</option>";
         }
         ?>
       </select>
@@ -109,7 +114,12 @@ if (isset($_POST["submit-sortby"])) {
         $all_grades = $result->fetchAll();
         echo "<option selected disabled>Grade </option>";
         foreach ($all_grades as $grade) {
-          echo "<option value='" . $grade["grade"] . "'>" . $grade["grade"] . "</option>";
+          if (isset($_POST['grade']) && $_POST['grade'] == $grade) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $grade["grade"] . "' ".$selected.">" . $grade["grade"] . "</option>";
         }
         ?>
       </select>
@@ -120,7 +130,12 @@ if (isset($_POST["submit-sortby"])) {
         $all_ratings = $result->fetchAll();
         echo "<option selected disabled>Rating </option>";
         foreach ($all_ratings as $rating) {
-          echo "<option value='" . $rating["rating"] . "'>" . $rating["rating"] . "</option>";
+          if (isset($_POST['rating']) && $_POST['rating'] == $rating) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $rating["rating"] . "' ".$selected.">" . $rating["rating"] . "</option>";
         }
         ?>
       </select>
@@ -131,14 +146,18 @@ if (isset($_POST["submit-sortby"])) {
         $all_roles = $result->fetchAll();
         echo "<option selected disabled>Role</option>";
         foreach ($all_roles as $role) {
-          echo "<option value='" . $role["role"] . "'>" . $role["role"] . "</option>";
+          if (isset($_POST['role']) && $_POST['role'] == $role) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $role["role"] . "' ". $selected.">" . $role["role"] . "</option>";
         }
         ?>
       </select>
       <button type="submit" name="submit-sortby">Go</button>
     </form>
 
-    <p>WILL INSERT TABLE HERE</p>
     <?php
     if (isset($ready_to_show) && $ready_to_show) {
       ?>
@@ -160,7 +179,7 @@ if (isset($_POST["submit-sortby"])) {
       </div>
     <?php
   } else {
-    $sql = "SELECT testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
     $result = exec_sql_query($db, $sql, $params = array());
     if ($result) {
       $records = $result->fetchAll();
@@ -187,7 +206,6 @@ if (isset($_POST["submit-sortby"])) {
     }
   }
   ?>
-    <a href="single_testimony.php" target="_blank">single_testimony</a>
   </div>
 
   <div class="body-div">
