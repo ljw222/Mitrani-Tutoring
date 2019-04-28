@@ -214,4 +214,24 @@ function print_record($record) {
   echo "</tr>";
 }
 
+function print_appt($record) {
+  $categories = ["date", "time", "subjects"];
+  echo "<tr>";
+  foreach ($categories as $category) {
+    if ($category == "date") {
+      echo "<td class='rating-div'>";
+      echo $record["date"];
+      echo "</td>";
+    } elseif ($category == "time") {
+      echo "<td class='rating-div'>";
+      echo $record["time_start"]. "-". $record["time_end"]. " ". $record['half'];
+      echo "</td>";
+    } else{
+      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('time_id' => $record["id"], 'date' => $record["date"], 'start_time' => $record["time_start"], 'end_time' => $record["time_end"], 'half' => $record["half"]))."'>" . 'View Appointment' . "</a></td>";
+    }
+  }
+  echo "</tr>";
+}
+
+
 ?>

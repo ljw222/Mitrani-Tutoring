@@ -2,6 +2,40 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
+
+if (isset($_GET['time_id'])) {
+    $appt_time_id = $_GET['time_id'];
+}
+if (isset($_GET['date'])) {
+    $appt_date = $_GET['date'];
+}
+if (isset($_GET['start_time'])) {
+    $appt_start = $_GET['start_time'];
+}
+if (isset($_GET['end_time'])) {
+    $appt_end = $_GET['end_time'];
+}
+if (isset($_GET['half'])) {
+    $appt_half = $_GET['half'];
+}
+
+function duration($time_start, $time_end){
+    $timesplit_start = explode(':', $time_start);
+    $min_start = ($timesplit_start[0]*60)+($timesplit_start[1]);
+
+    $timesplit_end = explode(':', $time_end);
+    $min_end = ($timesplit_end[0]*60)+($timesplit_end[1]);
+
+    echo $min_end - $min_start;
+}
+
+function print_subjects($subjects){
+    $numSubjects = count($subjects);
+    for($i = 0; $i < count($subjects) - 1; $i++){
+        echo $subjects[$i][0] . ", ";
+    }
+    echo $subjects[$numSubjects - 1][0];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +48,18 @@ include("includes/init.php");
 </head>
 
 <body>
-    <?php include("includes/header.php"); ?>
+    <?php
+        include("includes/header.php");
+        $appointment_id = exec_sql_query(
+            $db,
+            "SELECT appointments.id FROM appointments WHERE appointments.time_id = $appt_time_id;",
+            array())->fetchAll();
+        $appt_id = $appointment_id[0][0];
+        $subjects = exec_sql_query(
+            $db,
+            "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = '$appt_id');",
+            array())->fetchAll();
+    ?>
 
     <div class="top-page-div" id="one-appointment-div">
         <h1>View Appointment</h1>
@@ -22,10 +67,10 @@ include("includes/init.php");
     </div>
 
     <div class="body-div">
-        <p>Date:</p>
-        <p>Time:</p>
-        <p>Subject(s):</p>
-        <p>Duration:</p>
+        <p>Date: <?php echo $appt_date;?> </p>
+        <p>Time: <?php echo $appt_start . '-' . $appt_end . " " . $appt_half;?> </p>
+        <p>Subject(s): <?php print_subjects($subjects); ?> </p>
+        <p>Duration: <?php echo duration($appt_start, $appt_end) . " Minutes" ; ?> </p>
     </div>
 
     <div class="body-div">
