@@ -53,21 +53,45 @@ include("includes/init.php");
   <?php
 } else { ?>
     <p>Existing appointments:</p>
-    <!-- TEMP -->
-    <a href="single_appointment.php" target="_blank">single_appointment</a>
+    <?php
+    //gets date and time
+    $current_username = $current_user['username'];
+    $sql = "SELECT times.id, times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id IN (SELECT appointments.time_id FROM appointments JOIN users ON appointments.user_id = (SELECT id FROM users WHERE users.username = '$current_username'));";
+    $result = exec_sql_query($db, $sql, $params = array());
+    //gets subjects
+      //get appoinment ids
+      $appt_ids = "SELECT DISTINCT appointments.id FROM appointments JOIN users ON user_id = (SELECT id FROM users WHERE users.username = '$current_username');";
+      //get subject_ids from appointment_subjects
+      $subj_ids = "SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id IN $appt_ids;";
+      //get subject names
+      $subjects = "SELECT subjects.subject FROM subjects WHERE subjects.id IN $subj_ids;";
+   // $result_subjects = exec_sql_query($db, $subjects, $params = array());
+    if ($result) {
+      $records = $result->fetchAll();
+      if (count($records) > 0) { // if there are records
+        ?>
+          <div class="table-div">
+            <table>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Details</th>
+              </tr>
+              <?php
+              foreach ($records as $record) {
+                print_appt($record);
+              }
+              ?>
+            </table>
+          </div>
+        <?php
+      }
+    } ?>
 
     <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
       <fieldset>
         <legend>Schedule an appointment!</legend>
         <ul>
-          <!-- <li>
-                      <label for="firstname" class="text_label">Student First Name:</label>
-                      <input id="firstname" type="text" name="firstname" />
-                    </li>
-                    <li>
-                      <label for="lastname" class="text_label">Student Last Name:</label>
-                      <input id="lastname" type="text" name="lastname" />
-                    </li> -->
           <li>
             <label for="date" class="text_label">Date:</label>
             <input id="date" type="date" name="date" />

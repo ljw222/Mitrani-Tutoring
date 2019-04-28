@@ -32,6 +32,7 @@ CREATE TABLE times (
     date TEXT NOT NULL,
     time_start TEXT NOT NULL,
     time_end TEXT NOT NULL,
+    half TEXT NOT NULL,
     available BIT NOT NULL
 );
 
@@ -55,7 +56,7 @@ CREATE TABLE testimonials (
     rating INTEGER NOT NULL,
     date TEXT NOT NULL,
     role TEXT NOT NULL,
-    user_id INTEGER NOT NULL UNIQUE
+    user_id INTEGER NOT NULL
 );
 
 
@@ -71,16 +72,19 @@ INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, '
 
 --Times Table
     --right now just info for 4/29 from 3pm-6pm
-INSERT INTO times (id,date,time_start,time_end,available) VALUES (1, "4/29","15:00", "15:30",1); --3pm
-INSERT INTO times (id,date,time_start,time_end,available) VALUES (2, "4/29","15:30", "16:00",0); --3:30pm, taken by fred
-INSERT INTO times (id,date,time_start,time_end,available) VALUES (3, "4/29","16:00", "16:30",1); --4pm
-INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","16:30", "17:00",1); --4:30pm
-INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
-INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (1, "4/29","3:00","3:30","PM",1); --3pm
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (2, "4/29","3:30", "4:00","PM",0); --3:30pm, taken by fred
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "4/29","4:00", "4:30","PM",1); --4pm
+-- INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","5:30", "17:00",1); --4:30pm
+-- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
+-- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (7, "4/30","3:00", "3:30","PM",0); --3pm, taken by fred
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
 INSERT INTO appointments (id,time_id,user_id) VALUES (1, 2, 1);
+    --appointment for Fred (user1) on 4/30 at 3pm
+INSERT INTO appointments (id,time_id,user_id) VALUES (2, 7, 1);
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
@@ -93,12 +97,15 @@ INSERT INTO subjects (id, subject) VALUES (7, "Homework");
 INSERT INTO subjects (id, subject) VALUES (8, "Project Assistance");
 
 --Appointment_subjects Table
-    --Fred signed up to work on Reading and Math
+    --Fred signed up to work on Reading and Math on 4/29
 INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (1, 1, 1);
 INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (2, 1, 2);
+    --Fred signed up to work on study skills on 4/30
+INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (3, 2, 5);
 
 --Testimonials Table
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 2);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding.", 5, "2015", "Student", 2);
 
 
 COMMIT;

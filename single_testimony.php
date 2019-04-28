@@ -2,6 +2,20 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
+
+if (isset($_GET['id'])) {
+    $single_testimony_id = $_GET['id'];
+}
+
+$sql = "SELECT testimonials.testimonial, users.first_name, users.last_name, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE testimonials.id = :id";
+$params = array(
+    ':id' => $single_testimony_id
+);
+$result = exec_sql_query($db, $sql, $params);
+$records = $result->fetchAll();
+if (count($records) > 0) {
+    $record = $records[0];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,27 +36,25 @@ include("includes/init.php");
 
     <div class="body-div">
         <div>
-            "Full testimony goes here."
+            <?php
+            echo "\"" . $record["testimonial"] . "\"";
+            ?>
         </div>
         <div id="testimony-credits">
-            <div>
-                <?php
-                // SQL JOIN USERS AND TESTIMONIAL
-                // EXAMPLE
-                $id = array(
-                    "first_name" => firstname,
-                    "last_name" => lastname,
-                    "rating" => 4,
-                    "grade" => 2,
-                    "date" => 2012
-                );
-                echo "<p>" . $id["first_name"] . " " . $id["last_name"] . "</p>";
-                for ($star = 1; $star <= $id["rating"]; $star++) {
-                    echo "<img class='rating_star' src='images/star.png' alt='rating star'/>";
-                };
-                echo "<p><em>Grade " . $id["grade"] . "</em></p>";
-                echo "<p><em>" . $id["date"] . "</em></p>";
-                ?>
+            <div id="testimony-credits-div">
+                <p>-</p>
+                <div>
+                    <?php
+                    if ($record["role"] == "Parent") {
+                        echo "<p><em><strong>" . $record["role"] . " of " . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
+                    } else {
+                        echo "<p><em><strong>" . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
+                    }
+                    echo print_stars($record["rating"]);
+                    echo "<p><em>Grade " . $record["grade"] . "</em></p>";
+                    echo "<p><em>" . $record["date"] . "</em></p>";
+                    ?>
+                </div>
             </div>
         </div>
     </div>

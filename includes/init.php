@@ -191,5 +191,47 @@ if ( isset($current_user) && ( isset($_GET['logout']) || isset($_POST['logout'])
     log_out();
 }
 
+function print_stars($num_of_stars) {
+  for ($star = 0; $star < $num_of_stars; $star++) {
+    echo "<img class='rating_star' src='images/star.png' alt='rating star'/>";
+  }
+}
+
+function print_record($record) {
+  $categories = ["testimonial", "rating", "grade", "date", "role"];
+  echo "<tr>";
+  foreach ($categories as $category) {
+    if ($category == "rating") {
+      echo "<td class='rating-div'>";
+      echo print_stars($record["rating"]);
+      echo "</td>";
+    } elseif ($category == "testimonial") {
+      echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+    } else {
+      echo "<td>" . $record[$category] . "</td>";
+    }
+  }
+  echo "</tr>";
+}
+
+function print_appt($record) {
+  $categories = ["date", "time", "subjects"];
+  echo "<tr>";
+  foreach ($categories as $category) {
+    if ($category == "date") {
+      echo "<td class='rating-div'>";
+      echo $record["date"];
+      echo "</td>";
+    } elseif ($category == "time") {
+      echo "<td class='rating-div'>";
+      echo $record["time_start"]. "-". $record["time_end"]. " ". $record['half'];
+      echo "</td>";
+    } else{
+      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('time_id' => $record["id"], 'date' => $record["date"], 'start_time' => $record["time_start"], 'end_time' => $record["time_end"], 'half' => $record["half"]))."'>" . 'View Appointment' . "</a></td>";
+    }
+  }
+  echo "</tr>";
+}
+
 
 ?>

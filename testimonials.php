@@ -3,6 +3,65 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
+if (isset($_POST["submit-sortby"])) {
+  $ready_to_show = FALSE;
+  $sort_values = array();
+  $given_sorts = array();
+
+  // date
+  if (isset($_POST["date"])) {
+    $date = filter_input(INPUT_POST, "date", FILTER_VALIDATE_INT);
+    array_push($sort_values, "testimonials.date = :date");
+    $given_sorts[':date'] = $date;
+  }
+  // grade
+  if (isset($_POST["grade"])) {
+    $grade = filter_input(INPUT_POST, "grade", FILTER_VALIDATE_INT);
+    array_push($sort_values, "users.grade = :grade");
+    $given_sorts[':grade'] = $grade;
+  }
+  // rating
+  if (isset($_POST["rating"])) {
+    $rating = filter_input(INPUT_POST, "rating", FILTER_VALIDATE_INT);
+    array_push($sort_values, "testimonials.rating = :rating");
+    $given_sorts[':rating'] = $rating;
+  }
+  // role
+  if (isset($_POST["role"])) {
+    $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_STRING);
+    array_push($sort_values, "testimonials.role = :role");
+    $given_sorts[':role'] = $role;
+  }
+
+  if ($given_sorts != []) { // if specified sort by
+    $sort_values_str = implode(" AND ", $sort_values); // make string from values
+    // https://php.net/manual/en/function.implode.php
+  }
+
+  if (isset($sort_values_str)) { // specified WHERE ...
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $sort_values_str";
+    $result = exec_sql_query($db, $sql, $params = $given_sorts);
+    if ($result) {
+      $records = $result->fetchAll();
+      if (count($records) > 0) { // if there are records
+        $ready_to_show = TRUE;
+      } else {
+        $ready_to_show = FALSE;
+      }
+    }
+  } else { // show all
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
+    $result = exec_sql_query($db, $sql, $params = array());
+    if ($result) {
+      $records = $result->fetchAll();
+      if (count($records) > 0) { // if there are records
+        $ready_to_show = TRUE;
+      } else {
+        $ready_to_show = FALSE;
+      }
+    }
+  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -27,53 +86,126 @@ include("includes/init.php");
     <p class="source">Source: <a href="https://unsplash.com/photos/_lhefRJtT0U">Unsplash</a></p>
   </div>
 
-  <div class="body-div">
-    <form id="sortby-form" action="testimonials.php" method="GET">
+  <div class="body-div" id="testimonial-table-div">
+    <form id="sortby-form" action="testimonials.php#testimonial-table-div" method="POST">
       <p>Sort by:</p>
       <select name="date">
         <?php
         // SQL QUERY FOR DATES
-        $result = exec_sql_query($db, "SELECT date FROM testimonials", $params = array());
+        $sql = "SELECT DISTINCT date FROM testimonials";
+        $result = exec_sql_query($db, $sql, $params = array());
         $all_dates = $result->fetchAll();
         echo "<option selected disabled>Date</option>";
         foreach ($all_dates as $date) {
-          echo "<option value='" . $date . "'>" . $date . "</option>";
+          if (isset($_POST['date']) && ($_POST['date'] == $date)) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $date["date"] . "' ".$selected.">" . $date["date"] . "</option>";
         }
         ?>
       </select>
       <select name="grade">
         <?php
         // SQL QUERY FOR GRADES
-        $sql = "SELECT grade FROM users JOIN testimonials ON users.id = testimonials.user_id";
+        $sql = "SELECT DISTINCT grade FROM users JOIN testimonials ON users.id = testimonials.user_id";
         $result = exec_sql_query($db, $sql, $params = array());
         $all_grades = $result->fetchAll();
         echo "<option selected disabled>Grade </option>";
         foreach ($all_grades as $grade) {
-          echo "<option value='" . $grade . "'>" . $grade . "</option>";
+          if (isset($_POST['grade']) && $_POST['grade'] == $grade) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $grade["grade"] . "' ".$selected.">" . $grade["grade"] . "</option>";
         }
         ?>
       </select>
       <select name="rating">
         <?php
         // SQL QUERY FOR RATINGS
-        $result = exec_sql_query($db, "SELECT rating FROM testimonials", $params = array());
+        $result = exec_sql_query($db, "SELECT DISTINCT rating FROM testimonials", $params = array());
         $all_ratings = $result->fetchAll();
         echo "<option selected disabled>Rating </option>";
         foreach ($all_ratings as $rating) {
-          echo "<option value='" . $rating . "'>" . $rating . "</option>";
+          if (isset($_POST['rating']) && $_POST['rating'] == $rating) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $rating["rating"] . "' ".$selected.">" . $rating["rating"] . "</option>";
         }
         ?>
       </select>
-      <select name="role" id="role">
-        <option selected disabled>Role</option>
-        <option value="parent">Parent</option>
-        <option value="student">Student</option>
+      <select name="role">
+        <?php
+        // SQL QUERY FOR ROLES
+        $result = exec_sql_query($db, "SELECT DISTINCT role FROM testimonials", $params = array());
+        $all_roles = $result->fetchAll();
+        echo "<option selected disabled>Role</option>";
+        foreach ($all_roles as $role) {
+          if (isset($_POST['role']) && $_POST['role'] == $role) {
+            $selected = "selected = 'selected'";
+          } else {
+            $selected = "";
+          }
+          echo "<option value='" . $role["role"] . "' ". $selected.">" . $role["role"] . "</option>";
+        }
+        ?>
       </select>
       <button type="submit" name="submit-sortby">Go</button>
     </form>
 
-    <p>WILL INSERT TABLE HERE</p>
-    <a href="single_testimony.php" target="_blank">single_testimony</a>
+    <?php
+    if (isset($ready_to_show) && $ready_to_show) {
+      ?>
+      <div class="table-div">
+        <table>
+          <tr>
+            <th>Testimonial</th>
+            <th>Rating</th>
+            <th>Grade</th>
+            <th>Date</th>
+            <th>Role</th>
+          </tr>
+          <?php
+          foreach ($records as $record) {
+            print_record($record);
+          }
+          ?>
+        </table>
+      </div>
+    <?php
+  } else {
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
+    $result = exec_sql_query($db, $sql, $params = array());
+    if ($result) {
+      $records = $result->fetchAll();
+      if (count($records) > 0) { // if there are records
+        ?>
+          <div class="table-div">
+            <table>
+              <tr>
+                <th>Testimonial</th>
+                <th>Rating</th>
+                <th>Grade</th>
+                <th>Date</th>
+                <th>Role</th>
+              </tr>
+              <?php
+              foreach ($records as $record) {
+                print_record($record);
+              }
+              ?>
+            </table>
+          </div>
+        <?php
+      }
+    }
+  }
+  ?>
   </div>
 
   <div class="body-div">
