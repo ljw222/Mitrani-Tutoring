@@ -427,6 +427,32 @@ form .text_label{
     margin: 5px;
 }
 
+/* STUDENT CENTER FORM */
+#signup_form .required{
+    color: red;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    padding-right: 2px;
+}
+
+#signup_form .text_label{
+    display: inline;
+    padding-left: 0;
+    text-align: right;
+}
+
+#signup_form .form_label{
+    display: inline-block;
+    text-align: right;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
 /* FOOTER */
 
 .footer{

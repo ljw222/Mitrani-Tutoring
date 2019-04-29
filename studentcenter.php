@@ -93,15 +93,21 @@ include("includes/init.php");
         <legend>Schedule an appointment!</legend>
         <ul>
           <li>
-            <label for="date" class="text_label">Date:</label>
+            <div class = "form_label">
+              <p class = "required">*</p><label for="date" class="text_label">Email:</label>
+            </div>
             <input id="date" type="date" name="date" />
           </li>
           <li>
-            <label for="time" class="text_label">Time:</label>
+            <div class = "form_label">
+              <p class = "required">*</p><label for="time" class="text_label">Time:</label>
+            </div>
             <input type="time" id="time" name="time" min="9:00" max="17:00">
           </li>
           <li>
-            <label class="text_label">Subject:</label>
+            <div class = "form_label">
+              <p class = "required">*</p><label class="text_label">Subject:</label>
+            </div>
             <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
             <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> Reading</p>
             <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Writing</p>
