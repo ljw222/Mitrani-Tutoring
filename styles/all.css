@@ -386,6 +386,10 @@ td {
     list-style: none;
 }
 
+#existing_appointments_div h2 {
+    margin-bottom: 10px;
+}
+
 input{
     display: inline;
 }

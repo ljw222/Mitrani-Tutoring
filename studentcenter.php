@@ -59,8 +59,8 @@ if (isset($_POST['submit_testimony'])) {
     </div>
   <?php
 } else { ?>
-    <div class="body-div">
-      <h2>Existing appointments:</h2>
+    <div class="body-div" id="existing_appointments_div">
+      <h2>Existing appointments</h2>
       <?php
       //gets date and time
       $current_username = $current_user['username'];
@@ -124,7 +124,7 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
     <div class="body-div">
       <div class="form-div">
         <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-          <h2>Schedule an Appointment!</h2>
+          <h2>Schedule an Appointment</h2>
           <ul>
             <li>
               <div class="form_label">
