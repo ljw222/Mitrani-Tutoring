@@ -31,7 +31,7 @@ include("includes/init.php");
     <h1>Mitrani Tutoring</h1>
     <div>
       <h2>Who we are</h2>
-      <p>Mitrani Tutoring enables students from Pre-K through high school to excel in their academic life. Provided by certified educator Laurie Mitrani, Mitrani Tutoring offers remedial and enrichment services in a multitude of subjects. Services are tailored to each student's individual needs and interests, and tutoring is offered in various locations.</p>
+      <p>Mitrani Tutoring enables students from Pre-K through high school to excel in their academic life. Provided by certified educator Laurie Mitrani, Mitrani Tutoring offers services in a multitude of subjects, tailored to each student's individual needs and interests. Tutoring is also offered in various locations.</p>
     </div>
     <p class="source">Source: <a href="https://unsplash.com/photos/gqsY28obvH8">Unsplash</a></p>
   </div>
@@ -59,7 +59,7 @@ include("includes/init.php");
 
   <div class="body-div">
     <h2>Why tutoring matters</h2>
-    <p>[Insert excerpt from Lauria about why tutoring matters.]</p>
+    <p>[Insert excerpt from Laurie about why tutoring matters.]</p>
   </div>
 
   <div class="body-div">
@@ -68,7 +68,7 @@ include("includes/init.php");
       include("includes/testimonial_form.php");
     } else {
       echo "<h2>Don't just take our word for it!</h2>";
-      echo "<p><a href='testimonials.php'>See what our students and parents have to say in their testimonials.</a></p>";
+      echo "<p class='link-testimony'><a href='testimonials.php'>See what our students and parents have to say in their testimonials.</a></p>";
     }; ?>
   </div>
 
