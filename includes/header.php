@@ -1,4 +1,3 @@
-<!-- <div id="full-header"> -->
 <div id="header-div">
     <div id="title-diag">
         <h1 class = "header_h1"><a href="index.php">MITRANI TUTORING</a></h1>
@@ -9,9 +8,9 @@
                 // Add a logout query string parameter
                 $logout_url = htmlspecialchars( $_SERVER['PHP_SELF'] ) . '?' . http_build_query( array( 'logout' => '' ) );
 
-                echo '<a class="logout" href="' . $logout_url . '">Sign Out ' . htmlspecialchars($current_user['username']) . '</a>';
+                echo '<a href="' . $logout_url . '">Sign Out ' . htmlspecialchars($current_user['username']) . '</a>';
         } else {
-            echo "<a class='studentcenter' href ='studentcenter.php'>Student Center</a>";
+            echo "<a href ='studentcenter.php'>Student Center</a>";
         }
         ;?>
     </div>
@@ -43,4 +42,3 @@
     ?>
     </div>
 </nav>
-<!-- </div> -->

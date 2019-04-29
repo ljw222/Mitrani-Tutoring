@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'BrandonGrotesque', Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -12,10 +12,46 @@ a:hover {
     color: rgb(17, 128, 255);
 }
 
-/* #full-header {
-    position: sticky;
-    top: 0px;
-} */
+@font-face {
+    font-family: 'Lovelo';
+    /* https://www.fontfabric.com/fonts/lovelo/   */
+    src: url('../styles/fonts/Lovelo/Lovelo-Black.ttf');
+}
+
+@font-face {
+  font-family: 'BrandonGrotesque';
+  /* https://www.downloadfonts.io/downloads/brandon-grotesque-font/ */
+  src: url('../styles/fonts/Brandon-grotesque/Brandon_reg.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BrandonGrotesque';
+  /* https://www.downloadfonts.io/downloads/brandon-grotesque-font/ */
+  src: url('../styles/fonts/Brandon-grotesque/Brandon_blk.otf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BrandonGrotesque';
+  /* https://www.downloadfonts.io/downloads/brandon-grotesque-font/ */
+  src: url('../styles/fonts/Brandon-grotesque/Brandon_reg_it.otf');
+  font-weight: normal;
+  font-style: italic;
+}
+
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('../styles/fonts/BebasNeue/BebasNeue\ Book.otf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../styles/fonts/Montserrat/Montserrat-Medium.ttf');
+}
 
 /* HEADER */
 
@@ -61,14 +97,6 @@ a:hover {
     padding: 20px;
     justify-content: end;
     align-items: center;
-}
-.studentcenter{
-    text-align: right;
-    font-size: 20px;
-}
-
-a.logout{
-    display: inline;
     font-size: 20px;
 }
 
@@ -81,13 +109,14 @@ a.logout{
 .header_a{
     display: flex;
     flex: 1 1 0;
-    padding: 20px;
+    padding: 10px;
     justify-content: center;
     border: 1px solid white;
     background-color: rgb(0, 0, 0, 0.8);
     text-decoration: none;
     font-size: 20px;
     color: white;
+    /* font-family: 'BrandonGrotesque'; */
 }
 
 .header_a:hover {
@@ -192,6 +221,7 @@ h1 {
     text-align: center;
     text-transform: uppercase;
     text-shadow: 2px 2px rgb(248, 248, 255, .90);
+    font-family: 'Lovelo';
 }
 
 
@@ -199,8 +229,9 @@ h2{
     text-align: center;
     font-weight: normal;
     font-size: 20px;
-    font-style: italic;
+    /* font-style: italic; */
     margin: 0px;
+    font-family: 'Lovelo';
 }
 
 /* ALL PAGES - BODY DIV */
@@ -212,8 +243,38 @@ h2{
 }
 
 /* TESTIMONIALS SORT BY */
-#sortby-form select {
+select {
     background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+.error {
+    text-align: center;
+    color: red;
+    font-style: italic;
+}
+
+.selected-option {
+    background-color: rgb(17, 128, 255);
+    color: white;
+}
+
+#sortby-form .selected {
+    color: rgb(17, 128, 255);
+}
+
+button {
+    background-color: rgb(17, 128, 255);
+    color: white;
+    margin-right: 10px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+#reset-button {
+    background-color: rgb(0, 0, 0, 0.3);
 }
 
 /* TESTIMONIALS TABLE */
@@ -252,6 +313,7 @@ td {
     max-height: 20px;
     overflow: hidden;
 }
+
 
 /* SINGLE TESTIMONY */
 
