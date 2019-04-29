@@ -206,7 +206,13 @@ function print_record($record) {
       echo print_stars($record["rating"]);
       echo "</td>";
     } elseif ($category == "testimonial") {
-      echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+      if( !$record['id'] == 0 ){
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+      }
+      else{
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => 0))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+      }
+
     } else {
       echo "<td>" . $record[$category] . "</td>";
     }
@@ -274,7 +280,12 @@ function testimonial_php() {
     }
 
     if ($valid_testimonial && $valid_rating && $valid_role) { // all valid
-      $user_id = $current_user['id'];
+      if( !isset($_POST['anonymous']) ){
+        $user_id = $current_user['id'];
+      }
+      else{
+        $user_id = 0;
+      }
       $date = date("Y");
       // insert into testimonials
       $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id) VALUES (:testimonial, :rating, :date, :role, :user_id)";

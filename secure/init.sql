@@ -56,7 +56,7 @@ CREATE TABLE testimonials (
     rating INTEGER NOT NULL,
     date TEXT NOT NULL,
     role TEXT NOT NULL,
-    user_id INTEGER NOT NULL
+    user_id INTEGER
 );
 
 

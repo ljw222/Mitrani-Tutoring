@@ -46,6 +46,12 @@
                 <option value="Parent">Parent</option>
             </select>
         </div>
+        <div>
+            <div class="form_label">
+               <label for="anonymous">Remain Anonymous:</label>
+            </div>
+            <input type="checkbox" name="anonymous" value="anonymous">
+        </div>
         <button type="submit" name="submit_testimony">Submit</button>
     </form>
 </div>

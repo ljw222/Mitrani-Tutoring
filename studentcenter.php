@@ -126,19 +126,19 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
           <ul>
             <li>
               <div class="form_label">
-                <p class="required">*</p><label for="date" class="text_label">Date:</label>
+                <p class="required">*</p><label for="date">Date:</label>
               </div>
               <input id="date" type="date" name="date" />
             </li>
             <li>
               <div class="form_label">
-                <p class="required">*</p><label for="time" class="text_label">Start Time:</label>
+                <p class="required">*</p><label for="time">Start Time:</label>
               </div>
               <input type="time" id="time" name="time" min="9:00" max="17:00">
             </li>
             <li>
               <div class="form_label">
-                <p class="required">*</p><label class="text_label">Subject:</label>
+                <p class="required">*</p><label>Subject:</label>
               </div>
               <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
               <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
