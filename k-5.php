@@ -2,6 +2,11 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
+
+if (isset($_POST['submit_testimony'])) {
+  echo testimonial_php();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

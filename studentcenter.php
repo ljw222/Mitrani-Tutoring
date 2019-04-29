@@ -2,6 +2,11 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
+
+if (isset($_POST['submit_testimony'])) {
+  echo testimonial_php();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +60,7 @@ include("includes/init.php");
   <?php
 } else { ?>
     <div class="body-div">
-      <p>Existing appointments:</p>
+      <h2>Existing appointments:</h2>
       <?php
       //gets date and time
       $current_username = $current_user['username'];
@@ -92,33 +97,34 @@ include("includes/init.php");
     } ?>
     </div>
     <?php
-    if ( isset($_POST["submit_upload"]) && is_user_logged_in() ) {
+    if (isset($_POST["submit_upload"]) && is_user_logged_in()) {
 
-// filter input for upload
-$upload_info = $_FILES["gallery_image"];
-$description=$_POST['description']; //filter input
+      // filter input for upload
+      $upload_info = $_FILES["gallery_image"];
+      $description = $_POST['description']; //filter input
 
-//If image is uploaded successfully, store upload in database and in uploads/images
-if($upload_info['error']== UPLOAD_ERR_OK) {
-  $basename = basename($upload_info["name"]);
-  $upload_ext = strtolower( pathinfo($basename, PATHINFO_EXTENSION) );
-  $sql = "INSERT INTO 'images' (image, user_id, file_ext, description) VALUES (:image, :user_id, :file_ext, :description);";
-  $params = array(
-    ':image' => $basename,
-    ':user_id' => $current_user['id'],
-    ':file_ext' => $upload_ext,
-    ':description' => $description
+      //If image is uploaded successfully, store upload in database and in uploads/images
+      if ($upload_info['error'] == UPLOAD_ERR_OK) {
+        $basename = basename($upload_info["name"]);
+        $upload_ext = strtolower(pathinfo($basename, PATHINFO_EXTENSION));
+        $sql = "INSERT INTO 'images' (image, user_id, file_ext, description) VALUES (:image, :user_id, :file_ext, :description);";
+        $params = array(
+          ':image' => $basename,
+          ':user_id' => $current_user['id'],
+          ':file_ext' => $upload_ext,
+          ':description' => $description
 
-  );
-  $result = exec_sql_query($db, $sql, $params);
-  $new_id =$db->lastInsertId("id");
-}
+        );
+        $result = exec_sql_query($db, $sql, $params);
+        $new_id = $db->lastInsertId("id");
+      }
     }
-?>
-<!-- Appointment Form -->
+    ?>
+    <!-- Appointment Form -->
     <div class="body-div">
-      <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <h2>Schedule an Appointment!</h2>
+      <div class="form-div">
+        <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+          <h2>Schedule an Appointment!</h2>
           <ul>
             <li>
               <div class="form_label">
@@ -149,11 +155,15 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
               <button name="submit" type="submit">Submit</button>
             </li>
           </ul>
-      </form>
-  </div>
-    <?php
-  } ?>
-    <legend>
+        </form>
+      </div>
+    </div>
+    <div class="body-div">
+      <?php include("includes/testimonial_form.php");?>
+    </div>
+  <?php
+} ?>
+  <legend>
 
-      <?php include("includes/footer.php"); ?>
+    <?php include("includes/footer.php"); ?>
 </body>

@@ -233,5 +233,68 @@ function print_appt($record) {
   echo "</tr>";
 }
 
+$testimonial_error_messages = array();
+$testimonial_success_messages = array();
+
+function testimonial_php() {
+  global $current_user;
+  global $db;
+  global $testimonial_error_messages;
+  global $testimonial_success_messages;
+
+  if (isset($_POST['submit_testimony'])) {
+    // testimonial
+    $valid_testimonial = FALSE;
+    $valid_rating = FALSE;
+    $valid_role = FALSE;
+
+    if (isset($_POST['form_testimonial'])) {
+      $testimonial = filter_input(INPUT_POST, "form_testimonial", FILTER_SANITIZE_STRING);
+      if ($testimonial != '') { // if not empty
+        $valid_testimonial = TRUE;
+      } else {
+        $valid_testimonial = FALSE;
+      }
+    } else {
+      $valid_testimonial = FALSE;
+    }
+    // rating
+    if (isset($_POST['form_rating'])) {
+      $rating = filter_input(INPUT_POST, "form_rating", FILTER_VALIDATE_INT);
+      $valid_rating = TRUE;
+    } else {
+      $valid_rating = FALSE;
+    }
+    // role
+    if (isset($_POST['form_role'])) {
+      $role = filter_input(INPUT_POST, "form_role", FILTER_SANITIZE_STRING);
+      $valid_role = TRUE;
+    } else {
+      $valid_role = FALSE;
+    }
+
+    if ($valid_testimonial && $valid_rating && $valid_role) { // all valid
+      $user_id = $current_user['id'];
+      $date = date("Y");
+      // insert into testimonials
+      $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id) VALUES (:testimonial, :rating, :date, :role, :user_id)";
+      $params = array(
+        ':testimonial' => $testimonial,
+        ':rating' => $rating,
+        ':date' => $date,
+        ':role' => $role,
+        ':user_id' => $user_id
+      );
+      $results = exec_sql_query($db, $sql, $params);
+      if ($results) { // successful exec
+        array_push($testimonial_success_messages, "Thank you for submitting your testimonial!");
+      } else {
+        array_push($testimonial_error_messages, "Something went wrong. Failed to submit testimonial.");
+      }
+    } else {
+      array_push($testimonial_error_messages, "One of more of the fields was not filled in correctly. Failed to submit testimonial.");
+    }
+  }
+}
 
 ?>

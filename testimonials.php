@@ -3,6 +3,10 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
+if (isset($_POST['submit_testimony'])) {
+  echo testimonial_php();
+}
+
 $error_messages = array();
 
 if (isset($_POST["submit-sortby"])) {
@@ -99,7 +103,9 @@ if (isset($_POST['reset-sortby'])) {
   <div class="body-div" id="testimonial-table-div">
     <form id="sortby-form" action="testimonials.php#testimonial-table-div" method="POST">
       <p>Sort by:</p>
-      <select name="date" <?php if (isset($_POST['date'])) { echo "class = 'selected'"; }?>>
+      <select name="date" <?php if (isset($_POST['date'])) {
+                            echo "class = 'selected'";
+                          } ?>>
         <?php
         // SQL QUERY FOR DATES
         $sql = "SELECT DISTINCT date FROM testimonials";
@@ -116,7 +122,9 @@ if (isset($_POST['reset-sortby'])) {
         }
         ?>
       </select>
-      <select name="grade" <?php if (isset($_POST['grade'])) { echo "class = 'selected'"; }?>>
+      <select name="grade" <?php if (isset($_POST['grade'])) {
+                              echo "class = 'selected'";
+                            } ?>>
         <?php
         // SQL QUERY FOR GRADES
         $sql = "SELECT DISTINCT grade FROM users JOIN testimonials ON users.id = testimonials.user_id";
@@ -133,7 +141,9 @@ if (isset($_POST['reset-sortby'])) {
         }
         ?>
       </select>
-      <select name="rating" <?php if (isset($_POST['rating'])) { echo "class = 'selected'"; }?>>
+      <select name="rating" <?php if (isset($_POST['rating'])) {
+                              echo "class = 'selected'";
+                            } ?>>
         <?php
         // SQL QUERY FOR RATINGS
         $result = exec_sql_query($db, "SELECT DISTINCT rating FROM testimonials", $params = array());
@@ -149,7 +159,9 @@ if (isset($_POST['reset-sortby'])) {
         }
         ?>
       </select>
-      <select name="role" <?php if (isset($_POST['role'])) { echo "class = 'selected'"; }?>>
+      <select name="role" <?php if (isset($_POST['role'])) {
+                            echo "class = 'selected'";
+                          } ?>>
         <?php
         // SQL QUERY FOR ROLES
         $result = exec_sql_query($db, "SELECT DISTINCT role FROM testimonials", $params = array());

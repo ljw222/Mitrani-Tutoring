@@ -52,7 +52,7 @@ CREATE TABLE appointment_subjects (
 --Testimonials Table
 CREATE TABLE testimonials (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    testimonial TEXT NOT NULL UNIQUE,
+    testimonial TEXT NOT NULL,
     rating INTEGER NOT NULL,
     date TEXT NOT NULL,
     role TEXT NOT NULL,

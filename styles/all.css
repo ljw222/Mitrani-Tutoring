@@ -260,6 +260,12 @@ select {
     font-style: italic;
 }
 
+.success {
+    text-align: center;
+    color: green;
+    font-style: italic;
+}
+
 .selected-option {
     background-color: rgb(17, 128, 255);
     color: white;
@@ -291,11 +297,12 @@ button {
 
 table {
     background-color: rgb(218, 237, 255);
+    width: 100%;
 }
 
-table a {
+/* table a {
     color: black;
-}
+} */
 
 th {
     background-color: rgb(0, 128, 0, 0.8);
@@ -433,21 +440,47 @@ form .text_label{
 }
 
 /* TESTIMONIALS FORM */
-#testimonial_form .required{
+#testimonial_form .required {
     color: red;
     display: inline;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     padding-right: 2px;
 }
 
+#testimonial_form button {
+    display: flex;
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#testimonial_form {
+    margin-top: 20px;
+}
+
+#testimonial-text {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.form-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* STUDENT CENTER FORM */
 form .required{
     color: red;
     display: inline;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     padding-right: 2px;
 }
 
@@ -458,25 +491,27 @@ form .text_label{
 }
 
 form .form_label{
-    display: inline-block;
+    display: inline-flex;
     text-align: right;
     width: 100px;
     margin-bottom: 10px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-right: 20px;
     /* text-align: center; */
     /* margin-left: 50%; */
-    /* justify-content: right; */
 }
 
-form li{
-    /* width: 100%; */
-    /* text-align: center; */
+/* form li{
+    width: 100%;
+    text-align: center;
 
-}
+} */
 
-form div .form_label{
+/* form div .form_label{
     text-align: center;
     margin-left: 50%;
-}
+} */
 
 
 
