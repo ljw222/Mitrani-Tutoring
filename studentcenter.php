@@ -40,21 +40,19 @@ if (isset($_POST['submit_testimony'])) {
   if (!is_user_logged_in()) { ?>
     <div class="body-div">
       <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <fieldset>
-          <ul>
-            <li>
-              <label for="username" class="text_label">Username:</label>
-              <input id="username" type="text" name="username" />
-            </li>
-            <li>
-              <label for="password" class="text_label">Password:</label>
-              <input id="password" type="password" name="password" />
-            </li>
-            <li>
-              <button name="login" type="submit">Sign In</button>
-            </li>
-          </ul>
-        </fieldset>
+        <ul>
+          <li>
+            <label for="username" class="text_label">Username:</label>
+            <input id="username" type="text" name="username" />
+          </li>
+          <li>
+            <label for="password" class="text_label">Password:</label>
+            <input id="password" type="password" name="password" />
+          </li>
+          <li>
+            <button name="login" type="submit">Sign In</button>
+          </li>
+        </ul>
       </form>
     </div>
   <?php
@@ -163,7 +161,5 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
     </div>
   <?php
 } ?>
-  <legend>
-
     <?php include("includes/footer.php"); ?>
 </body>
