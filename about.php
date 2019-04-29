@@ -37,6 +37,7 @@ include("includes/init.php");
         <h2>Contacts</h2>
         <ul>
           <li>Email: lmitrani114@gmail.com</li>
+          <li>Phone: (305)-926-5537</li>
           <li>LinkedIn: <a href="https://www.linkedin.com/in/laurie-mitrani-a69b28157">https://www.linkedin.com/in/laurie-mitrani-a69b28157</a></li>
         </ul>
       </div>

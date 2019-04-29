@@ -432,8 +432,8 @@ form .text_label{
     margin: 5px;
 }
 
-/* STUDENT CENTER FORM */
-#signup_form .required{
+/* TESTIMONIALS FORM */
+#testimonial_form .required{
     color: red;
     display: inline;
     margin: 0;
@@ -441,20 +441,42 @@ form .text_label{
     padding-right: 2px;
 }
 
-#signup_form .text_label{
+
+/* STUDENT CENTER FORM */
+form .required{
+    color: red;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    padding-right: 2px;
+}
+
+form .text_label{
     display: inline;
     padding-left: 0;
     text-align: right;
 }
 
-#signup_form .form_label{
+form .form_label{
     display: inline-block;
     text-align: right;
     width: 100px;
     margin-bottom: 10px;
+    /* text-align: center; */
+    /* margin-left: 50%; */
+    /* justify-content: right; */
 }
 
+form li{
+    /* width: 100%; */
+    /* text-align: center; */
 
+}
+
+form div .form_label{
+    text-align: center;
+    margin-left: 50%;
+}
 
 
 

@@ -93,18 +93,17 @@ include("includes/init.php");
     </div>
     <div class="body-div">
       <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <fieldset>
-          <legend>Schedule an appointment!</legend>
+        <h2>Schedule an Appointment!</h2>
           <ul>
             <li>
               <div class="form_label">
-                <p class="required">*</p><label for="date" class="text_label">Email:</label>
+                <p class="required">*</p><label for="date" class="text_label">Date:</label>
               </div>
               <input id="date" type="date" name="date" />
             </li>
             <li>
               <div class="form_label">
-                <p class="required">*</p><label for="time" class="text_label">Time:</label>
+                <p class="required">*</p><label for="time" class="text_label">Start Time:</label>
               </div>
               <input type="time" id="time" name="time" min="9:00" max="17:00">
             </li>
@@ -125,7 +124,6 @@ include("includes/init.php");
               <button name="submit" type="submit">Submit</button>
             </li>
           </ul>
-        </fieldset>
       </form>
   </div>
     <?php
