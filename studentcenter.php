@@ -104,8 +104,8 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
   $upload_ext = strtolower( pathinfo($basename, PATHINFO_EXTENSION) );
   $sql = "INSERT INTO 'images' (image, user_id, file_ext, description) VALUES (:image, :user_id, :file_ext, :description);";
   $params = array(
-    ':image' => $basename,
-    ':user_id' => $current_user['id'],
+    ':date' => $date,
+    ':start_time' => $start_time,
     ':file_ext' => $upload_ext,
     ':description' => $description
 
@@ -137,13 +137,13 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
                 <p class="required">*</p><label class="text_label">Subject:</label>
               </div>
               <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
-              <p class="subject"><input type="checkbox" name="vehicle2" value="reading"> Reading</p>
-              <p class="subject"><input type="checkbox" name="vehicle3" value="writing"> Writing</p>
-              <p class="subject"><input type="checkbox" name="vehicle2" value="history"> History</p>
-              <p class="subject"><input type="checkbox" name="vehicle2" value="science"> Science</p>
-              <p class="subject"><input type="checkbox" name="vehicle3" value="organization"> Organizational Skills</p>
-              <p class="subject"><input type="checkbox" name="vehicle3" value="study"> Study Skills</p>
-              <p class="subject"><input type="checkbox" name="vehicle3" value="test"> Standardized Test Preparation</p>
+              <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
+              <p class="subject"><input type="checkbox" name="writing" value="writing"> Writing</p>
+              <p class="subject"><input type="checkbox" name="history" value="history"> History</p>
+              <p class="subject"><input type="checkbox" name="science" value="science"> Science</p>
+              <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
+              <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
+              <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
             </li>
             <li>
               <button name="submit" type="submit">Submit</button>
