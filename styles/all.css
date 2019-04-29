@@ -145,6 +145,7 @@ a:hover {
     background-image: url("../images/academic2.jpg");
     /* Photo by Thomas Kolnowski on Unsplash */
     background-position: 50% 30%;
+    text-align: justify;
 }
 
 #testimonials-div {
@@ -240,6 +241,10 @@ h2{
     border: 2px solid rgb(0, 0, 0, 0.8);
     padding: 20px 40px;
     background-color: rgb(240, 248, 255, 0.5);
+}
+
+.link-testimony {
+    text-align: center;
 }
 
 /* TESTIMONIALS SORT BY */

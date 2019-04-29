@@ -33,43 +33,46 @@ include("includes/init.php");
   </div>
   <?php
   if (!is_user_logged_in()) { ?>
-    <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-      <fieldset>
-        <ul>
-          <li>
-            <label for="username" class="text_label">Username:</label>
-            <input id="username" type="text" name="username" />
-          </li>
-          <li>
-            <label for="password" class="text_label">Password:</label>
-            <input id="password" type="password" name="password" />
-          </li>
-          <li>
-            <button name="login" type="submit">Sign In</button>
-          </li>
-        </ul>
-      </fieldset>
-    </form>
+    <div class="body-div">
+      <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <fieldset>
+          <ul>
+            <li>
+              <label for="username" class="text_label">Username:</label>
+              <input id="username" type="text" name="username" />
+            </li>
+            <li>
+              <label for="password" class="text_label">Password:</label>
+              <input id="password" type="password" name="password" />
+            </li>
+            <li>
+              <button name="login" type="submit">Sign In</button>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </div>
   <?php
 } else { ?>
-    <p>Existing appointments:</p>
-    <?php
-    //gets date and time
-    $current_username = $current_user['username'];
-    $sql = "SELECT times.id, times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id IN (SELECT appointments.time_id FROM appointments JOIN users ON appointments.user_id = (SELECT id FROM users WHERE users.username = '$current_username'));";
-    $result = exec_sql_query($db, $sql, $params = array());
-    //gets subjects
+    <div class="body-div">
+      <p>Existing appointments:</p>
+      <?php
+      //gets date and time
+      $current_username = $current_user['username'];
+      $sql = "SELECT times.id, times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id IN (SELECT appointments.time_id FROM appointments JOIN users ON appointments.user_id = (SELECT id FROM users WHERE users.username = '$current_username'));";
+      $result = exec_sql_query($db, $sql, $params = array());
+      //gets subjects
       //get appoinment ids
       $appt_ids = "SELECT DISTINCT appointments.id FROM appointments JOIN users ON user_id = (SELECT id FROM users WHERE users.username = '$current_username');";
       //get subject_ids from appointment_subjects
       $subj_ids = "SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id IN $appt_ids;";
       //get subject names
       $subjects = "SELECT subjects.subject FROM subjects WHERE subjects.id IN $subj_ids;";
-   // $result_subjects = exec_sql_query($db, $subjects, $params = array());
-    if ($result) {
-      $records = $result->fetchAll();
-      if (count($records) > 0) { // if there are records
-        ?>
+      // $result_subjects = exec_sql_query($db, $subjects, $params = array());
+      if ($result) {
+        $records = $result->fetchAll();
+        if (count($records) > 0) { // if there are records
+          ?>
           <div class="table-div">
             <table>
               <tr>
@@ -87,45 +90,47 @@ include("includes/init.php");
         <?php
       }
     } ?>
+    </div>
+    <div class="body-div">
+      <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <fieldset>
+          <legend>Schedule an appointment!</legend>
+          <ul>
+            <li>
+              <div class="form_label">
+                <p class="required">*</p><label for="date" class="text_label">Email:</label>
+              </div>
+              <input id="date" type="date" name="date" />
+            </li>
+            <li>
+              <div class="form_label">
+                <p class="required">*</p><label for="time" class="text_label">Time:</label>
+              </div>
+              <input type="time" id="time" name="time" min="9:00" max="17:00">
+            </li>
+            <li>
+              <div class="form_label">
+                <p class="required">*</p><label class="text_label">Subject:</label>
+              </div>
+              <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
+              <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> Reading</p>
+              <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Writing</p>
+              <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> History</p>
+              <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> Science</p>
+              <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Organizational Skills</p>
+              <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Study Skills</p>
+              <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Standardized Test Preparation</p>
+            </li>
+            <li>
+              <button name="submit" type="submit">Submit</button>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+  </div>
+    <?php
+  } ?>
+    <legend>
 
-    <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-      <fieldset>
-        <legend>Schedule an appointment!</legend>
-        <ul>
-          <li>
-            <div class = "form_label">
-              <p class = "required">*</p><label for="date" class="text_label">Email:</label>
-            </div>
-            <input id="date" type="date" name="date" />
-          </li>
-          <li>
-            <div class = "form_label">
-              <p class = "required">*</p><label for="time" class="text_label">Time:</label>
-            </div>
-            <input type="time" id="time" name="time" min="9:00" max="17:00">
-          </li>
-          <li>
-            <div class = "form_label">
-              <p class = "required">*</p><label class="text_label">Subject:</label>
-            </div>
-            <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
-            <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> Reading</p>
-            <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Writing</p>
-            <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> History</p>
-            <p class="subject"><input type="checkbox" name="vehicle2" value="Car"> Science</p>
-            <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Organizational Skills</p>
-            <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Study Skills</p>
-            <p class="subject"><input type="checkbox" name="vehicle3" value="Boat"> Standardized Test Preparation</p>
-          </li>
-          <li>
-            <button name="submit" type="submit">Submit</button>
-          </li>
-        </ul>
-      </fieldset>
-    </form>
-  <?php
-} ?>
-  <legend>
-
-    <?php include("includes/footer.php"); ?>
+      <?php include("includes/footer.php"); ?>
 </body>

@@ -35,5 +35,15 @@ include("includes/init.php");
     </ul>
   </div>
 
+  <div class="body-div">
+    <?php
+    if (is_user_logged_in()) {
+      include("includes/testimonial_form.php");
+    } else {
+      echo "<h2>Curious what other tutees have to say?</h2>";
+      echo "<p class='link-testimony'><a href='testimonials.php'>Check out the testimonials from 6th - 12th grade students and parents.</a></p>";
+    }; ?>
+  </div>
+
   <?php include("includes/footer.php"); ?>
 </body>

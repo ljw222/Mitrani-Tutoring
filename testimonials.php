@@ -229,7 +229,7 @@ if (isset($_POST['reset-sortby'])) {
       include("includes/testimonial_form.php");
     } else {
       echo "<h2>Want to submit your own testimony?</h2>";
-      echo "<p><a href='studentcenter.php'>Please login to our Student Center.</a></p>";
+      echo "<p class='link-testimony'><a href='studentcenter.php'>Please login to our Student Center.</a></p>";
     }; ?>
   </div>
 
