@@ -3,9 +3,19 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
+//id of the testimonial
 if (isset($_GET['id'])) {
     $single_testimony_id = $_GET['id'];
+    $single_testimony_id = intval($single_testimony_id);
 }
+
+//get the user id of the person who wrote the testimonial
+$sql = "SELECT testimonials.user_id FROM testimonials WHERE testimonials.id = $single_testimony_id;";
+$result = exec_sql_query($db, $sql, $params);
+$id_of_author = $result->fetchAll();
+$id_of_author = intval($id_of_author[0][0]);
+
+
 
 $sql = "SELECT testimonials.testimonial, users.first_name, users.last_name, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE testimonials.id = :id";
 $params = array(
@@ -45,10 +55,12 @@ if (count($records) > 0) {
                 <p>-</p>
                 <div>
                     <?php
-                    if ($record["role"] == "Parent") {
+                    if ($record["role"] == "Parent" && $single_testimony_id != 0) {
                         echo "<p><em><strong>" . $record["role"] . " of " . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
-                    } else {
+                    } else if ($record["role"] != "Parent" && $single_testimony_id != 0) {
                         echo "<p><em><strong>" . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
+                    } else {
+                        echo "<p><em><strong>" . "Anonymous" . "</strong></em></p>";
                     }
                     echo print_stars($record["rating"]);
                     echo "<p><em>Grade " . $record["grade"] . "</em></p>";
@@ -58,6 +70,21 @@ if (count($records) > 0) {
             </div>
         </div>
     </div>
+
+    <?php
+        // echo 'current user id is: ' . $current_user['id'];
+        // echo 'the author of this testimonial is: ' . (int)$id_of_author;
+        if( isset($current_user) && ($id_of_author == $current_user['id'] ) ){
+            $testimonial_to_delete = $single_testimony_id;
+            ?>
+            <form id="delete_form" method="post" action= "<?php echo "testimonials.php?". http_build_query( array( 'testimonial_to_delete' => $testimonial_to_delete ) );?>" enctype="multipart/form-data">
+                <div class="delete_button">
+                <button name="delete_testimonial" type="submit">Delete Testimonial</button>
+                </div>
+            </form>
+            <?php
+        }
+    ?>
 
     <?php include("includes/footer.php"); ?>
 

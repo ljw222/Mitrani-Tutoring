@@ -3,6 +3,19 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
+//Delete testimonial
+$deleted_test = FALSE;
+if( isset($_POST['delete_testimonial']) ){
+  $testimonial_to_delete = intval($_GET['testimonial_to_delete']);
+  $sql = "DELETE FROM testimonials WHERE id = :testimonial_to_delete;";
+  $params = array(
+    ':testimonial_to_delete' => $testimonial_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params);
+  $deleted_test = TRUE;
+}
+
+
 if (isset($_POST['submit_testimony'])) {
   echo testimonial_php();
 }
@@ -68,6 +81,7 @@ if (isset($_POST["submit-sortby"])) {
       }
     }
   }
+
 }
 
 if (isset($_POST['reset-sortby'])) {
@@ -182,6 +196,10 @@ if (isset($_POST['reset-sortby'])) {
     </form>
 
     <?php
+    if ($deleted_test){
+      echo "<p class='success'>Appointment successfully deleted!</p>";
+    }
+
     foreach ($error_messages as $error_message) {
       echo "<p class='error'>" . $error_message . "</p>";
     }
