@@ -136,19 +136,19 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
               <div class="form_label">
                 <p class="required">*</p><label for="date">Date:</label>
               </div>
-              <input id="date" type="date" name="date" />
+              <input class="input_box" id="date" type="date" name="date" />
             </li>
             <li>
               <div class="form_label">
                 <p class="required">*</p><label for="time">Start Time:</label>
               </div>
-              <input type="time" id="time" name="start_time" min="9:00" max="17:00">
+              <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00">
             </li>
             <li>
               <div class="form_label">
                 <p class="required">*</p><label for="time">End Time:</label>
               </div>
-              <input type="time" id="time" name="end_time" min="9:00" max="17:00">
+              <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="17:00">
             </li>
             <li>
               <div class="form_label">
@@ -164,11 +164,11 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
               <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
             </li>
             <div id="comment">
-         <div class="form_label">
-            <label for="comment">Comment:</label>
-         </div>
-         <textarea rows=10 cols=40 name="comment" id="comment" ></textarea>
-      </div>
+              <div class="form_label">
+                <label for="comment">Comment:</label>
+              </div>
+              <textarea rows=5 cols=40 name="comment" id="comment" ></textarea>
+            </div>
             <li>
               <button name="submit" type="submit">Submit</button>
             </li>

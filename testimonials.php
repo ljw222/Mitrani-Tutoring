@@ -217,7 +217,7 @@ if (isset($_POST['reset-sortby'])) {
           </tr>
           <?php
           foreach ($records as $record) {
-            echo 'hi';
+            // echo 'hi';
 
             print_record($record);
           }
