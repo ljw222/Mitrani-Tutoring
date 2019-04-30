@@ -84,7 +84,7 @@ INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30
     --appointment for Fred (user1) on 4/29 at 3:30pm
 INSERT INTO appointments (id,time_id,user_id) VALUES (1, 2, 1);
     --appointment for Fred (user1) on 4/30 at 3pm
-INSERT INTO appointments (id,time_id,user_id) VALUES (2, 7, 1);
+INSERT INTO appointments (id,time_id,user_id) VALUES (2, 4, 1);
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
