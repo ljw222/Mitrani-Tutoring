@@ -63,7 +63,9 @@ if (count($records) > 0) {
                         echo "<p><em><strong>" . "Anonymous" . "</strong></em></p>";
                     }
                     echo print_stars($record["rating"]);
-                    if(!$record["grade"] == NULL){
+                    if ($record["grade"] == 0) {
+                        echo "<p><em>Pre-K</em></p>";
+                    } elseif ($record["grade"] != NULL) {
                         echo "<p><em>Grade " . $record["grade"] . "</em></p>";
                     }
                     echo "<p><em>" . $record["date"] . "</em></p>";
@@ -74,19 +76,19 @@ if (count($records) > 0) {
     </div>
 
     <?php
-        // echo 'current user id is: ' . $current_user['id'];
-        // echo 'the author of this testimonial is: ' . (int)$id_of_author;
-        if( isset($current_user) && ($id_of_author == $current_user['id'] ) ){
-            $testimonial_to_delete = $single_testimony_id;
-            ?>
-            <form id="delete_form" method="post" action= "<?php echo "testimonials.php?". http_build_query( array( 'testimonial_to_delete' => $testimonial_to_delete ) );?>" enctype="multipart/form-data">
-                <div class="delete_button">
+    // echo 'current user id is: ' . $current_user['id'];
+    // echo 'the author of this testimonial is: ' . (int)$id_of_author;
+    if (isset($current_user) && ($id_of_author == $current_user['id'])) {
+        $testimonial_to_delete = $single_testimony_id;
+        ?>
+        <form id="delete_form" method="post" action="<?php echo "testimonials.php?" . http_build_query(array('testimonial_to_delete' => $testimonial_to_delete)); ?>" enctype="multipart/form-data">
+            <div class="delete_button">
                 <button name="delete_testimonial" type="submit">Delete Testimonial</button>
-                </div>
-            </form>
-            <?php
-        }
-    ?>
+            </div>
+        </form>
+    <?php
+}
+?>
 
     <?php include("includes/footer.php"); ?>
 

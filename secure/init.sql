@@ -109,5 +109,6 @@ INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (3, 2, 
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 2);
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding. My only difficulty was figuring out how to meet because I didn't have a car to commute, but other than that, she was great.", 4, "2015", "Student", 2);
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (3, "Teacher Laurie was really helpful in teaching me how to write better. She helped me with all the assignments I needed to check my spelling and grammar and so I did well in my class. Laurie is super nice and kind too!", 5, "2012", "Student", 1);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (4, "Laurie is the bestest! I like math now because she makes math fun for me all the time. We play games and she reads to me so I like Laurie.", 5, "2014", "Student", 3);
 
 COMMIT;
