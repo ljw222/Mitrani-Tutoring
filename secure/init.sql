@@ -72,13 +72,13 @@ INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, '
 
 --Times Table
     --right now just info for 4/29 from 3pm-6pm
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (1, "4/29/2019","3:00","3:30","PM",1); --3pm
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (2, "4/29/2019","3:30", "4:00","PM",0); --3:30pm, taken by fred
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "4/29/2019","4:00", "4:30","PM",1); --4pm
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (1, "04/29/2019","3:00","3:30","PM",1); --3pm
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (2, "04/29/2019","3:30", "4:00","PM",0); --3:30pm, taken by fred
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "04/29/2019","4:00", "4:30","PM",1); --4pm
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","5:30", "17:00",1); --4:30pm
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (7, "4/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm

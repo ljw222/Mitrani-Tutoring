@@ -3,6 +3,13 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
+//re-format date input
+function format_date($date) {
+  $pieces = explode("-", $date);
+  return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
+
+}
+
 if (isset($_POST['submit_testimony'])) {
   echo testimonial_php();
 }
@@ -95,27 +102,27 @@ if (isset($_POST['submit_testimony'])) {
     } ?>
     </div>
     <?php
-    if (isset($_POST["submit_upload"]) && is_user_logged_in()) {
+    if (isset($_POST["submit"]) && is_user_logged_in()) {
 
       // filter input for upload
-      $upload_info = $_FILES["gallery_image"];
-      $description = $_POST['description']; //filter input
+      $date = format_date($_POST["date"]);
+      echo $date;
+      $start_time = $_POST['start_time']; //filter input
 
-//If image is uploaded successfully, store upload in database and in uploads/images
+//Upload Time of Appointment
 if($upload_info['error']== UPLOAD_ERR_OK) {
-  $basename = basename($upload_info["name"]);
-  $upload_ext = strtolower( pathinfo($basename, PATHINFO_EXTENSION) );
-  $sql = "INSERT INTO 'images' (image, user_id, file_ext, description) VALUES (:image, :user_id, :file_ext, :description);";
-  $params = array(
-    ':date' => $date,
-    ':start_time' => $start_time,
-    ':file_ext' => $upload_ext,
-    ':description' => $description
 
-        );
-        $result = exec_sql_query($db, $sql, $params);
-        $new_id = $db->lastInsertId("id");
-      }
+      // get id for start time
+      $sql = "SELECT times.id FROM times WHERE time_start = $start_time AND date = $date";
+      $params = array();
+      $result = exec_sql_query($db, $sql, $params)->fetchAll();
+  $sql = "INSERT INTO 'appointments' (time_id, user_id) VALUES (:time_id, :user_id);";
+  $params = array(
+     ':time_id' => $result,
+     ':user_id' => $current_user['id']
+  );
+  $result = exec_sql_query($db, $sql, $params);
+}
     }
     ?>
     <!-- Appointment Form -->
@@ -134,7 +141,13 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
               <div class="form_label">
                 <p class="required">*</p><label for="time">Start Time:</label>
               </div>
-              <input type="time" id="time" name="time" min="9:00" max="17:00">
+              <input type="time" id="time" name="start_time" min="9:00" max="17:00">
+            </li>
+            <li>
+              <div class="form_label">
+                <p class="required">*</p><label for="time">End Time:</label>
+              </div>
+              <input type="time" id="time" name="end_time" min="9:00" max="17:00">
             </li>
             <li>
               <div class="form_label">
@@ -149,6 +162,12 @@ if($upload_info['error']== UPLOAD_ERR_OK) {
               <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
               <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
             </li>
+            <div id="comment">
+         <div class="form_label">
+            <label for="comment">Comment:</label>
+         </div>
+         <textarea rows=10 cols=40 name="comment" id="comment" ></textarea>
+      </div>
             <li>
               <button name="submit" type="submit">Submit</button>
             </li>
