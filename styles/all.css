@@ -266,6 +266,13 @@ select {
     font-style: italic;
 }
 
+.filter_message {
+    text-align: center;
+    color:  rgb(17, 128, 255);
+    /* font-style: italic; */
+    text-transform: uppercase;
+}
+
 .selected-option {
     background-color: rgb(17, 128, 255);
     color: white;
@@ -395,7 +402,12 @@ input{
 }
 
 .subject{
-    padding-left: 200px;
+    padding-left: 170px;
+    margin-top: 0px;
+}
+
+#signup_form .input_box{
+    width: 100px;
 }
 
 
@@ -512,8 +524,13 @@ form .form_label{
     align-items: flex-start;
     margin-right: 20px;
     padding-right: 0;
-    /* text-align: center; */
-    /* margin-left: 50%; */
+}
+
+#comment {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
 /* LOGIN FORM */

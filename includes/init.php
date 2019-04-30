@@ -206,11 +206,16 @@ function print_record($record) {
       echo print_stars($record["rating"]);
       echo "</td>";
     } elseif ($category == "testimonial") {
-      if( !$record['id'] == 0 ){
-        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+      if (strlen($record["testimonial"]) > 90) { // if more than 90 characters, show part...
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"])) . "'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+      } else { // if less than 90 characters, show full
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"])) . "'>" . substr($record["testimonial"], 0, 90) . "</a></td>";
       }
-      else{
-        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => 0))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+    } elseif ($category == "grade") {
+      if ($record["grade"] == 0) { // Pre-K show text not 0 num
+        echo "<td>Pre-K</td>";
+      } else {
+        echo "<td>" . $record["grade"] . "</td>";
       }
     } else {
       echo "<td>" . $record[$category] . "</td>";
@@ -273,6 +278,9 @@ function testimonial_php() {
     // role
     if (isset($_POST['form_role'])) {
       $role = filter_input(INPUT_POST, "form_role", FILTER_SANITIZE_STRING);
+      if($role != 'Parent' || $role != "Student"){
+        $valid_role = FALSE;
+      }
       $valid_role = TRUE;
     } else {
       $valid_role = FALSE;
@@ -281,8 +289,7 @@ function testimonial_php() {
     // name
     if( !isset($_POST['anonymous']) ){
       $user_id = $current_user['id'];
-    }
-    else{
+    } else {
       $user_id = 0;
     }
 
