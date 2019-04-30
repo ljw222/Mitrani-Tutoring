@@ -176,7 +176,11 @@ if (isset($_POST['reset-sortby'])) {
           } else {
             $selected = "";
           }
-          echo "<option value='" . $grade["grade"] . "' " . $selected . ">" . $grade["grade"] . "</option>";
+          if ($grade["grade"] == 0) { // Pre-K show text, not number
+            echo "<option value='" . $grade["grade"] . "' " . $selected . ">Pre-K</option>";
+          } else {
+            echo "<option value='" . $grade["grade"] . "' " . $selected . ">" . $grade["grade"] . "</option>";
+          }
         }
         ?>
       </select>
