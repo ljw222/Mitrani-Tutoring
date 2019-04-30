@@ -5,16 +5,13 @@ include("includes/init.php");
 
 //id of the testimonial
 if (isset($_GET['id'])) {
-    $single_testimony_id = $_GET['id'];
-    $single_testimony_id = intval($single_testimony_id);
+    $single_testimony_id = intval($_GET['id']);
 }
 
 //get the user id of the person who wrote the testimonial
 $sql = "SELECT testimonials.user_id FROM testimonials WHERE testimonials.id = $single_testimony_id;";
 $result = exec_sql_query($db, $sql, $params);
-$id_of_author = $result->fetchAll();
-$id_of_author = intval($id_of_author[0][0]);
-
+$id_of_author = intval($result->fetchAll()[0][0]);
 
 
 $sql = "SELECT testimonials.testimonial, users.first_name, users.last_name, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE testimonials.id = :id";
@@ -55,19 +52,23 @@ if (count($records) > 0) {
                 <p>-</p>
                 <div>
                     <?php
-                    if ($record["role"] == "Parent" && $single_testimony_id != 0) {
+                    // role and name
+                    if ($record["role"] == "Parent" && $id_of_author != 0) {
                         echo "<p><em><strong>" . $record["role"] . " of " . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
-                    } else if ($record["role"] != "Parent" && $single_testimony_id != 0) {
+                    } else if ($record["role"] != "Parent" && $id_of_author != 0) {
                         echo "<p><em><strong>" . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
                     } else {
                         echo "<p><em><strong>" . "Anonymous" . "</strong></em></p>";
                     }
+                    // rating
                     echo print_stars($record["rating"]);
+                    // grade
                     if ($record["grade"] == 0) {
                         echo "<p><em>Pre-K</em></p>";
                     } elseif ($record["grade"] != NULL) {
                         echo "<p><em>Grade " . $record["grade"] . "</em></p>";
                     }
+                    // date
                     echo "<p><em>" . $record["date"] . "</em></p>";
                     ?>
                 </div>

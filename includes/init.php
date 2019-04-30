@@ -206,15 +206,11 @@ function print_record($record) {
       echo print_stars($record["rating"]);
       echo "</td>";
     } elseif ($category == "testimonial") {
-      // if( $record['id'] != 0 ){
-        if (strlen($record["testimonial"]) > 90) { // if more than 90 characters, show part...
-          echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"])) . "'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
-        } else { // if less than 90 characters, show full
-          echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"])) . "'>" . substr($record["testimonial"], 0, 90) . "</a></td>";
-        }
-      // } else {
-      //   echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => 0))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
-      // }
+      if (strlen($record["testimonial"]) > 90) { // if more than 90 characters, show part...
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"])) . "'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+      } else { // if less than 90 characters, show full
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"])) . "'>" . substr($record["testimonial"], 0, 90) . "</a></td>";
+      }
     } elseif ($category == "grade") {
       if ($record["grade"] == 0) { // Pre-K show text not 0 num
         echo "<td>Pre-K</td>";
