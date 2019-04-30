@@ -106,19 +106,20 @@ if (isset($_POST['submit_testimony'])) {
 
       // filter input for upload
       $date = format_date($_POST["date"]);
-      echo $date;
-      $start_time = $_POST['start_time']; //filter input
+      $start_time = $_POST['start_time'] - 12; //filter input
 
 //Upload Time of Appointment
 if($upload_info['error']== UPLOAD_ERR_OK) {
-
+  echo 'hello';
       // get id for start time
-      $sql = "SELECT times.id FROM times WHERE time_start = $start_time AND date = $date";
+      $sql = "SELECT times.id FROM times WHERE times.time_start = $start_time AND times.date = $date";
+      echo $start_time;
+      echo $date;
       $params = array();
       $result = exec_sql_query($db, $sql, $params)->fetchAll();
   $sql = "INSERT INTO 'appointments' (time_id, user_id) VALUES (:time_id, :user_id);";
   $params = array(
-     ':time_id' => $result,
+     ':time_id' => $result[0],
      ':user_id' => $current_user['id']
   );
   $result = exec_sql_query($db, $sql, $params);
