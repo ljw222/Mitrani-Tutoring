@@ -284,8 +284,7 @@ function testimonial_php() {
     // name
     if( !isset($_POST['anonymous']) ){
       $user_id = $current_user['id'];
-    }
-    else{
+    } else {
       $user_id = 0;
     }
 
