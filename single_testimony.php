@@ -63,7 +63,9 @@ if (count($records) > 0) {
                         echo "<p><em><strong>" . "Anonymous" . "</strong></em></p>";
                     }
                     echo print_stars($record["rating"]);
-                    echo "<p><em>Grade " . $record["grade"] . "</em></p>";
+                    if(!$record["grade"] == NULL){
+                        echo "<p><em>Grade " . $record["grade"] . "</em></p>";
+                    }
                     echo "<p><em>" . $record["date"] . "</em></p>";
                     ?>
                 </div>

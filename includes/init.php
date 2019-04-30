@@ -273,6 +273,9 @@ function testimonial_php() {
     // role
     if (isset($_POST['form_role'])) {
       $role = filter_input(INPUT_POST, "form_role", FILTER_SANITIZE_STRING);
+      if($role != 'Parent' || $role != "Student"){
+        $valid_role = FALSE;
+      }
       $valid_role = TRUE;
     } else {
       $valid_role = FALSE;

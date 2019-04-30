@@ -6,10 +6,10 @@ BEGIN TRANSACTION;
 CREATE TABLE users (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    password TEXT,
     first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    grade INTEGER NOT NULL
+    last_name TEXT,
+    grade INTEGER
 );
 
 -- Sessions Table
@@ -67,6 +67,9 @@ CREATE TABLE testimonials (
 -- TODO: FOR HASHED PASSWORDS, LEAVE A COMMENT WITH THE PLAIN TEXT PASSWORD!
 
 --Users Table
+INSERT INTO users (id,username,first_name) VALUES (0, 'anonymous',"Anonymous"); --password: user2
+
+
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (1, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2); --password: user1
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11); --password: user2
 
@@ -84,7 +87,7 @@ INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30
     --appointment for Fred (user1) on 4/29 at 3:30pm
 INSERT INTO appointments (id,time_id,user_id) VALUES (1, 2, 1);
     --appointment for Fred (user1) on 4/30 at 3pm
-INSERT INTO appointments (id,time_id,user_id) VALUES (2, 7, 1);
+INSERT INTO appointments (id,time_id,user_id) VALUES (2, 4, 1);
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
