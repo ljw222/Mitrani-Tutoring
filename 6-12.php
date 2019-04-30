@@ -46,7 +46,7 @@ if (isset($_POST['submit_testimony'])) {
       include("includes/testimonial_form.php");
     } else {
       echo "<h2>Curious what other tutees have to say?</h2>";
-      echo "<p class='link-testimony'><a href='testimonials.php'>Check out the testimonials from 6th - 12th grade students and parents.</a></p>";
+      echo "<p class='link-testimony'><a href='testimonials.php?" . http_build_query(array('grade_filter' => array(6, 7, 8, 9, 10, 11, 12))) . "#testimonial_table'>Check out the testimonials from 6th - 12th grade students and parents.</a></p>";
     }; ?>
   </div>
 

@@ -68,10 +68,9 @@ CREATE TABLE testimonials (
 
 --Users Table
 INSERT INTO users (id,username,first_name) VALUES (0, 'anonymous',"Anonymous"); --password: user2
-
-
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (1, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2); --password: user1
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11); --password: user2
+INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (3, 'user3', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Tim","Lee",0); --password: user1 *TO CHANGE*
 
 --Times Table
     --right now just info for 4/29 from 3pm-6pm

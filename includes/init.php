@@ -212,6 +212,12 @@ function print_record($record) {
       else{
         echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => 0))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
       }
+    } elseif ($category == "grade") {
+      if ($record["grade"] == 0) {
+        echo "<td>Pre-K</td>";
+      } else {
+        echo "<td>" . $record["grade"] . "</td>";
+      }
     } else {
       echo "<td>" . $record[$category] . "</td>";
     }

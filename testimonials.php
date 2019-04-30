@@ -5,7 +5,7 @@ include("includes/init.php");
 
 //Delete testimonial
 $deleted_test = FALSE;
-if( isset($_POST['delete_testimonial']) ){
+if (isset($_POST['delete_testimonial'])) {
   $testimonial_to_delete = intval($_GET['testimonial_to_delete']);
   $sql = "DELETE FROM testimonials WHERE id = :testimonial_to_delete;";
   $params = array(
@@ -21,6 +21,32 @@ if (isset($_POST['submit_testimony'])) {
 }
 
 $error_messages = array();
+$filter_messages = array();
+
+// filter by grades: Pre-K - 5 OR 6-12
+if (isset($_GET['grade_filter'])) {
+  $grade_filter = $_GET['grade_filter'];
+  $grade_filter_list = array();
+  foreach ($grade_filter as $grade) {
+    array_push($grade_filter_list, "users.grade = $grade");
+  }
+  $grade_filter_str = implode(" OR ", $grade_filter_list);
+  $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $grade_filter_str";
+  $result = exec_sql_query($db, $sql, $params = array());
+  if ($result) {
+    $records = $result->fetchAll();
+    if (count($records) > 0) { // if there are records
+      $ready_to_show = TRUE;
+      if ($grade_filter == [0, 1, 2, 3, 4, 5]) {
+        array_push($filter_messages, "Testimonials from Pre-K - 5th grades");
+      } elseif ($grade_filter == [6, 7, 8, 9, 10, 11, 12]) {
+        array_push($filter_messages, "Testimonials from 6th - 12th grades");
+      }
+    } else {
+      $ready_to_show = FALSE;
+    }
+  }
+}
 
 if (isset($_POST["submit-sortby"])) {
   $ready_to_show = FALSE;
@@ -66,7 +92,7 @@ if (isset($_POST["submit-sortby"])) {
         $ready_to_show = TRUE;
       } else {
         $ready_to_show = FALSE;
-        array_push($error_messages, "Sorry, none of the testimonials matched your request. Please adjust the constraints and try again.");
+        array_push($error_messages, "Sorry, none of the testimonials matched your sort-by request. Please adjust the constraints and try again.");
       }
     }
   } else { // show all
@@ -81,7 +107,6 @@ if (isset($_POST["submit-sortby"])) {
       }
     }
   }
-
 }
 
 if (isset($_POST['reset-sortby'])) {
@@ -196,17 +221,20 @@ if (isset($_POST['reset-sortby'])) {
     </form>
 
     <?php
-    if ($deleted_test){
+    if ($deleted_test) {
       echo "<p class='success'>Appointment successfully deleted!</p>";
     }
 
     foreach ($error_messages as $error_message) {
       echo "<p class='error'>" . $error_message . "</p>";
     }
+    foreach ($filter_messages as $filter_message) {
+      echo "<p class='filter_message'>" . $filter_message . "</p>";
+    }
 
     if (isset($ready_to_show) && $ready_to_show) {
       ?>
-      <div class="table-div">
+      <div class="table-div" id="testimonial_table">
         <table>
           <tr>
             <th>Testimonial</th>
@@ -230,7 +258,7 @@ if (isset($_POST['reset-sortby'])) {
       $records = $result->fetchAll();
       if (count($records) > 0) { // if there are records
         ?>
-          <div class="table-div">
+          <div class="table-div" id="testimonial_table">
             <table>
               <tr>
                 <th>Testimonial</th>
