@@ -106,24 +106,34 @@ if (isset($_POST['submit_testimony'])) {
 
       // filter input for upload
       $date = format_date($_POST["date"]);
-      $start_time = $_POST['start_time'] - 12; //filter input
+      $start_time = $_POST['start_time']; //filter input
 
 //Upload Time of Appointment
 if($upload_info['error']== UPLOAD_ERR_OK) {
-  echo 'hello';
+  //echo 'hello';
       // get id for start time
-      $sql = "SELECT times.id FROM times WHERE times.time_start = $start_time AND times.date = $date";
+      $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
       echo $start_time;
       echo $date;
       $params = array();
       $result = exec_sql_query($db, $sql, $params)->fetchAll();
+      echo $result[0];
+      echo $db->lastInsertId("id");
+      var_dump(intval($result[0]));
   $sql = "INSERT INTO 'appointments' (time_id, user_id) VALUES (:time_id, :user_id);";
   $params = array(
-     ':time_id' => $result[0],
+     ':time_id' => intval($result[0]),
      ':user_id' => $current_user['id']
   );
   $result = exec_sql_query($db, $sql, $params);
 }
+// check for each subject that has been checked
+// if (isset($_POST['math'])){
+//   $new_id =$db->lastInsertId("id");
+//   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 1);";
+//   $params = array();
+//   $result = exec_sql_query($db, $sql, $params);
+// }
     }
     ?>
     <!-- Appointment Form -->
