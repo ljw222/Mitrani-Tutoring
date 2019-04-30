@@ -123,7 +123,7 @@ function find_user($user_id) {
     if ($records) {
         return $records[0];
     }
-    return NULL;
+    return 'Anonymous';
 }
 
 //finds the session with the given session id
@@ -210,7 +210,7 @@ function print_record($record) {
         echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
       }
       else{
-        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => 0))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
       }
 
     } else {
@@ -279,13 +279,14 @@ function testimonial_php() {
       $valid_role = FALSE;
     }
 
+    // name
+    if( !isset($_POST['anonymous']) ){
+      $user_id = $current_user['id'];
+    }
+    else{
+      $user_id = 0;
+    }
     if ($valid_testimonial && $valid_rating && $valid_role) { // all valid
-      if( !isset($_POST['anonymous']) ){
-        $user_id = $current_user['id'];
-      }
-      else{
-        $user_id = 0;
-      }
       $date = date("Y");
       // insert into testimonials
       $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id) VALUES (:testimonial, :rating, :date, :role, :user_id)";

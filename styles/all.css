@@ -479,6 +479,10 @@ form .text_label{
     margin-right: auto;
 }
 
+#testimonial_form input{
+    margin-left: 0;
+}
+
 /* STUDENT CENTER FORM */
 form .required{
     color: red;
@@ -497,11 +501,12 @@ form .text_label{
 form .form_label{
     display: inline-flex;
     text-align: right;
-    width: 100px;
+    width: 150px;
     margin-bottom: 10px;
     justify-content: flex-end;
     align-items: flex-start;
     margin-right: 20px;
+    padding-right: 0;
     /* text-align: center; */
     /* margin-left: 50%; */
 }
@@ -516,6 +521,16 @@ form .form_label{
     margin-left: 50%;
 } */
 
+/* LOGIN FORM */
+#login_form .text_label{
+    display: inline-flex;
+    text-align: right;
+    width: 100px;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-right: 20px;
+}
 
 
 /* FOOTER */
