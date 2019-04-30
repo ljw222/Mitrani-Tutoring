@@ -443,6 +443,11 @@ form .text_label{
     margin: 5px;
 }
 
+.delete_button{
+    display: flex;
+    justify-content: center;
+}
+
 /* TESTIMONIALS FORM */
 #testimonial_form .required {
     color: red;
@@ -511,16 +516,6 @@ form .form_label{
     /* margin-left: 50%; */
 }
 
-/* form li{
-    width: 100%;
-    text-align: center;
-} */
-
-/* form div .form_label{
-    text-align: center;
-    margin-left: 50%;
-} */
-
 /* LOGIN FORM */
 #login_form .text_label{
     display: inline-flex;
@@ -531,6 +526,7 @@ form .form_label{
     align-items: flex-start;
     margin-right: 20px;
 }
+
 
 
 /* FOOTER */

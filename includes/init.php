@@ -210,9 +210,8 @@ function print_record($record) {
         echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
       }
       else{
-        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => $record["id"]))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
+        echo "<td class='testimonial-div'><a href='single_testimony.php?" . http_build_query(array('id' => 0))."'>" . substr($record["testimonial"], 0, 90) . "...</a></td>";
       }
-
     } else {
       echo "<td>" . $record[$category] . "</td>";
     }
@@ -286,6 +285,7 @@ function testimonial_php() {
     else{
       $user_id = 0;
     }
+
     if ($valid_testimonial && $valid_rating && $valid_role) { // all valid
       $date = date("Y");
       // insert into testimonials
