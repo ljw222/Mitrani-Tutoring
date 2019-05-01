@@ -3,6 +3,42 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
+//Delete appointment
+$deleted_appt = FALSE;
+if (isset($_POST['cancel_appointment'])) {
+  $appt_to_delete = intval($_GET['appt_to_delete']);
+  //Modify times table to show the time is now available
+    //get id of time slot
+  $sql = "SELECT time_id FROM appointments WHERE id = :appt_to_delete;";
+  $params = array(
+    ':appt_to_delete' => $appt_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params)->fetchAll();
+  $time_id = $result[0][0];
+
+  $sql = "UPDATE times SET available = 1 WHERE id = :time_id";
+  $params = array(
+    ':time_id' => $time_id
+  );
+  $result = exec_sql_query($db, $sql, $params);
+
+  //Delete from appointmnets table
+  $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
+  $params = array(
+    ':appt_to_delete' => $appt_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params);
+  //Delete from appointment_subjects table
+  $sql = "DELETE FROM appointment_subjects WHERE appointment_id = :appt_to_delete;";
+  $params = array(
+    ':appt_to_delete' => $appt_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params);
+  //cancel appt complete
+  $deleted_appt = TRUE;
+}
+
+
 //re-format date input
 function format_date($date) {
   $pieces = explode("-", $date);
@@ -165,6 +201,11 @@ if (isset($_POST['submit_testimony'])) {
   }
   ?>
     <div class="body-div" id="existing_appointments_div">
+      <?php
+        if ($deleted_appt) {
+          echo "<p class='success'>Appointment successfully cancelled!</p>";
+        }
+      ?>
       <h2>Existing appointments</h2>
       <?php
       //gets date and time

@@ -91,6 +91,7 @@ INSERT INTO appointments (id,time_id,user_id) VALUES (1, 2, 1);
     --appointment for Fred (user1) on 4/30 at 3pm
 INSERT INTO appointments (id,time_id,user_id) VALUES (2, 4, 1);
 
+
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
 INSERT INTO subjects (id, subject) VALUES (2, "Math");
