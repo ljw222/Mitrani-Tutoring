@@ -123,7 +123,7 @@ function find_user($user_id) {
     if ($records) {
         return $records[0];
     }
-    return 'Anonymous';
+    // return 'Anonymous';
 }
 
 //finds the session with the given session id
@@ -286,23 +286,29 @@ function testimonial_php() {
       $valid_role = FALSE;
     }
 
-    // name
+    //name
     if( !isset($_POST['anonymous']) ){
       $user_id = $current_user['id'];
     } else {
-      $user_id = 0;
+      $user_id = $current_user['id'];
     }
 
     if ($valid_testimonial && $valid_rating && $valid_role) { // all valid
+      if( !isset($_POST['anonymous']) ){
+        $anonymous = 0;
+      } else {
+        $anonymous = 1;
+      }
       $date = date("Y");
       // insert into testimonials
-      $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id) VALUES (:testimonial, :rating, :date, :role, :user_id)";
+      $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id, anonymous) VALUES (:testimonial, :rating, :date, :role, :user_id, :anonymous)";
       $params = array(
         ':testimonial' => $testimonial,
         ':rating' => $rating,
         ':date' => $date,
         ':role' => $role,
-        ':user_id' => $user_id
+        ':user_id' => $user_id,
+        ':anonymous' => $anonymous
       );
       $results = exec_sql_query($db, $sql, $params);
       if ($results) { // successful exec

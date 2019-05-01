@@ -3,10 +3,47 @@
    include("includes/init.php");
    // DO NOT REMOVE!
 
-   //re-format date input
-   function format_date($date) {
-     $pieces = explode("-", $date);
-     return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
+//Delete appointment
+$deleted_appt = FALSE;
+if (isset($_POST['cancel_appointment'])) {
+  $appt_to_delete = intval($_GET['appt_to_delete']);
+  //Modify times table to show the time is now available
+    //get id of time slot
+  $sql = "SELECT time_id FROM appointments WHERE id = :appt_to_delete;";
+  $params = array(
+    ':appt_to_delete' => $appt_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params)->fetchAll();
+  $time_id = $result[0][0];
+
+  $sql = "UPDATE times SET available = 1 WHERE id = :time_id";
+  $params = array(
+    ':time_id' => $time_id
+  );
+  $result = exec_sql_query($db, $sql, $params);
+
+  //Delete from appointmnets table
+  $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
+  $params = array(
+    ':appt_to_delete' => $appt_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params);
+  //Delete from appointment_subjects table
+  $sql = "DELETE FROM appointment_subjects WHERE appointment_id = :appt_to_delete;";
+  $params = array(
+    ':appt_to_delete' => $appt_to_delete
+  );
+  $result = exec_sql_query($db, $sql, $params);
+  //cancel appt complete
+  $deleted_appt = TRUE;
+}
+
+
+//re-format date input
+function format_date($date) {
+  $pieces = explode("-", $date);
+  return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
+
 
    }
 
@@ -62,6 +99,45 @@
       <?php
          } else {
            if (isset($_POST["submit"]) && is_user_logged_in()) {
+
+        echo "<h2>Welcome Back, " . htmlspecialchars($current_user['first_name']) . " " . htmlspecialchars($current_user['last_name']) . "!</h2>";
+        echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment.</p>";
+      } else {
+        echo "<h2>What is the Student Center?</h2>";
+        echo "<p>The Mitrani Tutoring Student Center is a place for students and parents to track and schedule tutoring sessions with Laurie. Sign in to access these exclusive tools!</p>";
+      }
+   }
+      ?>
+    </div>
+    <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
+  </div>
+  <?php
+  if (!is_user_logged_in()) { ?>
+    <div class="body-div">
+      <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+      <?php
+        foreach ($session_messages as $session_messages) {
+          echo "<p class='error'>" . $session_messages . "</p>";
+        }
+      ?>
+        <ul>
+          <li>
+            <label for="username" class="text_label">Username:</label>
+            <input id="username" type="text" name="username" />
+          </li>
+          <li>
+            <label for="password" class="text_label">Password:</label>
+            <input id="password" type="password" name="password" />
+          </li>
+          <li>
+            <button name="login" type="submit">Sign In</button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  <?php
+} else {
+  if (isset($_POST["submit"]) && is_user_logged_in()) {
 
              // filter input for upload
              $date = format_date($_POST["date"]);
@@ -158,28 +234,35 @@
 
            }
 
-         }
-           ?>
-      <div class="body-div" id="existing_appointments_div">
-         <h2>Existing appointments</h2>
-         <?php
-            //gets date and time
-            $current_username = $current_user['username'];
-            $sql = "SELECT times.id, times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id IN (SELECT appointments.time_id FROM appointments JOIN users ON appointments.user_id = (SELECT id FROM users WHERE users.username = '$current_username'));";
-            $result = exec_sql_query($db, $sql, $params = array());
-            //gets subjects
-            //get appoinment ids
-            $appt_ids = "SELECT DISTINCT appointments.id FROM appointments JOIN users ON user_id = (SELECT id FROM users WHERE users.username = '$current_username');";
-            //get subject_ids from appointment_subjects
-            $subj_ids = "SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id IN $appt_ids;";
-            //get subject names
-            $subjects = "SELECT subjects.subject FROM subjects WHERE subjects.id IN $subj_ids;";
-            // $result_subjects = exec_sql_query($db, $subjects, $params = array());
-            if ($result) {
-              $records = $result->fetchAll();
-              if (count($records) > 0) { // if there are records
-                ?>
-         <div class="table-div">
+
+  }
+  ?>
+    <div class="body-div" id="existing_appointments_div">
+      <?php
+        if ($deleted_appt) {
+          echo "<p class='success'>Appointment successfully cancelled!</p>";
+        }
+      ?>
+      <h2>Existing appointments</h2>
+      <?php
+      //gets date and time
+      $current_username = $current_user['username'];
+      $sql = "SELECT times.id, times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id IN (SELECT appointments.time_id FROM appointments JOIN users ON appointments.user_id = (SELECT id FROM users WHERE users.username = '$current_username'));";
+      $result = exec_sql_query($db, $sql, $params = array());
+      //gets subjects
+      //get appoinment ids
+      $appt_ids = "SELECT DISTINCT appointments.id FROM appointments JOIN users ON user_id = (SELECT id FROM users WHERE users.username = '$current_username');";
+      //get subject_ids from appointment_subjects
+      $subj_ids = "SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id IN $appt_ids;";
+      //get subject names
+      $subjects = "SELECT subjects.subject FROM subjects WHERE subjects.id IN $subj_ids;";
+      // $result_subjects = exec_sql_query($db, $subjects, $params = array());
+      if ($result) {
+        $records = $result->fetchAll();
+        if (count($records) > 0) { // if there are records
+          ?>
+          <div class="table-div">
+
             <table>
                <tr>
                   <th>Date</th>

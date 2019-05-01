@@ -24,7 +24,7 @@ if (isset($_POST['submit_testimony'])) {
     <h1>Pre-K - 5th Grade</h1>
     <div>
       <h2>Our services</h2>
-      <p>Blurb.</p>
+      <p>Use of electronic and print materials used include Explode the Code, Recipe for Reading, Lindamood-Bell programs for reading decoding and reading comprehension, Project-Based Learning, Writing Workshop, consultation with teachers and school administrators, data-driven instruction, standardized test prep.</p>
     </div>
     <!-- <p class="source">Source: <a href="https://www.pexels.com/photo/girls-on-desk-looking-at-notebook-159823/">Pexels</a></p> -->
     <p class="source">Source: <a href="https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/">Pexels</a></p>

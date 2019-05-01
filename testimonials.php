@@ -226,7 +226,7 @@ if (isset($_POST['reset-sortby'])) {
 
     <?php
     if ($deleted_test) {
-      echo "<p class='success'>Appointment successfully deleted!</p>";
+      echo "<p class='success'>Testimonial successfully deleted!</p>";
     }
 
     foreach ($error_messages as $error_message) {

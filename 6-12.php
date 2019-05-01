@@ -24,7 +24,7 @@ if (isset($_POST['submit_testimony'])) {
     <h1>6th - 12th Grade</h1>
     <div>
       <h2>Our services</h2>
-      <p>Blurb.</p>
+      <p>Report and research paper assistance, study skills and organizational strategies, standardized test prep.</p>
     </div>
     <p class="source">Source: <a href="https://burst.shopify.com/photos/thoughtful-students-talk?q=education">Burst</a></p>
   </div>

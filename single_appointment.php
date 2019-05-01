@@ -2,7 +2,6 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
-
 if (isset($_GET['time_id'])) {
     $appt_time_id = $_GET['time_id'];
 }
@@ -70,9 +69,30 @@ if (isset($_POST["choose_field_submit"])) {
     }
 }
 
-if (isset($_POST['edit_appt_submit'])) {
-    // CODE FOR UPDATING APPOINTMENT
+//UPDATING APPOINTMENT//
+
+    //edit date
+if( isset($_POST['edit_appt_date']) ){}
+
+    //edit times
+if( isset($_POST['edit_appt_times']) ){}
+
+    //edit times
+if( isset($_POST['edit_appt_subjects']) ){}
+
+    //edit times
+if( isset($_POST['edit_appt_comment']) ){
+
 }
+
+
+
+
+
+
+// if (isset($_POST['edit_appt_submit'])) {
+//     // CODE FOR UPDATING APPOINTMENT
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,6 +167,7 @@ if (isset($_POST['edit_appt_submit'])) {
                         <label for="change_date">Date:</label>
                     </div>
                     <input class="input_box" id="change_date" type="date" name="change_date" />
+                    <button type="submit" name="edit_appt_date">Submit</button>
                     <?php
                 } elseif ($show_time) {
                     ?>
@@ -162,6 +183,7 @@ if (isset($_POST['edit_appt_submit'])) {
                         </div>
                         <input class="input_box" type="time" id="change_end_time" name="change_end_time" min="9:00" max="17:00">
                     </div>
+                    <button type="submit" name="edit_appt_times">Submit</button>
                     <?php
                 } elseif ($show_subjects) {
                     ?>
@@ -176,6 +198,7 @@ if (isset($_POST['edit_appt_submit'])) {
                     <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
                     <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
                     <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
+                    <button type="submit" name="edit_appt_subjects">Submit</button>
                     <?php
                 } elseif ($show_comment) {
                     ?>
@@ -185,10 +208,11 @@ if (isset($_POST['edit_appt_submit'])) {
                         </div>
                         <textarea rows=5 cols=40 name="change_comment" id="change_comment" ></textarea>
                     </div>
+                    <button type="submit" name="edit_appt_comment">Submit</button>
                     <?php
                 }
                 ?>
-                <button type="submit" name="edit_appt_submit">Submit</button>
+                <!-- <button type="submit" name="edit_appt_submit">Submit</button> -->
             </form>
         <?php
     }
@@ -197,8 +221,8 @@ if (isset($_POST['edit_appt_submit'])) {
 
     <div class="body-div">
         <!-- INSERT PHP ABOUT CURRENT PAGE ID FOR ACTION -->
-        <form id="cancel_appt_form" action="" method="POST">
-            <button name="cancel_appointmnt" type="submit">Cancel Appointment</button>
+        <form id="cancel_appt_form" action="<?php echo "studentcenter.php?" . http_build_query(array('appt_to_delete' => $appt_id)); ?>" method="POST" enctype="multipart/form-data">
+            <button name="cancel_appointment" type="submit">Cancel Appointment</button>
         </form>
     </div>
 
