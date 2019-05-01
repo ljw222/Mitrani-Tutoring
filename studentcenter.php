@@ -77,21 +77,6 @@ function format_date($date) {
          </div>
          <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
       </div>
-      <?php
-         if (!is_user_logged_in()) { ?>
-
-      <?php
-         } else {
-           if (isset($_POST["submit"]) && is_user_logged_in()) {
-
-        echo "<h2>Welcome Back, " . htmlspecialchars($current_user['first_name']) . " " . htmlspecialchars($current_user['last_name']) . "!</h2>";
-        echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment.</p>";
-      } else {
-        echo "<h2>What is the Student Center?</h2>";
-        echo "<p>The Mitrani Tutoring Student Center is a place for students and parents to track and schedule tutoring sessions with Laurie. Sign in to access these exclusive tools!</p>";
-      }
-   }
-      ?>
     </div>
     <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
   </div>
@@ -122,95 +107,90 @@ function format_date($date) {
   <?php
 } else {
   if (isset($_POST["submit"]) && is_user_logged_in()) {
+    // filter input for upload
+    $date = format_date($_POST["date"]);
+    $start_time = $_POST['start_time']; //filter input
+    $comment = $_POST['comment'];
+    //Upload Time of Appointment
+    if($upload_info['error']== UPLOAD_ERR_OK) {
+      // get id for start time
+      $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
+      $params = array();
+      $result = exec_sql_query($db, $sql, $params)->fetchAll();
+      $sql = "INSERT INTO 'appointments' (time_id, user_id, comment) VALUES (:time_id, :user_id, :comment);";
+      $params = array(
+        ':time_id' => intval($result[0]),
+        ':user_id' => $current_user['id'],
+        ':comment' => $comment
+        );
+      $result = exec_sql_query($db, $sql, $params);
 
-             // filter input for upload
-             $date = format_date($_POST["date"]);
-             $start_time = $_POST['start_time']; //filter input
-             $comment = $_POST['comment'];
-           //Upload Time of Appointment
-           if($upload_info['error']== UPLOAD_ERR_OK) {
-             // get id for start time
-             $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
-             $params = array();
-             $result = exec_sql_query($db, $sql, $params)->fetchAll();
-               $sql = "INSERT INTO 'appointments' (time_id, user_id, comment) VALUES (:time_id, :user_id, :comment);";
-               $params = array(
-                 ':time_id' => intval($result[0]),
-                 ':user_id' => $current_user['id'],
-                 ':comment' => $comment
-               );
-               $result = exec_sql_query($db, $sql, $params);
+      // check for each subject that has been checked and insert respective subject id
+      $new_id =intval($db->lastInsertId("id"));
+      // insert reading id
+      if (isset($_POST['reading'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 1);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-             // check for each subject that has been checked and insert respective subject id
+      // insert reading math
+      if (isset($_POST['math'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 2);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-               $new_id =intval($db->lastInsertId("id"));
-             // insert reading id
-             if (isset($_POST['reading'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 1);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
+      // insert writing
+      if (isset($_POST['writing'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 3);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-              // insert reading math
-              if (isset($_POST['math'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 2);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
+      // insert organization
+      if (isset($_POST['organization'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 4);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-             // insert writing
-             if (isset($_POST['writing'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 3);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
+      // insert study skills
+      if (isset($_POST['study'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 5);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-             // insert organization
-             if (isset($_POST['organization'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 4);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
+      // insert test
+      if (isset($_POST['test'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 6);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-             // insert study skills
-             if (isset($_POST['study'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 5);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
+      // insert homework
+      if (isset($_POST['homework'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 7);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
 
-             // insert test
-             if (isset($_POST['test'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 6);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
-
-             // insert homework
-             if (isset($_POST['homework'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 7);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
-
-             // insert project
-             if (isset($_POST['project'])){
-               // $new_id =$db->lastInsertId("id");
-               $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 8);";
-               $params = array();
-               $result = exec_sql_query($db, $sql, $params);
-             }
-
-           }
-
-
+      // insert project
+      if (isset($_POST['project'])){
+        // $new_id =$db->lastInsertId("id");
+        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 8);";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+      }
+    }
   }
   ?>
     <div class="body-div" id="existing_appointments_div">
