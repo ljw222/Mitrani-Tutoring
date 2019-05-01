@@ -23,7 +23,8 @@ CREATE TABLE sessions (
 CREATE TABLE appointments (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     time_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL
+    user_id INTEGER NOT NULL,
+    comment TEXT
 );
 
 --Times Table

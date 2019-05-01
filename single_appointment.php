@@ -23,6 +23,12 @@ if (isset($_GET['comment'])) {
     $comment = $_GET['comment'];
 }
 
+$sql = "SELECT appointments.comment FROM 'appointments' WHERE appointments.time_id = '$appt_time_id'";
+var_dump($appt_time_id);
+$params = array();
+$comment = exec_sql_query($db, $sql, $params)->fetchAll();
+$comment = $comment[0];
+
 function duration($time_start, $time_end)
 {
     $timesplit_start = explode(':', $time_start);
@@ -92,6 +98,8 @@ if (isset($_POST['edit_appt_submit'])) {
         "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = '$appt_id');",
         array()
     )->fetchAll();
+
+    //var_dump($comment);
     ?>
 
     <div class="top-page-div" id="one-appointment-div">
@@ -103,7 +111,8 @@ if (isset($_POST['edit_appt_submit'])) {
         <p>Date: <?php echo $appt_date; ?> </p>
         <p>Time: <?php echo $appt_start . '-' . $appt_end . " " . $appt_half; ?> </p>
         <p>Subject(s): <?php print_subjects($subjects); ?> </p>
-        <p>Comment??: <?php echo duration($appt_start, $appt_end) . " Minutes"; ?> </p>
+        <p>Duration: <?php echo duration($appt_start, $appt_end) . " Minutes"; ?> </p>
+        <p>Comments: <?php echo $comment[0]; ?> </p>
     </div>
 
     <div class="body-div">
