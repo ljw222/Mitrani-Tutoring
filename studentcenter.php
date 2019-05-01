@@ -79,23 +79,7 @@ function format_date($date) {
       </div>
       <?php
          if (!is_user_logged_in()) { ?>
-      <div class="body-div">
-         <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-            <ul>
-               <li>
-                  <label for="username" class="text_label">Username:</label>
-                  <input id="username" type="text" name="username" />
-               </li>
-               <li>
-                  <label for="password" class="text_label">Password:</label>
-                  <input id="password" type="password" name="password" />
-               </li>
-               <li>
-                  <button name="login" type="submit">Sign In</button>
-               </li>
-            </ul>
-         </form>
-      </div>
+
       <?php
          } else {
            if (isset($_POST["submit"]) && is_user_logged_in()) {
@@ -145,17 +129,10 @@ function format_date($date) {
              $comment = $_POST['comment'];
            //Upload Time of Appointment
            if($upload_info['error']== UPLOAD_ERR_OK) {
-             //echo 'hello';
              // get id for start time
              $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
-             //echo $start_time;
-             //echo $date;
              $params = array();
              $result = exec_sql_query($db, $sql, $params)->fetchAll();
-             //echo $result[0];
-             //echo $db->lastInsertId("id");
-             //var_dump(intval($result[0]));
-             var_dump($comment);
                $sql = "INSERT INTO 'appointments' (time_id, user_id, comment) VALUES (:time_id, :user_id, :comment);";
                $params = array(
                  ':time_id' => intval($result[0]),
@@ -167,7 +144,6 @@ function format_date($date) {
              // check for each subject that has been checked and insert respective subject id
 
                $new_id =intval($db->lastInsertId("id"));
-               var_dump($new_id);
              // insert reading id
              if (isset($_POST['reading'])){
                // $new_id =$db->lastInsertId("id");
