@@ -47,6 +47,11 @@ if (isset($_POST['submit_testimony'])) {
   if (!is_user_logged_in()) { ?>
     <div class="body-div">
       <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+      <?php
+        foreach ($session_messages as $session_messages) {
+          echo "<p class='error'>" . $session_messages . "</p>";
+        }
+      ?>
         <ul>
           <li>
             <label for="username" class="text_label">Username:</label>
