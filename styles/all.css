@@ -533,6 +533,18 @@ form .form_label{
     margin-bottom: 10px;
 }
 
+/* SINGLE APPOINTMENT */
+#cancel_appointment{
+    display: flex;
+    justify-content: center;
+}
+
+/* what type of styling for submit button for editing a form?  */
+/* #edit_appt_form button{
+    display: block;
+    margin-left: 150px;
+} */
+
 /* LOGIN FORM */
 #login_form .text_label{
     display: inline-flex;

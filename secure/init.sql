@@ -86,6 +86,8 @@ INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "04/29
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
 INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (5, "05/02/2019","15:00","15:30","PM",1); --test
+
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm

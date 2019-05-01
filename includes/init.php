@@ -243,6 +243,12 @@ function print_appt($record) {
   echo "</tr>";
 }
 
+//re-format date input
+function format_date($date) {
+  $pieces = explode("-", $date);
+  return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
+}
+
 $testimonial_error_messages = array();
 $testimonial_success_messages = array();
 

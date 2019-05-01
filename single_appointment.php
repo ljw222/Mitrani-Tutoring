@@ -2,6 +2,7 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
+
 if (isset($_GET['time_id'])) {
     $appt_time_id = $_GET['time_id'];
 }
@@ -17,13 +18,24 @@ if (isset($_GET['end_time'])) {
 if (isset($_GET['half'])) {
     $appt_half = $_GET['half'];
 }
-// COMMENT??
 if (isset($_GET['comment'])) {
     $comment = $_GET['comment'];
 }
 
+    $appointment_id = exec_sql_query(
+        $db,
+        "SELECT appointments.id FROM appointments WHERE appointments.time_id = $appt_time_id;",
+        array()
+    )->fetchAll();
+    $appt_id = $appointment_id[0][0];
+    $subjects = exec_sql_query(
+        $db,
+        "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = '$appt_id');",
+        array()
+    )->fetchAll();
+
+//display comments
 $sql = "SELECT appointments.comment FROM 'appointments' WHERE appointments.time_id = '$appt_time_id'";
-var_dump($appt_time_id);
 $params = array();
 $comment = exec_sql_query($db, $sql, $params)->fetchAll();
 $comment = $comment[0];
@@ -72,27 +84,86 @@ if (isset($_POST["choose_field_submit"])) {
 //UPDATING APPOINTMENT//
 
     //edit date
-if( isset($_POST['edit_appt_date']) ){}
+    if( isset($_POST['edit_appt_date']) ){
+        //find the id of the time slot in the times table
+        $new_date = format_date($_POST['change_date']);
+        $sql = "SELECT id,available FROM times WHERE date = :new_date AND time_start = '$appt_start'";
+        $params = array(
+          ':new_date' => $new_date
+        );
+        $result = exec_sql_query($db, $sql, $params)->fetchAll();
+        //Appointment time and date not available
+        if(!$result){
+            $slot_taken = TRUE;
+        }
+        else{
+          $new_date_id = $result[0][0];
+
+            //if the date is available AND the time slot is available
+            //update appointment. Echo message that the update was successful
+            $new_date_avail = $result[0][1];
+            $appt_time_id = $new_date_avail;
+            if($new_date_avail == 1){
+                //update times table to show old time slot is open now
+                $sql = "UPDATE times SET available =  1 WHERE id = :appt_time_id";
+                $params = array(
+                    ':appt_time_id' => $appt_time_id
+                );
+                $result = exec_sql_query($db, $sql, $params);
+                //update times table to show that new time is taken
+                $sql = "UPDATE times SET available = 0 WHERE id = :new_date_id";
+                $params = array(
+                    ':new_date_id' => $new_date_id
+                );
+                $result = exec_sql_query($db, $sql, $params);
+                //update appt time_id field
+                $sql = "UPDATE appointments SET time_id = :new_date_id WHERE time_id = :appt_time_id";
+                $params = array(
+                    ':new_date_id' => $new_date_id,
+                    ':appt_time_id' => $appt_time_id
+                );
+                $result = exec_sql_query($db, $sql, $params);
+            } else{
+                $slot_taken = TRUE;
+            }
+        }
+    }
 
     //edit times
-if( isset($_POST['edit_appt_times']) ){}
+    if( isset($_POST['edit_appt_times']) ){}
 
-    //edit times
-if( isset($_POST['edit_appt_subjects']) ){}
+    //edit subjects
+    if( isset($_POST['edit_appt_subjects']) ){
+        //delete all entries aka subjects that are tied to this appoinment id
+        $sql = "DELETE FROM appointment_subjects WHERE appointment_id = :appt_id;";
+        $params = array(
+            ':appt_id' => $appt_id
+        );
+        $result = exec_sql_query($db, $sql, $params);
+        // check for each subject that has been checked, insert respective subject id
+        $all_subjects = array(1=>'reading',2=>'math',3=>'writing',4=>'organization',5=>'study',6=>'test',7=>'homework',8=>'project');
+        foreach($all_subjects as $all_subject){
 
-    //edit times
-if( isset($_POST['edit_appt_comment']) ){
+            $subj_id = array_search($all_subject, $all_subjects);
 
-}
+            if (isset($_POST[$all_subject])){
+              $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($appt_id, $subj_id);";
+              $params = array();
+              $result = exec_sql_query($db, $sql, $params);
+            }
+        }
+    }
 
+    //edit comments
+    if( isset($_POST['edit_appt_comment']) ){
+        $new_comment = $_POST['change_comment'];
+        $sql = "UPDATE appointments SET comment = '$new_comment' WHERE id = :appt_id";
+        $params = array(
+            ':appt_id' => $appt_id
+        );
+        $result = exec_sql_query($db, $sql, $params);
+    }
 
-
-
-
-
-// if (isset($_POST['edit_appt_submit'])) {
-//     // CODE FOR UPDATING APPOINTMENT
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,22 +176,7 @@ if( isset($_POST['edit_appt_comment']) ){
 </head>
 
 <body>
-    <?php
-    include("includes/header.php");
-    $appointment_id = exec_sql_query(
-        $db,
-        "SELECT appointments.id FROM appointments WHERE appointments.time_id = $appt_time_id;",
-        array()
-    )->fetchAll();
-    $appt_id = $appointment_id[0][0];
-    $subjects = exec_sql_query(
-        $db,
-        "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = '$appt_id');",
-        array()
-    )->fetchAll();
-
-    //var_dump($comment);
-    ?>
+    <?php include("includes/header.php");?>
 
     <div class="top-page-div" id="one-appointment-div">
         <h1>View Appointment</h1>
@@ -137,6 +193,11 @@ if( isset($_POST['edit_appt_comment']) ){
 
     <div class="body-div">
         <h2>Edit Appointment</h2>
+        <?php
+            if( isset($slot_taken) ){
+                echo "<p class='error'>The $appt_start timeslot on $new_date is taken. </p>";
+            }
+        ?>
         <form id="choose_field_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#choose_field_form" method="POST">
             <label for="field">Choose a field to change:</label>
             <select name="field" id="field" <?php if (isset($_POST['field'])) { echo "class = 'selected'";} ?>>
@@ -155,7 +216,7 @@ if( isset($_POST['edit_appt_comment']) ){
             <button type="submit" name="choose_field_submit">Select</button>
         </form>
         <?php if (isset($_POST["choose_field_submit"])) {
-            ?>
+        ?>
             <form id="edit_appt_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#edit_appt_form" method="POST">
                 <?php
                 // foreach ($fields as $field) {
@@ -191,13 +252,13 @@ if( isset($_POST['edit_appt_comment']) ){
                         <label>Subject(s):</label>
                     </div>
                     <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
-                    <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
-                    <p class="subject"><input type="checkbox" name="writing" value="writing"> Writing</p>
-                    <p class="subject"><input type="checkbox" name="history" value="history"> History</p>
-                    <p class="subject"><input type="checkbox" name="science" value="science"> Science</p>
-                    <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
-                    <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
-                    <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
+                     <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
+                     <p class="subject"><input type="checkbox" name="writing" value="writing"> Writing</p>
+                     <p class="subject"><input type="checkbox" name="homework" value="homework"> Homework Help</p>
+                     <p class="subject"><input type="checkbox" name="project" value="project"> Project Assistance</p>
+                     <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
+                     <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
+                     <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
                     <button type="submit" name="edit_appt_subjects">Submit</button>
                     <?php
                 } elseif ($show_comment) {
@@ -222,7 +283,9 @@ if( isset($_POST['edit_appt_comment']) ){
     <div class="body-div">
         <!-- INSERT PHP ABOUT CURRENT PAGE ID FOR ACTION -->
         <form id="cancel_appt_form" action="<?php echo "studentcenter.php?" . http_build_query(array('appt_to_delete' => $appt_id)); ?>" method="POST" enctype="multipart/form-data">
-            <button name="cancel_appointment" type="submit">Cancel Appointment</button>
+            <div id="cancel_appointment">
+                <button name="cancel_appointment" type="submit">Cancel Appointment</button>
+            </div>
         </form>
     </div>
 
