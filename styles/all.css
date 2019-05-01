@@ -100,6 +100,10 @@ a:hover {
     font-size: 20px;
 }
 
+.no_appt{
+    text-align: center;
+}
+
 .header_ul{
     text-align: center;
     display: flex;
@@ -129,6 +133,7 @@ a:hover {
     font-weight: bold;
     text-transform: uppercase;
 }
+
 
 /* ALL PAGES TOP DIV */
 

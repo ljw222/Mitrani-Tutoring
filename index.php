@@ -40,6 +40,9 @@ include("includes/init.php");
     <h2>What we offer</h2>
     <ul>
       <li>
+        Hours: 9am - 7pm, Sunday-Friday
+      </li>
+      <li>
         Remedial and enrichment services, individually created based on student’s needs and interests
       </li>
       <li>
@@ -52,7 +55,7 @@ include("includes/init.php");
         Regular communication with parents and teachers if requested
       </li>
       <li>
-        Competitive rates
+        Competitive rates — contact for more information
       </li>
     </ul>
   </div>

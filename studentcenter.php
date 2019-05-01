@@ -78,7 +78,7 @@ if (isset($_POST['submit_testimony'])) {
   <?php
   if (!is_user_logged_in()) { ?>
     <div class="body-div">
-      <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+      <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#login_form" method="post">
       <?php
         foreach ($session_messages as $session_messages) {
           echo "<p class='error'>" . $session_messages . "</p>";
@@ -241,13 +241,15 @@ if (isset($_POST['submit_testimony'])) {
             </table>
          </div>
          <?php
-            }
+        } else {
+            echo "<p class='no_appt'>You do not have any scheduled appointments.</p>";
+        }
             } ?>
       </div>
       <!-- Appointment Form -->
       <div class="body-div">
          <div class="form-div">
-            <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
                <ul>
                   <li>
@@ -274,7 +276,7 @@ if (isset($_POST['submit_testimony'])) {
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
-                        <label>Subject:</label>
+                        <label>Subject(s):</label>
                      </div>
                      <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
                      <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
