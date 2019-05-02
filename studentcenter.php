@@ -98,17 +98,6 @@ if (isset($_POST['submit_testimony'])) {
     } else { // AVAILABLE TIME
       $time_is_available = TRUE;
     }
-<<<<<<< HEAD
-
-=======
-    // $available = exec_sql_query($db, $sql, $params)->fetchAll();
-    // $time_is_available = false;
-    // var_dump(intval($available[0]));
-    // if(intval($available[0]) == 1){
-    //     $time_is_available = true;
-    // }
-    // var_dump($time_is_available);
->>>>>>> cc776baffb811e025e3b39cf01c094066609e25a
     //validate form -- messages
     $valid_field = true;
     if ($date == NULL){
