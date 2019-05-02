@@ -602,3 +602,10 @@ form .form_label{
 .hidden{
     display: none;
 }
+.appt_error{
+    text-align: center;
+    color: red;
+    font-style: italic;
+    text-align: center;
+
+}

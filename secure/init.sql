@@ -28,7 +28,8 @@ CREATE TABLE appointments (
     date TEXT NOT NULL,
     time_start TEXT NOT NULL,
     time_end TEXT NOT NULL,
-    half TEXT NOT NULL,
+    -- half TEXT NOT NULL,
+    location TEXT NOT NULL,
     comment TEXT,
     user_id INTEGER NOT NULL,
     location TEXT NOT NULL

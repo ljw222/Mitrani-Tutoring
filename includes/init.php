@@ -225,7 +225,7 @@ function print_record($record) {
 }
 
 function print_appt($record) {
-  $categories = ["date", "time", "subjects"];
+  $categories = ["date", "time", "location", "subjects"];
   echo "<tr>";
   foreach ($categories as $category) {
     if ($category == "date") {
@@ -234,13 +234,40 @@ function print_appt($record) {
       echo "</td>";
     } elseif ($category == "time") {
       echo "<td class='rating-div'>";
-      echo $record["time_start"]. "-". $record["time_end"]. " ". $record['half'];
+      echo date("g:i", strtotime($record["time_start"])). "-". date("g:i a", strtotime($record["time_end"]));
       echo "</td>";
+    } elseif ($category == "location") {
+      echo "<td class='rating-div'>". $record['location']."</td>";
     } else {
-      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record["id"]))."'>" . 'View Appointment' . "</a></td>";
+      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>" . 'View Appointment' . "</a></td>";
     }
   }
   echo "</tr>";
+}
+
+function print_full_location($record) {
+  global $current_user;
+  global $db;
+  if ($record['location'] == "Home") { // home
+    // SQL QUERY FOR USER HOME
+    $loc_sql = "SELECT home FROM users WHERE users.id = :user_id";
+    $params = array(
+      ':user_id' => $current_user['id']
+    );
+    $user_record = exec_sql_query($db, $loc_sql, $params)->fetchAll()[0]; // get first record (should only be 1)
+    $location_full = "Home (" . $user_record['home'] . ")";
+  } elseif ($record['location'] == "School") { // school
+    // SQL QUERY FOR USER SCHOOL
+    $loc_sql = "SELECT school FROM users WHERE users.id = :user_id";
+    $params = array(
+      ':user_id' => $current_user['id']
+    );
+    $user_record = exec_sql_query($db, $loc_sql, $params)->fetchAll()[0]; // get first record (should only be 1)
+    $location_full = "School (" . $user_record['school'] . ")";
+  } elseif ($record['location'] == "Office") { // office
+    $location_full = "Office (301 Arthur Godfrey Rd. Penthouse, Miami Beach, FL 33140)";
+  }
+  return $location_full;
 }
 
 //re-format date input

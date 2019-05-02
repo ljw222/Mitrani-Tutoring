@@ -6,20 +6,7 @@
 $deleted_appt = FALSE;
 if (isset($_POST['cancel_appointment'])) {
   $appt_to_delete = intval($_GET['appt_to_delete']);
-  //Modify times table to show the time is now available
-    //get id of time slot
-  $sql = "SELECT time_id FROM appointments WHERE id = :appt_to_delete;";
-  $params = array(
-    ':appt_to_delete' => $appt_to_delete
-  );
-  $result = exec_sql_query($db, $sql, $params)->fetchAll();
-  $time_id = $result[0][0];
-  $sql = "UPDATE times SET available = 1 WHERE id = :time_id";
-  $params = array(
-    ':time_id' => $time_id
-  );
-  $result = exec_sql_query($db, $sql, $params);
-  //Delete from appointmnets table
+  //Delete from appointments table
   $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
   $params = array(
     ':appt_to_delete' => $appt_to_delete
@@ -34,11 +21,6 @@ if (isset($_POST['cancel_appointment'])) {
   //cancel appt complete
   $deleted_appt = TRUE;
 }
-// //re-format date input
-// function format_date($date) {
-//   $pieces = explode("-", $date);
-//   return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
-// }
 if (isset($_POST['submit_testimony'])) {
    echo testimonial_php();
 }
@@ -98,10 +80,10 @@ if (isset($_POST['submit_testimony'])) {
     // filter input for upload
     $date = format_date($_POST["date"]);
     $time = $_POST['start_time']; //filter input
-    //convert out of military time
-    $start_time = date("h:i", strtotime($time));
+    $start_time = date("G:i", strtotime($time));
+    $end_time = date("G:i",strtotime('+1 hour',strtotime($time)));
+    $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
-    $end_time = date('h:i',strtotime('+1 hour',strtotime($time)));
     // check if given date + time overlaps with any other apptmt start or end time frames
     $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time <= appointments.time_start <= :end_time) OR (:start_time <= appointments.time_end <= :end_time) ";
     $params = array(
@@ -110,9 +92,9 @@ if (isset($_POST['submit_testimony'])) {
       ':end_time' => $end_time
     );
     $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
-    if (count($time_overlap) > 0) { // if overlap
+    if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
       $time_is_available = FALSE;
-    } else {
+    } else { // AVAILABLE TIME
       $time_is_available = TRUE;
     }
     // $available = exec_sql_query($db, $sql, $params)->fetchAll();
@@ -136,38 +118,41 @@ if (isset($_POST['submit_testimony'])) {
         $valid_field = false;
         $valid_subject = false;
     }
+    if (!["Home", "School", "Office"].includes($location)) { // if given location NOT in valid options
+      $valid_field = FALSE;
+      $valid_location = FALSE;
+    }
+
     //Upload Time of Appointment
-    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field) {
-      // get id for start time
-      // $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
-      // $params = array();
-      // $result = exec_sql_query($db, $sql, $params)->fetchAll();
-      // $sql = "INSERT INTO 'appointments' (time_id, user_id, comment) VALUES (:time_id, :user_id, :comment);";
-      $sql = "INSERT INTO appointments (date,time_start,time_end,half,comment,user_id) VALUES (:date,:time_start,:time_end,:half,:comment,:user_id)";
+    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && $valid_location) {
+      $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
         ':time_start' => $time_start,
         ':time_end' => $time_end,
+        ':location' => $location,
         ':comment' => $comment,
         ':user_id' => $current_user['id']
         );
       $result = exec_sql_query($db, $sql, $params);
+      $appt_id =intval($db->lastInsertId("id"));
+
+      // update subjects
       // check for each subject that has been checked, insert respective subject id
       $new_id =intval($db->lastInsertId("id"));
       $all_subjects = array(1=>'reading',2=>'math',3=>'writing',4=>'organization',5=>'study',6=>'test',7=>'homework',8=>'project');
-      foreach($all_subjects as $all_subject){
+      foreach ($all_subjects as $all_subject) {
         $subj_id = array_search($all_subject, $all_subjects);
         if (isset($_POST[$all_subject])){
-          $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, $subj_id);";
-          $params = array();
+          $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES (:appt_id, :subj_id);";
+          $params = array(
+            ':appt_id' => $appt_id,
+            ':subj_id' => $subj_id
+          );
           $result = exec_sql_query($db, $sql, $params);
         }
-        $sql = "UPDATE times SET available = 0 WHERE times.time_start = '$start_time' AND times.date = '$date'";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
       }
-    }
-    else{
+    } else {
         ?>
         <p class='error'> "This time slot is not available. Please make an appointment with an open time slot."</p>
     <?php
@@ -182,7 +167,7 @@ if (isset($_POST['submit_testimony'])) {
       ?>
       <h2>Existing appointments</h2>
       <?php
-      $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.half, appointments.comment FROM appointments
+      $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
         JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
         JOIN subjects ON appointment_subjects.subject_id = subjects.id
         WHERE appointments.user_id = :user_id;";
@@ -199,6 +184,7 @@ if (isset($_POST['submit_testimony'])) {
                <tr>
                   <th>Date</th>
                   <th>Time</th>
+                  <th>Location</th>
                   <th>Details</th>
                </tr>
                <?php
@@ -219,22 +205,24 @@ if (isset($_POST['submit_testimony'])) {
          <div class="form-div">
             <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
+               <p class="appt_error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
+               <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
+               <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
                <ul>
                   <li>
                      <div class="form_label">
-                     <p class="error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
                         <p class="required">*</p>
                         <label for="date">Date:</label>
                      </div>
                      <input class="input_box" id="date" type="date" name="date" value="2019-04-29"/>
+
                   </li>
                   <li>
                      <div class="form_label">
-                     <p class="error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
-                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="19:00" value="15:00">
+                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00">
                   </li>
                   <!-- <li>
                      <div class="form_label">
@@ -245,7 +233,6 @@ if (isset($_POST['submit_testimony'])) {
                   </li> -->
                   <li>
                      <div class="form_label">
-                     <p class="error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
                         <p class="required">*</p>
                         <label>Subject(s):</label>
                      </div>
