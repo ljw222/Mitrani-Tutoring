@@ -69,7 +69,9 @@ if (isset($_GET['appt_id'])) {
     }
 
     //edit times
-    if( isset($_POST['edit_appt_times']) ){}
+    if( isset($_POST['edit_appt_times']) ){
+        $new_start_time = $_POST['change_comment'];
+    }
 
     //edit subjects
     if( isset($_POST['edit_appt_subjects']) ){
