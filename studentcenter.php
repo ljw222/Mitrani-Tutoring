@@ -216,13 +216,13 @@ if (isset($_POST['submit_testimony'])) {
                      </div>
                      <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="19:00" value="15:00">
                   </li>
-                  <!-- <li>
+                  <li>
                      <div class="form_label">
                         <p class="required">*</p>
                         <label for="time">End Time:</label>
                      </div>
                      <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="19:00" value="15:30">
-                  </li> -->
+                  </li>
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
