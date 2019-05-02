@@ -32,16 +32,6 @@ CREATE TABLE appointments (
     user_id INTEGER NOT NULL
 );
 
---Times Table
--- CREATE TABLE times (
---     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
---     date TEXT NOT NULL,
---     time_start TEXT NOT NULL,
---     time_end TEXT NOT NULL,
---     half TEXT NOT NULL,
---     available BIT NOT NULL
--- );
-
 --Subjects Table
 CREATE TABLE subjects (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -83,19 +73,6 @@ INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (5,
 INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (6, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4,'10 Main Rd', 'Greenwood Elementary School'); --password: dls
 INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (7, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2,'43 Beckett Way','Bridges Elementary School'); --password: bz
 INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1,'184 Stone Rd','Greenwood Elementary School'); --password: tk
-
-
---Times Table
-    --right now just info for 4/29 from 3pm-6pm
--- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (1, "04/29/2019","03:00","03:30","PM",1); --3pm
--- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (2, "04/29/2019","3:30", "4:00","PM",0); --3:30pm, taken by fred
--- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "04/29/2019","4:00", "4:30","PM",1); --4pm
--- -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","5:30", "17:00",1); --4:30pm
--- -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
--- -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
--- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
--- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (5, "05/02/2019","03:00","03:30","PM",1); --test
-
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
