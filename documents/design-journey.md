@@ -602,6 +602,8 @@ TO DO:
 ## Issues & Challenges
 
 [Tell us about any issues or challenges you faced while trying to complete milestone 3. Bullet points preferred.]
+- Querying for the appointment form did not work because of the format of the date and time, we fixed this by converting out of military time
+- Submitting multiple subjects in the appointments table, we realized that the error was resetting the lastInsertId for each subject
 
 
 --- <!-- ^^^ Milestone 3; vvv FINAL SUBMISSION-->

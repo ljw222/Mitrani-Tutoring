@@ -118,8 +118,25 @@ if (isset($_POST['submit_testimony'])) {
       $time_is_available = true;
     }
 
+    //validate form
+    $valid_field = true;
+    if($date == NULL){
+        $valid_field = false;
+        $valid_date = false;
+    }
+    if($time == NULL){
+        $valid_field = false;
+        $valid_time = false;
+    }
+    if($all_subject == NULL){
+        $valid_field = false;
+        $valid_subject = false;
+    }
+
+
+
     //Upload Time of Appointment
-    if($upload_info['error']== UPLOAD_ERR_OK && isset($time_is_available)) {
+    if($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field) {
       // get id for start time
       $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
       $params = array();
@@ -204,6 +221,7 @@ if (isset($_POST['submit_testimony'])) {
                <ul>
                   <li>
                      <div class="form_label">
+                     <p class="error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
                         <p class="required">*</p>
                         <label for="date">Date:</label>
                      </div>
@@ -211,6 +229,7 @@ if (isset($_POST['submit_testimony'])) {
                   </li>
                   <li>
                      <div class="form_label">
+                     <p class="error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
@@ -225,6 +244,7 @@ if (isset($_POST['submit_testimony'])) {
                   </li>
                   <li>
                      <div class="form_label">
+                     <p class="error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
                         <p class="required">*</p>
                         <label>Subject(s):</label>
                      </div>
