@@ -237,7 +237,7 @@ function print_appt($record) {
       echo $record["time_start"]. "-". $record["time_end"]. " ". $record['half'];
       echo "</td>";
     } else {
-      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('time_id' => $record["id"], 'date' => $record["date"], 'start_time' => $record["time_start"], 'end_time' => $record["time_end"], 'half' => $record["half"]))."'>" . 'View Appointment' . "</a></td>";
+      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record["id"]))."'>" . 'View Appointment' . "</a></td>";
     }
   }
   echo "</tr>";
