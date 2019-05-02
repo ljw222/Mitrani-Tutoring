@@ -24,20 +24,25 @@ CREATE TABLE sessions (
 --Appointments Table
 CREATE TABLE appointments (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    time_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    comment TEXT
-);
-
---Times Table
-CREATE TABLE times (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    -- time_id INTEGER NOT NULL,
     date TEXT NOT NULL,
     time_start TEXT NOT NULL,
     time_end TEXT NOT NULL,
     half TEXT NOT NULL,
-    available BIT NOT NULL
+    comment TEXT,
+    user_id INTEGER NOT NULL,
+    location TEXT NOT NULL
 );
+
+--Times Table
+-- CREATE TABLE times (
+--     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+--     date TEXT NOT NULL,
+--     time_start TEXT NOT NULL,
+--     time_end TEXT NOT NULL,
+--     half TEXT NOT NULL,
+--     available BIT NOT NULL
+-- );
 
 --Subjects Table
 CREATE TABLE subjects (
@@ -84,21 +89,21 @@ INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8,
 
 --Times Table
     --right now just info for 4/29 from 3pm-6pm
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (1, "04/29/2019","03:00","03:30","PM",1); --3pm
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (2, "04/29/2019","3:30", "4:00","PM",0); --3:30pm, taken by fred
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "04/29/2019","4:00", "4:30","PM",1); --4pm
--- INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","5:30", "17:00",1); --4:30pm
--- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
--- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
-INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (5, "05/02/2019","03:00","03:30","PM",1); --test
+-- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (1, "04/29/2019","03:00","03:30","PM",1); --3pm
+-- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (2, "04/29/2019","3:30", "4:00","PM",0); --3:30pm, taken by fred
+-- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "04/29/2019","4:00", "4:30","PM",1); --4pm
+-- -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (4, "4/29","5:30", "17:00",1); --4:30pm
+-- -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
+-- -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
+-- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
+-- INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (5, "05/02/2019","03:00","03:30","PM",1); --test
 
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
-INSERT INTO appointments (id,time_id,user_id) VALUES (1, 2, 1);
+INSERT INTO appointments (id,date,time_start,time_end,half,comment,user_id,location) VALUES (1, "04/29/2019","3:30", "4:30","PM", "First appointment!", 1,'School');
     --appointment for Fred (user1) on 4/30 at 3pm
-INSERT INTO appointments (id,time_id,user_id) VALUES (2, 4, 1);
+INSERT INTO appointments (id,date,time_start,time_end,half,comment,user_id,location) VALUES (2, "04/30/2019","3:00", "4:00","PM", "Second appointment.", 1,'School');
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
