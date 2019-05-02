@@ -9,14 +9,14 @@ if (isset($_GET['id'])) {
 }
 
 //get whether the testimony was submitted anonymously (AKA anonymous bit value)
-$sql = "SELECT testimonials.anonymous FROM testimonials WHERE testimonials.id = $single_testimony_id;";
-$result = exec_sql_query($db, $sql, $params);
+$sql = "SELECT testimonials.anonymous FROM testimonials WHERE testimonials.id = :id;";
+$result = exec_sql_query($db, $sql, $params = array(':id' => $single_testimony_id));
 $anonymous = $result->fetchAll();
 $anonymous = $anonymous[0][0];
 
 //get the user id of the person who wrote the testimonial
-$sql = "SELECT testimonials.user_id FROM testimonials WHERE testimonials.id = $single_testimony_id;";
-$result = exec_sql_query($db, $sql, $params);
+$sql = "SELECT testimonials.user_id FROM testimonials WHERE testimonials.id = :id;";
+$result = exec_sql_query($db, $sql, $params = array(':id' => $single_testimony_id));
 $id_of_author = intval($result->fetchAll()[0][0]);
 
 
@@ -43,7 +43,9 @@ if (count($records) > 0) {
 <body>
     <?php include("includes/header.php"); ?>
     <div class="top-page-div" id="one-testimony-div">
-        <h1>View Full Testimony</h1>
+        <a href=<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?' . http_build_query(array('id' => $single_testimony_id)); ?>>
+            <h1>View Full Testimony</h1>
+        </a>
         <p class="source">Source: <a href="https://unsplash.com/photos/_lhefRJtT0U">Unsplash</a></p>
     </div>
 
@@ -59,10 +61,9 @@ if (count($records) > 0) {
                 <div>
                     <?php
                     // role and name
-                    if($anonymous == 1){
+                    if ($anonymous == 1) {
                         echo "<p><em><strong>" . "Anonymous" . "</strong></em></p>";
-                    }
-                    else if ($record["role"] == "Parent" && $id_of_author != 0) {
+                    } else if ($record["role"] == "Parent" && $id_of_author != 0) {
                         echo "<p><em><strong>" . $record["role"] . " of " . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
                     } else if ($record["role"] != "Parent" && $id_of_author != 0) {
                         echo "<p><em><strong>" . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";

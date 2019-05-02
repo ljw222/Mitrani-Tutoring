@@ -16,13 +16,6 @@ $params = array(
 );
 $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
 
-//gets the subjects
-$subjects = exec_sql_query(
-    $db,
-    "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = :appt_id);",
-    array(':appt_id' => $appt_id)
-)->fetchAll();
-
 function print_subjects($subjects)
 {
     $numSubjects = count($subjects);
@@ -50,7 +43,7 @@ if (isset($_POST["choose_field_submit"])) {
             $show_subjects = TRUE;
         } elseif ($field == "Location") {
             $show_location = TRUE;
-        } elseif ($field == "Comment") {
+        } elseif ($field == "Comments") {
             $show_comment = TRUE;
         }
     }
@@ -71,11 +64,12 @@ if (isset($_POST['edit_appt_date'])) {
 
     if ($valid_day_of_week) {
         // check if that time is taken for NEW date
-        $sql = "SELECT * FROM appointments WHERE appointments.date = :new_date AND (:start_time <= appointments.time_start <= :end_time) OR (:start_time <= appointments.time_end <= :end_time) ";
+        $sql = "SELECT * FROM appointments WHERE (appointments.date = :new_date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
         $params = array(
             ':new_date' => $new_date,
-            ':start_time' => $result['start_time'],
-            ':end_time' => $result['end_time']
+            ':start_time' => $result['time_start'],
+            ':end_time' => $result['time_end'],
+            ':appt_id' => $appt_id
         );
         $taken_appt = exec_sql_query($db, $sql, $params)->fetchAll();
         if (count($taken_appt) > 0) { // if there are matches already -- NOT AVAILABLE
@@ -93,60 +87,6 @@ if (isset($_POST['edit_appt_date'])) {
             $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
         }
     } // else: error message below
-
-
-    // $sql = "SELECT appointments.time_id FROM appointments WHERE appointments.id = :appt_id;";
-    // $params = array(
-    //     ':appt_id' => $appt_id
-    // );
-    // $result = exec_sql_query($db, $sql, $params)->fetchAll();
-    // $appt_time_id = intval($result[0][0]);
-
-    // $appt_start = exec_sql_query(
-    //     $db,
-    //     "SELECT times.time_start FROM times WHERE times.id = $appt_time_id;",
-    //     array()
-    // )->fetchAll()[0][0];
-
-    // $sql = "SELECT id,available FROM times WHERE date = :new_date AND time_start = '$appt_start'";
-    // $params = array(
-    //     ':new_date' => $new_date
-    // );
-    // $result = exec_sql_query($db, $sql, $params)->fetchAll();
-    // //Appointment time and date not available
-    // if (!$result) {
-    //     $slot_taken = TRUE;
-    // } else {
-    //     $new_date_id = $result[0][0];
-
-    //     //if the date is available AND the time slot is available
-    //     //update appointment. Echo message that the update was successful
-    //     $new_date_avail = $result[0][1];
-    //     $appt_time_id = $new_date_avail;
-    //     if ($new_date_avail == 1) {
-    //         //update times table to show old time slot is open now
-    //         $sql = "UPDATE times SET available =  1 WHERE id = :appt_time_id";
-    //         $params = array(
-    //             ':appt_time_id' => $appt_time_id
-    //         );
-    //         $result = exec_sql_query($db, $sql, $params);
-    //         //update times table to show that new time is taken
-    //         $sql = "UPDATE times SET available = 0 WHERE id = :new_date_id";
-    //         $params = array(
-    //             ':new_date_id' => $new_date_id
-    //         );
-    //         $result = exec_sql_query($db, $sql, $params);
-    //         //update appt time_id field
-    //         $sql = "UPDATE appointments SET time_id = :new_date_id WHERE time_id = :appt_time_id";
-    //         $params = array(
-    //             ':new_date_id' => $new_date_id,
-    //             ':appt_time_id' => $appt_time_id
-    //         );
-    //         $result = exec_sql_query($db, $sql, $params);
-    //     } else {
-    //         $slot_taken = TRUE;
-    //     }
-    // }
 }
 
 // edit times
@@ -155,21 +95,22 @@ if (isset($_POST['edit_appt_times'])) {
     $new_end_time = date("G:i", strtotime('+1 hour', strtotime($_POST['change_start_time'])));
 
     // check if existing appointments for that date and time
-    $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time < appointments.time_start < :end_time) OR (:start_time < appointments.time_end < :end_time) ";
+    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:new_start_time < appointments.time_start AND appointments.time_start < :new_end_time) OR (:new_start_time < appointments.time_end AND appointments.time_end < :new_end_time))  AND NOT (appointments.id = :appt_id)";
     $params = array(
         ':date' => $result['date'],
-        ':start_time' => $new_start_time,
-        ':end_time' => $new_end_time
+        ':new_start_time' => $new_start_time,
+        ':new_end_time' => $new_end_time,
+        ':appt_id' => $appt_id
     );
-    $taken_appt = exec_sql_query($db, $sql, $params)->fetchAll();
-    if (count($taken_appt) > 0) { // if there are matches already -- NOT AVAILABLE
+    $taken_appt_time = exec_sql_query($db, $sql, $params)->fetchAll();
+    if (count($taken_appt_time) > 0) { // if there are matches already -- NOT AVAILABLE
         $ok_change_time = FALSE;
     } else { // no matches -- AVAILABLE
         $ok_change_time = TRUE;
     }
 
     if ($ok_change_time) { // if ok to change time
-        $sql = "UPDATE appointments SET start_time = :new_start_time, end_time = :new_end_time WHERE id = :appt_id";
+        $sql = "UPDATE appointments SET time_start = :new_start_time, time_end = :new_end_time WHERE id = :appt_id";
         $params = array(
             ':new_start_time' => $new_start_time,
             ':new_end_time' => $new_end_time,
@@ -199,6 +140,11 @@ if (isset($_POST['edit_appt_subjects'])) {
                 ':subj_id' => $subj_id
             );
             $add_appt_subjs = exec_sql_query($db, $sql, $params);
+            if ($add_appt_subjs) {
+                $changed_subjects = TRUE;
+            } else {
+                $changed_subjects = FALSE;
+            }
         }
     }
 }
@@ -207,6 +153,9 @@ if (isset($_POST['edit_appt_subjects'])) {
 if (isset($_POST['edit_appt_location'])) {
     if (in_array($_POST['change_location'], ["Home", "School", "Office"])) { // valid location
         $new_location = filter_input(INPUT_POST, 'change_location', FILTER_SANITIZE_STRING);
+        $changed_location = TRUE;
+    } else {
+        $changed_location = FALSE;
     }
     $sql = "UPDATE appointments SET location = :new_location WHERE id = :appt_id";
     $params = array(
@@ -214,6 +163,11 @@ if (isset($_POST['edit_appt_location'])) {
         ':appt_id' => $appt_id
     );
     $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+    // if (in_array($result['location'], ["Home", "School", "Office"])) { // valid changed location
+    //     $changed_location = TRUE;
+    // } else {
+    //     $changed_location = FALSE;
+    // }
 }
 
 //edit comments
@@ -225,6 +179,11 @@ if (isset($_POST['edit_appt_comment'])) {
         ':appt_id' => $appt_id
     );
     $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+    if (isset($new_comment)) {
+        $changed_comment = TRUE;
+    } else {
+        $changed_comment = FALSE;
+    }
 }
 
 
@@ -243,10 +202,29 @@ if (isset($_POST['edit_appt_comment'])) {
     <?php include("includes/header.php"); ?>
 
     <div class="top-page-div" id="one-appointment-div">
-        <h1>View Appointment</h1>
+        <a href=<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?' . http_build_query(array('appt_id' => $appt_id)); ?>>
+            <h1>View Appointment</h1>
+        </a>
         <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
     </div>
 
+    <?php
+    // GET DETAILS
+    $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
+        WHERE appointments.user_id = :user_id AND appointments.id = :appt_id;";
+    $params = array(
+        ':user_id' => $current_user['id'],
+        ':appt_id' => $appt_id
+    );
+    $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+
+    //gets the subjects
+    $subjects = exec_sql_query(
+        $db,
+        "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = :appt_id);",
+        array(':appt_id' => $appt_id)
+    )->fetchAll();
+    ?>
     <div class="body-div">
         <p>Date: <?php echo $result["date"]; ?> </p>
         <p>Time: <?php echo date("g:i", strtotime($result["time_start"])) .  "-" . date("g:i a", strtotime($result["time_end"])); ?> </p>
@@ -262,9 +240,32 @@ if (isset($_POST['edit_appt_comment'])) {
             echo "<p class='error'>You may only schedule appointments Sundays - Fridays.</p>";
         } elseif (isset($ok_change_date) && $ok_change_date == FALSE) {
             echo "<p class='error'>Sorry, that time is unavailable on " . $new_date . "</p>";
+        } elseif (isset($ok_change_date) && $ok_change_date) {
+            echo "<p class='success'>You have successfully changed the date to " . $new_date . "</p>";
         }
-        if (isset($ok_change_time) && $ok_change_time == FALSE) {
-            echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "  -" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . "</p>";
+
+        if (isset($ok_change_time) && $ok_change_time) {
+            echo "<p class='success'> You have successfully changed the time to " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " on " . $result['date'] . "</p>";
+        } elseif (isset($ok_change_time) && $ok_change_time == FALSE) {
+            echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . "</p>";
+        }
+
+        if (isset($changed_subjects) && $changed_subjects) {
+            echo "<p class='success'>You have successfully changed the subjects for your appointment.</p>";
+        } elseif (isset($changed_subjects) && $changed_subjects == FALSE) {
+            echo "<p class='error'>Sorry, failed to change subjects for your appointment</p>";
+        }
+
+        if (isset($changed_location) && $changed_location) {
+            echo "<p class='success'>You have successfully changed the location for your appointment to \"" . $new_location . ".\"</p>";
+        } elseif (isset($changed_location) && $changed_location == FALSE) {
+            echo "<p class='error'>Sorry, failed to change location for your appointment</p>";
+        }
+
+        if (isset($changed_comment) && $changed_comment) {
+            echo "<p class='success'>You have successfully changed the comments for your appointment.</p>";
+        } elseif (isset($changed_comment) && $changed_comment == FALSE) {
+            echo "<p class='error'>Sorry, failed to change comments for your appointment</p>";
         }
         ?>
         <form id="choose_field_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#choose_field_form" method="POST">
@@ -274,7 +275,7 @@ if (isset($_POST['edit_appt_comment'])) {
                                             '";
                                             } ?>>
                 <?php
-                $all_fields = ["Date", "Time", "Subject(s)", "Location", "Comment"];
+                $all_fields = ["Date", "Time", "Subject(s)", "Location", "Comments"];
                 foreach ($all_fields as $field) {
                     if (isset($_POST['field']) && $_POST['field'] == $field) {
                         $selected = "selected = 'selected' class='selected-option'";
@@ -305,7 +306,7 @@ if (isset($_POST['edit_appt_comment'])) {
                         <div class="form_label">
                             <label for="change_start_time">Start Time:</label>
                         </div>
-                        <input class="input_box" type="time" id="change_start_time" name="change_start_time" min="9:00" max="17:00">
+                        <input class="input_box" type="time" id="change_start_time" name="change_start_time" min="9:00" max="18:00">
                     </div>
                     <button type="submit" name="edit_appt_times">Submit</button>
                 <?php
@@ -327,16 +328,30 @@ if (isset($_POST['edit_appt_comment'])) {
             } elseif ($show_location) {
                 ?>
                     <div class="form_label">
-                        <label for="location">Location:</label>
+                        <label for="change_location">Location:</label>
                     </div>
-                    <input type="text" name="change_location" id="change_location" />
+                    <select name="change_location" id="change_location" <?php if (isset($_POST['change_location'])) {
+                                                        echo "class = 'selected'";
+                                                    } ?>>
+                        <?php
+                        $all_locations = ["Home", "School", "Office"];
+                        foreach ($all_locations as $chosen_location) {
+                            if (isset($_POST['change_location']) && $_POST['change_location'] == $chosen_location) {
+                                $selected = "selected = 'selected' class='selected-option'";
+                            } else {
+                                $selected = "";
+                            }
+                            echo "<option value='" . $chosen_location . "' " . $selected . ">" . $chosen_location . "</option>";
+                        }
+                        ?>
+                    </select>
                     <button type="submit" name="edit_appt_location">Submit</button>
                 <?php
             } elseif ($show_comment) {
                 ?>
                     <div id="comment">
                         <div class="form_label">
-                            <label for="comment">Comment:</label>
+                            <label for="change_comment">Comment:</label>
                         </div>
                         <textarea rows=5 cols=40 name="change_comment" id="change_comment"></textarea>
                     </div>

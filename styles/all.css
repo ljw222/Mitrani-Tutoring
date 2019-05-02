@@ -240,6 +240,14 @@ h2{
     font-family: 'Lovelo';
 }
 
+a>h1 {
+    color: black;
+}
+
+a h1:hover {
+    color: rgb(17, 128, 255);
+}
+
 /* ALL PAGES - BODY DIV */
 .body-div {
     margin: 40px 80px;

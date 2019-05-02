@@ -89,11 +89,12 @@ if (isset($_POST['submit_testimony'])) {
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
 
     // check if given date + time overlaps with any other apptmt start or end time frames
-    $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time <= appointments.time_start <= :end_time) OR (:start_time <= appointments.time_end <= :end_time) ";
+    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
     $params = array(
       ':date' => $date,
       ':start_time' => $start_time,
-      ':end_time' => $end_time
+      ':end_time' => $end_time,
+      ':appt_id' => $appt_id
     );
     $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
     if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
@@ -101,13 +102,6 @@ if (isset($_POST['submit_testimony'])) {
     } else { // AVAILABLE TIME
       $time_is_available = TRUE;
     }
-    // $available = exec_sql_query($db, $sql, $params)->fetchAll();
-    // $time_is_available = false;
-    // var_dump(intval($available[0]));
-    // if(intval($available[0]) == 1){
-    //     $time_is_available = true;
-    // }
-    // var_dump($time_is_available);
 
     //validate form -- messages
     $valid_field = true;
@@ -175,7 +169,8 @@ if (isset($_POST['submit_testimony'])) {
       $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
         JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
         JOIN subjects ON appointment_subjects.subject_id = subjects.id
-        WHERE appointments.user_id = :user_id;";
+        WHERE appointments.user_id = :user_id
+        ORDER BY appointments.date";
       $params = array(
         ':user_id' => $current_user['id']
         );
@@ -229,15 +224,8 @@ if (isset($_POST['submit_testimony'])) {
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
-                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00">
+                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="18:00">
                   </li>
-                  <!-- <li>
-                     <div class="form_label">
-                        <p class="required">*</p>
-                        <label for="time">End Time:</label>
-                     </div>
-                     <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="17:00">
-                  </li> -->
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
@@ -251,6 +239,25 @@ if (isset($_POST['submit_testimony'])) {
                      <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
                      <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
                      <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
+                  </li>
+                  <li>
+                    <div class="form_label">
+                        <p class="required">*</p>
+                        <label for="location">Location:</label>
+                     </div>
+                    <select name="location" id="location" <?php if (isset($_POST['location'])) { echo "class = 'selected'";} ?>>
+                        <?php
+                        $all_locations = ["Home", "School", "Office"];
+                        foreach ($all_locations as $chosen_location) {
+                            if (isset($_POST['change_location']) && $_POST['change_location'] == $chosen_location) {
+                                $selected = "selected = 'selected' class='selected-option'";
+                            } else {
+                                $selected = "";
+                            }
+                            echo "<option value='" . $chosen_location . "' " . $selected . ">" . $chosen_location . "</option>";
+                        }
+                        ?>
+                    </select>
                   </li>
                   <div id="comment">
                      <div class="form_label">
