@@ -24,15 +24,12 @@ CREATE TABLE sessions (
 --Appointments Table
 CREATE TABLE appointments (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    -- time_id INTEGER NOT NULL,
     date TEXT NOT NULL,
     time_start TEXT NOT NULL,
     time_end TEXT NOT NULL,
-    -- half TEXT NOT NULL,
     location TEXT NOT NULL,
     comment TEXT,
     user_id INTEGER NOT NULL,
-    location TEXT NOT NULL
 );
 
 --Times Table
