@@ -2,7 +2,6 @@
    // DO NOT REMOVE!
    include("includes/init.php");
    // DO NOT REMOVE!
-
 //Delete appointment
 $deleted_appt = FALSE;
 if (isset($_POST['cancel_appointment'])) {
@@ -15,13 +14,11 @@ if (isset($_POST['cancel_appointment'])) {
   );
   $result = exec_sql_query($db, $sql, $params)->fetchAll();
   $time_id = $result[0][0];
-
   $sql = "UPDATE times SET available = 1 WHERE id = :time_id";
   $params = array(
     ':time_id' => $time_id
   );
   $result = exec_sql_query($db, $sql, $params);
-
   //Delete from appointmnets table
   $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
   $params = array(
@@ -37,20 +34,14 @@ if (isset($_POST['cancel_appointment'])) {
   //cancel appt complete
   $deleted_appt = TRUE;
 }
-
-
-//re-format date input
-function format_date($date) {
-  $pieces = explode("-", $date);
-  return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
-
-
-   }
-
-   if (isset($_POST['submit_testimony'])) {
-     echo testimonial_php();
-   }
-
+// //re-format date input
+// function format_date($date) {
+//   $pieces = explode("-", $date);
+//   return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
+// }
+if (isset($_POST['submit_testimony'])) {
+   echo testimonial_php();
+}
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,13 +68,10 @@ function format_date($date) {
          </div>
          <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
       </div>
-    </div>
-    <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
-  </div>
   <?php
   if (!is_user_logged_in()) { ?>
     <div class="body-div">
-      <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+      <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#login_form" method="post">
       <?php
         foreach ($session_messages as $session_messages) {
           echo "<p class='error'>" . $session_messages . "</p>";
@@ -109,8 +97,21 @@ function format_date($date) {
   if (isset($_POST["submit"]) && is_user_logged_in()) {
     // filter input for upload
     $date = format_date($_POST["date"]);
-    $start_time = $_POST['start_time']; //filter input
+    $time = $_POST['start_time']; //filter input
+    //convert out of military time
+    $start_time = date("h:i", strtotime($time));
     $comment = $_POST['comment'];
+
+    // get time availability
+    $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
+    $params = array();
+    $available = exec_sql_query($db, $sql, $params)->fetchAll();
+    // $time_is_available = true;
+    // if($available == 1){
+
+    // }
+
+
     //Upload Time of Appointment
     if($upload_info['error']== UPLOAD_ERR_OK) {
       // get id for start time
@@ -124,71 +125,16 @@ function format_date($date) {
         ':comment' => $comment
         );
       $result = exec_sql_query($db, $sql, $params);
-
-      // check for each subject that has been checked and insert respective subject id
+      // check for each subject that has been checked, insert respective subject id
       $new_id =intval($db->lastInsertId("id"));
-      // insert reading id
-      if (isset($_POST['reading'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 1);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert reading math
-      if (isset($_POST['math'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 2);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert writing
-      if (isset($_POST['writing'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 3);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert organization
-      if (isset($_POST['organization'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 4);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert study skills
-      if (isset($_POST['study'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 5);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert test
-      if (isset($_POST['test'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 6);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert homework
-      if (isset($_POST['homework'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 7);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
-      }
-
-      // insert project
-      if (isset($_POST['project'])){
-        // $new_id =$db->lastInsertId("id");
-        $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 8);";
-        $params = array();
-        $result = exec_sql_query($db, $sql, $params);
+      $all_subjects = array(1=>'reading',2=>'math',3=>'writing',4=>'organization',5=>'study',6=>'test',7=>'homework',8=>'project');
+      foreach($all_subjects as $all_subject){
+        $subj_id = array_search($all_subject, $all_subjects);
+        if (isset($_POST[$all_subject])){
+          $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, $subj_id);";
+          $params = array();
+          $result = exec_sql_query($db, $sql, $params);
+        }
       }
     }
   }
@@ -233,13 +179,15 @@ function format_date($date) {
             </table>
          </div>
          <?php
-            }
+        } else {
+            echo "<p class='no_appt'>You do not have any scheduled appointments.</p>";
+        }
             } ?>
       </div>
       <!-- Appointment Form -->
       <div class="body-div">
          <div class="form-div">
-            <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
                <ul>
                   <li>
@@ -266,7 +214,7 @@ function format_date($date) {
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
-                        <label>Subject:</label>
+                        <label>Subject(s):</label>
                      </div>
                      <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
                      <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
