@@ -9,7 +9,7 @@ CREATE TABLE users (
     password TEXT,
     first_name TEXT NOT NULL,
     last_name TEXT,
-    grade INTEGER NOT NULL,
+    grade INTEGER,
     home TEXT,
     school TEXT
 );
@@ -28,7 +28,7 @@ CREATE TABLE appointments (
     date TEXT NOT NULL,
     time_start TEXT NOT NULL,
     time_end TEXT NOT NULL,
-    half TEXT NOT NULL,
+    -- half TEXT NOT NULL,
     location TEXT NOT NULL,
     comment TEXT,
     user_id INTEGER NOT NULL
@@ -101,9 +101,9 @@ INSERT INTO users (id,username,password,first_name,grade) VALUES (8, 'tk','$2y$1
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
-INSERT INTO appointments (id,date,time_start,time_end,half,comment,user_id) VALUES (1, "04/29/2019","3:30", "4:30","PM", "First appointment!", 1);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "04/29/2019","15:30", "16:30", "Home","First appointment!", 1);
     --appointment for Fred (user1) on 4/30 at 3pm
-INSERT INTO appointments (id,date,time_start,time_end,half,comment,user_id) VALUES (2, "04/30/2019","3:00", "4:00","PM", "Second appointment.", 1);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "04/30/2019","15:00", "16:00", "Office","Second appointment.", 1);
 
 
 --Subjects Table
