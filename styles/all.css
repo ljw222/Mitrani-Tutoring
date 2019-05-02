@@ -599,3 +599,6 @@ form .form_label{
     text-align: left;
     padding-left: 40px;
 }
+.hidden{
+    display: none;
+}
