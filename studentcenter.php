@@ -123,7 +123,7 @@ if (isset($_POST['submit_testimony'])) {
         $valid_field = false;
         $valid_subject = false;
     }
-    if (!["Home", "School", "Office"].includes($location)) { // if given location NOT in valid options
+    if (!in_array($location, ["Home", "School", "Office"])) { // if given location NOT in valid options
       $valid_field = FALSE;
       $valid_location = FALSE;
     }

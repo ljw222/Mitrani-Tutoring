@@ -155,7 +155,7 @@ if (isset($_POST['edit_appt_times'])) {
     $new_end_time = date("G:i", strtotime('+1 hour', strtotime($_POST['change_start_time'])));
 
     // check if existing appointments for that date and time
-    $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time <= appointments.time_start <= :end_time) OR (:start_time <= appointments.time_end <= :end_time) ";
+    $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time < appointments.time_start < :end_time) OR (:start_time < appointments.time_end < :end_time) ";
     $params = array(
         ':date' => $result['date'],
         ':start_time' => $new_start_time,
@@ -186,19 +186,34 @@ if (isset($_POST['edit_appt_subjects'])) {
     $params = array(
         ':appt_id' => $appt_id
     );
-    $result = exec_sql_query($db, $sql, $params);
+    $deleted_appt_subjs = exec_sql_query($db, $sql, $params);
+
     // check for each subject that has been checked, insert respective subject id
     $all_subjects = array(1 => 'reading', 2 => 'math', 3 => 'writing', 4 => 'organization', 5 => 'study', 6 => 'test', 7 => 'homework', 8 => 'project');
     foreach ($all_subjects as $all_subject) {
-
         $subj_id = array_search($all_subject, $all_subjects);
-
         if (isset($_POST[$all_subject])) {
-            $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($appt_id, $subj_id);";
-            $params = array();
-            $result = exec_sql_query($db, $sql, $params);
+            $sql = "INSERT INTO appointment_subjects (appointment_id, subject_id) VALUES (:appt_id, :subj_id);";
+            $params = array(
+                ':appt_id' => $appt_id,
+                ':subj_id' => $subj_id
+            );
+            $add_appt_subjs = exec_sql_query($db, $sql, $params);
         }
     }
+}
+
+// edit location
+if (isset($_POST['edit_appt_location'])) {
+    if (in_array($_POST['change_location'], ["Home", "School", "Office"])) { // valid location
+        $new_location = filter_input(INPUT_POST, 'change_location', FILTER_SANITIZE_STRING);
+    }
+    $sql = "UPDATE appointments SET location = :new_location WHERE id = :appt_id";
+    $params = array(
+        ':new_location' => $new_location,
+        ':appt_id' => $appt_id
+    );
+    $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
 }
 
 //edit comments
@@ -249,7 +264,7 @@ if (isset($_POST['edit_appt_comment'])) {
             echo "<p class='error'>Sorry, that time is unavailable on " . $new_date . "</p>";
         }
         if (isset($ok_change_time) && $ok_change_time == FALSE) {
-            echo "<p class='error' > Sorry, ".date("g:i", strtotime($new_sta rt_ti me)). "-". date("g:i a", strtotime($new_e n d_time))." is unavailable on " . $result['date'] . "</p>";
+            echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "  -" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . "</p>";
         }
         ?>
         <form id="choose_field_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#choose_field_form" method="POST">
