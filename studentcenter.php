@@ -107,8 +107,6 @@ if (isset($_POST['submit_testimony'])) {
     $start_time = date("h:i", strtotime($time));
     $comment = $_POST['comment'];
 
-    var_dump($start_time);
-    var_dump($date);
     // get time availability
     $sql = "SELECT times.available FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
     $params = array();

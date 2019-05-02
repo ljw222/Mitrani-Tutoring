@@ -6,10 +6,12 @@ BEGIN TRANSACTION;
 CREATE TABLE users (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     username TEXT NOT NULL UNIQUE,
-    password TEXT,
+    password TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT,
-    grade INTEGER
+    grade INTEGER NOT NULL,
+    home TEXT,
+    school TEXT
 );
 
 -- Sessions Table
@@ -69,15 +71,15 @@ CREATE TABLE testimonials (
 -- TODO: FOR HASHED PASSWORDS, LEAVE A COMMENT WITH THE PLAIN TEXT PASSWORD!
 
 --Users Table
-INSERT INTO users (id,username,first_name) VALUES (0, 'anonymous',"Anonymous");
-INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (1, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2); --password: user1
-INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11); --password: user2
-INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (3, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0); --password: user3
-INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (4, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5); --password: ariel
-INSERT INTO users (id,username,password,first_name,grade) VALUES (5, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5); --password: tzipora
-INSERT INTO users (id,username,password,first_name,grade) VALUES (6, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4); --password: dls
-INSERT INTO users (id,username,password,first_name,grade) VALUES (7, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2); --password: bz
-INSERT INTO users (id,username,password,first_name,grade) VALUES (8, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1); --password: tk
+-- INSERT INTO users (id,username,first_name) VALUES (0, 'anonymous',"Anonymous");
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School'); --password: user1
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (2, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School'); --password: user2
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (3, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0,'123 Beckett Way', 'Bridges Elementary School'); --password: user3
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (4, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5,'5 Pine Rd','Greenwood Elementary School'); --password: ariel
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (5, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5,'2 Wedgewood Dr','Bridges Elementary School'); --password: tzipora
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (6, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4,'10 Main Rd', 'Greenwood Elementary School'); --password: dls
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (7, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2,'43 Beckett Way','Bridges Elementary School'); --password: bz
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1,'184 Stone Rd','Greenwood Elementary School'); --password: tk
 
 
 --Times Table
@@ -97,7 +99,6 @@ INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (5, "05/02
 INSERT INTO appointments (id,time_id,user_id) VALUES (1, 2, 1);
     --appointment for Fred (user1) on 4/30 at 3pm
 INSERT INTO appointments (id,time_id,user_id) VALUES (2, 4, 1);
-
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
