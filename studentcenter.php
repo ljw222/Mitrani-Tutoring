@@ -212,18 +212,20 @@ if (isset($_POST['submit_testimony'])) {
          <div class="form-div">
             <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
+               <p class="appt_error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
+               <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
+               <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
                <ul>
                   <li>
                      <div class="form_label">
-                     <p class="error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
                         <p class="required">*</p>
                         <label for="date">Date:</label>
                      </div>
                      <input class="input_box" id="date" type="date" name="date" value="2019-04-29"/>
+
                   </li>
                   <li>
                      <div class="form_label">
-                     <p class="error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
@@ -238,7 +240,6 @@ if (isset($_POST['submit_testimony'])) {
                   </li> -->
                   <li>
                      <div class="form_label">
-                     <p class="error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
                         <p class="required">*</p>
                         <label>Subject(s):</label>
                      </div>
