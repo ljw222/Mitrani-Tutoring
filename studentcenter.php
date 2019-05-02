@@ -34,14 +34,18 @@ if (isset($_POST['cancel_appointment'])) {
   //cancel appt complete
   $deleted_appt = TRUE;
 }
+
+
 // //re-format date input
 // function format_date($date) {
 //   $pieces = explode("-", $date);
 //   return ($pieces[1] . '/' . $pieces[2] . '/' . $pieces[0]);
 // }
+
 if (isset($_POST['submit_testimony'])) {
    echo testimonial_php();
 }
+
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,6 +140,70 @@ if (isset($_POST['submit_testimony'])) {
           $result = exec_sql_query($db, $sql, $params);
         }
       }
+
+      // // insert reading id
+      // if (isset($_POST['reading'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 1);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert reading math
+      // if (isset($_POST['math'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 2);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert writing
+      // if (isset($_POST['writing'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 3);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert organization
+      // if (isset($_POST['organization'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 4);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert study skills
+      // if (isset($_POST['study'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 5);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert test
+      // if (isset($_POST['test'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 6);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert homework
+      // if (isset($_POST['homework'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 7);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
+
+      // // insert project
+      // if (isset($_POST['project'])){
+      //   // $new_id =$db->lastInsertId("id");
+      //   $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES ($new_id, 8);";
+      //   $params = array();
+      //   $result = exec_sql_query($db, $sql, $params);
+      // }
     }
   }
   ?>

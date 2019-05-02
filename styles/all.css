@@ -100,6 +100,10 @@ a:hover {
     font-size: 20px;
 }
 
+.no_appt{
+    text-align: center;
+}
+
 .header_ul{
     text-align: center;
     display: flex;
@@ -129,6 +133,7 @@ a:hover {
     font-weight: bold;
     text-transform: uppercase;
 }
+
 
 /* ALL PAGES TOP DIV */
 
@@ -532,6 +537,18 @@ form .form_label{
     align-items: flex-start;
     margin-bottom: 10px;
 }
+
+/* SINGLE APPOINTMENT */
+#cancel_appointment{
+    display: flex;
+    justify-content: center;
+}
+
+/* what type of styling for submit button for editing a form?  */
+/* #edit_appt_form button{
+    display: block;
+    margin-left: 150px;
+} */
 
 /* LOGIN FORM */
 #login_form .text_label{

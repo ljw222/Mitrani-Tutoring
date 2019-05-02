@@ -74,7 +74,10 @@ INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (1, '
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11); --password: user2
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (3, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0); --password: user3
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (4, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5); --password: ariel
-INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (5, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','Tzipora','K.', 5); --password: tzipora
+INSERT INTO users (id,username,password,first_name,grade) VALUES (5, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5); --password: tzipora
+INSERT INTO users (id,username,password,first_name,grade) VALUES (6, 'dls','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 4); --password: dls NEED TO HASH!!!
+INSERT INTO users (id,username,password,first_name,grade) VALUES (7, 'bz','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','B.Z.', 2); --password: bz NEED TO HASH!!!
+INSERT INTO users (id,username,password,first_name,grade) VALUES (8, 'tk','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','T.K.', 1); --password: tk NEED TO HASH!!!
 
 
 --Times Table
@@ -86,6 +89,8 @@ INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (3, "04/29
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (5, "4/29","17:00", "17:30",1); --5pm
 -- INSERT INTO times (id,date,time_start,time_end,available) VALUES (6, "4/29","17:30", "18:00",1); --5:30pm
 INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (4, "04/30/2019","3:00", "3:30","PM",0); --3pm, taken by fred
+INSERT INTO times (id,date,time_start,time_end,half,available) VALUES (5, "05/02/2019","15:00","15:30","PM",1); --test
+
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
@@ -118,5 +123,10 @@ INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (4, "Laurie is the bestest! I like math now because she makes math fun for me all the time. We play games and she reads to me so I like Laurie.", 5, "2014", "Student", 3, 0);
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (5, "It is fun to work with Mrs. Mitrani. She helps me with everything and she makes learning really fun. Working with Mrs. Mitrani in 5th grade has made the year go much smoother.", 5, "2019", "Student",4, 0);
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (6, "Laurie Mitrani is an amazing tutor.  She’s the most exciting, funny, and most interesting tutor I ever had. She is always in a good mood and never gives up. If you want a good tutor Mrs. M is the one!! ", 5, "2019", "Student", 5, 0);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (7, "I like working with Mrs. Mitrani. Last year on the FSA I scored high because she worked with me. Today I took the FSA for 4th grade and she also helped me.", 5, "2019", "Student", 6, 0);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (8, "My child has been receiving tutoring services with Laurie Mitrani for the past 2 years. Laurie has given her confidence in her reading, made reading fun, and has encouraged a love for reading. Working with Laurie on a one on one basis has given my child the opportunity to have her skills built up in the areas which needed extra support.
+She has made excellent progress, I am so grateful to have such a wonderful tutor.", 5, "2019", "Parent", 7, 0);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (9, "Laurie Mitrani has worked with my daughter for two years and my son for a year. She is truly one of a kind!  She has endless patience and the love of her students and her work. My children look forward to working with her and are eager to please her and put their best foot forward. My daughter has surpassed any goals we have set for her because Laurie told her she could and continued to encourage her. When my either of them is having an off day Laurie is so good at changing up their routine and keeping them interested. Laurie always keeps my Husband and I informed of our children’s progress and is so good at explaining everything they are working on.
+I would highly recommend Laurie Mitrani, we are so blessed to have her in our lives.", 5, "2019", "Parent", 8, 0);
 
 COMMIT;
