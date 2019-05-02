@@ -108,17 +108,18 @@ if (isset($_POST['submit_testimony'])) {
     $comment = $_POST['comment'];
 
     // get time availability
-    $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
+    $sql = "SELECT times.available FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
     $params = array();
     $available = exec_sql_query($db, $sql, $params)->fetchAll();
-    // $time_is_available = true;
-    // if($available == 1){
-
-    // }
-
+    $time_is_available = false;
+    var_dump(intval($available[0]));
+    if(intval($available[0]) == 1){
+        $time_is_available = true;
+    }
+    var_dump($time_is_available);
 
     //Upload Time of Appointment
-    if($upload_info['error']== UPLOAD_ERR_OK) {
+    if($upload_info['error']== UPLOAD_ERR_OK && $time_is_available) {
       // get id for start time
       $sql = "SELECT times.id FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
       $params = array();
@@ -140,7 +141,17 @@ if (isset($_POST['submit_testimony'])) {
           $params = array();
           $result = exec_sql_query($db, $sql, $params);
         }
+        $sql = "UPDATE times SET available = 0 WHERE times.time_start = '$start_time' AND times.date = '$date'";
+        $params = array();
+        $result = exec_sql_query($db, $sql, $params);
+
+        //
       }
+    }
+    else{
+        ?>
+        <p class='error'> "This time slot is not available. Please make an appointment with an open time slot."</p>
+    <?php
     }
   }
   ?>
@@ -205,14 +216,14 @@ if (isset($_POST['submit_testimony'])) {
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
-                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00" value="15:00">
+                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00">
                   </li>
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
                         <label for="time">End Time:</label>
                      </div>
-                     <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="17:00" value="15:30" >
+                     <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="17:00">
                   </li>
                   <li>
                      <div class="form_label">
