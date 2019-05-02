@@ -8,11 +8,24 @@ if (isset($_GET['appt_id'])) {
 }
 
 //UPDATING APPOINTMENT//
-
     //edit date
     if( isset($_POST['edit_appt_date']) ){
         //find the id of the time slot in the times table
         $new_date = format_date($_POST['change_date']);
+
+        $sql = "SELECT appointments.time_id FROM appointments WHERE appointments.id = :appt_id;";
+        $params = array(
+          ':appt_id' => $appt_id
+        );
+        $result = exec_sql_query($db, $sql, $params)->fetchAll();
+        $appt_time_id = intval($result[0][0]);
+
+        $appt_start = exec_sql_query(
+            $db,
+            "SELECT times.time_start FROM times WHERE times.id = $appt_time_id;",
+            array()
+        )->fetchAll()[0][0];
+
         $sql = "SELECT id,available FROM times WHERE date = :new_date AND time_start = '$appt_start'";
         $params = array(
           ':new_date' => $new_date
