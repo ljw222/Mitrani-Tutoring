@@ -108,7 +108,6 @@ if (isset($_POST['submit_testimony'])) {
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
     $end_time = date('h:i',strtotime('+1 hour',strtotime($time)));
 
-<<<<<<< HEAD
     // check if given date + time overlaps with any other apptmt start or end time frames
     $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time <= appointments.time_start <= :end_time) OR (:start_time <= appointments.time_end <= :end_time) ";
     $params = array(
@@ -129,18 +128,6 @@ if (isset($_POST['submit_testimony'])) {
     //     $time_is_available = true;
     // }
     // var_dump($time_is_available);
-=======
-    var_dump($start_time);
-    var_dump($date);
-    // get time availability
-    $sql = "SELECT times.available FROM times WHERE times.time_start = '$start_time' AND times.date = '$date'";
-    $params = array();
-    $available = exec_sql_query($db, $sql, $params)->fetchAll();
-    var_dump(intval($available[0]));
-    if(intval($available[0]) == 1){
-      $time_is_available = true;
-    }
->>>>>>> 903c835f93fd421233f84695bc2469870a764304
 
     //validate form -- messages
     $valid_field = true;
@@ -186,6 +173,8 @@ if (isset($_POST['submit_testimony'])) {
         $sql = "UPDATE times SET available = 0 WHERE times.time_start = '$start_time' AND times.date = '$date'";
         $params = array();
         $result = exec_sql_query($db, $sql, $params);
+
+        //
       }
     }
     else{
@@ -257,20 +246,15 @@ if (isset($_POST['submit_testimony'])) {
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
-                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="19:00" value="15:00">
+                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00">
                   </li>
                   <!-- <li>
                      <div class="form_label">
                         <p class="required">*</p>
                         <label for="time">End Time:</label>
                      </div>
-<<<<<<< HEAD
                      <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="17:00">
                   </li> -->
-=======
-                     <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="19:00" value="15:30">
-                  </li>
->>>>>>> 903c835f93fd421233f84695bc2469870a764304
                   <li>
                      <div class="form_label">
                      <p class="error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>

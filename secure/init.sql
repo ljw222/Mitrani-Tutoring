@@ -9,7 +9,9 @@ CREATE TABLE users (
     password TEXT,
     first_name TEXT NOT NULL,
     last_name TEXT,
-    grade INTEGER
+    grade INTEGER NOT NULL,
+    home TEXT,
+    school TEXT
 );
 
 -- Sessions Table
@@ -27,6 +29,7 @@ CREATE TABLE appointments (
     time_start TEXT NOT NULL,
     time_end TEXT NOT NULL,
     half TEXT NOT NULL,
+    location TEXT NOT NULL,
     comment TEXT,
     user_id INTEGER NOT NULL
 );
