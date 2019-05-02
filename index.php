@@ -62,7 +62,7 @@ include("includes/init.php");
 
   <div class="body-div">
     <h2>Why tutoring matters</h2>
-    <p>The demand for private tutoring is on a massive rise. Globally, the market is projected to pass $102.8 billion and it’s no surprise why. Study after study shows that private tutoring works with enormous impact. Tutoring positively impacts students who need remedial instruction, as well as those who require the challenge of enrichment education. Tutors help students with organizational and study skills and allow busy parents to focus on career and family obligations. Tutoring has been shown to improve grades, test scores, student confidence, and academic and social engagement.</p>
+    <p>The demand for private tutoring is rising at an increasingly fast rate. Globally, the market is projected to pass $102.8 billion and it’s no surprise why. Studies demonstrate that private tutoring works with enormous impact. Tutoring positively impacts students who need remedial instruction, as well as those who require the challenge of enrichment education. Tutors help students with organizational and study skills and allow busy parents to focus on career and family obligations. Tutoring has been shown to improve grades, test scores, academic and social engagement, and overall student confidence.</p>
 
     <p>Mitrani Tutoring employs dedicated, knowledgeable tutors who consistently make a positive and measurable difference in the lives of students.</p>
 
