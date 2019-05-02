@@ -2,6 +2,7 @@
    // DO NOT REMOVE!
    include("includes/init.php");
    // DO NOT REMOVE!
+
 //Delete appointment
 $deleted_appt = FALSE;
 if (isset($_POST['cancel_appointment'])) {
@@ -162,18 +163,16 @@ if (isset($_POST['submit_testimony'])) {
       ?>
       <h2>Existing appointments</h2>
       <?php
-      //gets date and time
-      $current_username = $current_user['username'];
-      $sql = "SELECT times.id, times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id IN (SELECT appointments.time_id FROM appointments JOIN users ON appointments.user_id = (SELECT id FROM users WHERE users.username = '$current_username'));";
-      $result = exec_sql_query($db, $sql, $params = array());
-      //gets subjects
-      //get appoinment ids
-      $appt_ids = "SELECT DISTINCT appointments.id FROM appointments JOIN users ON user_id = (SELECT id FROM users WHERE users.username = '$current_username');";
-      //get subject_ids from appointment_subjects
-      $subj_ids = "SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id IN $appt_ids;";
-      //get subject names
-      $subjects = "SELECT subjects.subject FROM subjects WHERE subjects.id IN $subj_ids;";
-      // $result_subjects = exec_sql_query($db, $subjects, $params = array());
+      $sql = "SELECT DISTINCT times.id, times.date, times.time_start, times.time_end, times.half, appointments.id, appointments.comment FROM times
+        JOIN appointments ON times.id = appointments.time_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        WHERE appointments.user_id = :user_id;";
+      $params = array(
+        ':user_id' => $current_user['id']
+        );
+      $result = exec_sql_query($db, $sql, $params);
+
       if ($result) {
         $records = $result->fetchAll();
         if (count($records) > 0) { // if there are records

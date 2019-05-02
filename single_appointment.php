@@ -3,82 +3,8 @@
 include("includes/init.php");
 // DO NOT REMOVE!
 
-if (isset($_GET['time_id'])) {
-    $appt_time_id = $_GET['time_id'];
-}
-if (isset($_GET['date'])) {
-    $appt_date = $_GET['date'];
-}
-if (isset($_GET['start_time'])) {
-    $appt_start = $_GET['start_time'];
-}
-if (isset($_GET['end_time'])) {
-    $appt_end = $_GET['end_time'];
-}
-if (isset($_GET['half'])) {
-    $appt_half = $_GET['half'];
-}
-if (isset($_GET['comment'])) {
-    $comment = $_GET['comment'];
-}
-
-    $appointment_id = exec_sql_query(
-        $db,
-        "SELECT appointments.id FROM appointments WHERE appointments.time_id = $appt_time_id;",
-        array()
-    )->fetchAll();
-    $appt_id = $appointment_id[0][0];
-    $subjects = exec_sql_query(
-        $db,
-        "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = '$appt_id');",
-        array()
-    )->fetchAll();
-
-//display comments
-$sql = "SELECT appointments.comment FROM 'appointments' WHERE appointments.time_id = '$appt_time_id'";
-$params = array();
-$comment = exec_sql_query($db, $sql, $params)->fetchAll();
-$comment = $comment[0];
-
-function duration($time_start, $time_end)
-{
-    $timesplit_start = explode(':', $time_start);
-    $min_start = ($timesplit_start[0] * 60) + ($timesplit_start[1]);
-
-    $timesplit_end = explode(':', $time_end);
-    $min_end = ($timesplit_end[0] * 60) + ($timesplit_end[1]);
-
-    echo $min_end - $min_start;
-}
-
-function print_subjects($subjects)
-{
-    $numSubjects = count($subjects);
-    for ($i = 0; $i < count($subjects) - 1; $i++) {
-        echo $subjects[$i][0] . ", ";
-    }
-    echo $subjects[$numSubjects - 1][0];
-}
-
-// EDIT APPOINTMENT
-// CHOOSE FIELD FORM
-if (isset($_POST["choose_field_submit"])) {
-    $show_date = FALSE;
-    $show_time = FALSE;
-    $show_subjects = FALSE;
-    $show_comment = FALSE;
-    if (isset($_POST["field"])) {
-        $field = filter_input(INPUT_POST, "field", FILTER_SANITIZE_STRING);
-        if ($field == "Date") {
-            $show_date = TRUE;
-        } elseif ($field == "Time") {
-            $show_time = TRUE;
-        } elseif ($field == "Subject(s)") {
-            $show_subjects = TRUE;
-        } elseif ($field == "Comment") {
-            $show_comment = TRUE;
-        }
-    }
+if (isset($_GET['appt_id'])) {
+    $appt_id = intval($_GET['appt_id']);
 }
 
 //UPDATING APPOINTMENT//
@@ -164,6 +90,78 @@ if (isset($_POST["choose_field_submit"])) {
         $result = exec_sql_query($db, $sql, $params);
     }
 
+
+//get appt details
+$sql = "SELECT appointments.comment, appointments.time_id FROM appointments WHERE appointments.id = :appt_id;";
+$params = array(
+  ':appt_id' => $appt_id
+);
+$result = exec_sql_query($db, $sql, $params)->fetchAll();
+
+$comment = $result[0][0];
+$appt_time_id = $result[0][1];
+
+//get time details
+$sql = "SELECT times.date, times.time_start, times.time_end, times.half FROM times WHERE times.id = :appt_time_id";
+$params = array(
+  ':appt_time_id' => $appt_time_id
+);
+$result = exec_sql_query($db, $sql, $params)->fetchAll();
+
+$appt_date = $result[0][0];
+$appt_start = $result[0][1];
+$appt_end = $result[0][2];
+$appt_half = $result[0][3];
+
+//gets the subjects
+$subjects = exec_sql_query(
+    $db,
+    "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = '$appt_id');",
+    array()
+)->fetchAll();
+
+function duration($time_start, $time_end)
+{
+    $timesplit_start = explode(':', $time_start);
+    $min_start = ($timesplit_start[0] * 60) + ($timesplit_start[1]);
+
+    $timesplit_end = explode(':', $time_end);
+    $min_end = ($timesplit_end[0] * 60) + ($timesplit_end[1]);
+
+    echo $min_end - $min_start;
+}
+
+function print_subjects($subjects)
+{
+    $numSubjects = count($subjects);
+    for ($i = 0; $i < count($subjects) - 1; $i++) {
+        echo $subjects[$i][0] . ", ";
+    }
+    echo $subjects[$numSubjects - 1][0];
+}
+
+// EDIT APPOINTMENT
+// CHOOSE FIELD FORM
+if (isset($_POST["choose_field_submit"])) {
+    $show_date = FALSE;
+    $show_time = FALSE;
+    $show_subjects = FALSE;
+    $show_comment = FALSE;
+    if (isset($_POST["field"])) {
+        $field = filter_input(INPUT_POST, "field", FILTER_SANITIZE_STRING);
+        if ($field == "Date") {
+            $show_date = TRUE;
+        } elseif ($field == "Time") {
+            $show_time = TRUE;
+        } elseif ($field == "Subject(s)") {
+            $show_subjects = TRUE;
+        } elseif ($field == "Comment") {
+            $show_comment = TRUE;
+        }
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -188,7 +186,7 @@ if (isset($_POST["choose_field_submit"])) {
         <p>Time: <?php echo $appt_start . '-' . $appt_end . " " . $appt_half; ?> </p>
         <p>Subject(s): <?php print_subjects($subjects); ?> </p>
         <p>Duration: <?php echo duration($appt_start, $appt_end) . " Minutes"; ?> </p>
-        <p>Comments: <?php echo $comment[0]; ?> </p>
+        <p>Comments: <?php echo $comment; ?> </p>
     </div>
 
     <div class="body-div">
@@ -219,9 +217,6 @@ if (isset($_POST["choose_field_submit"])) {
         ?>
             <form id="edit_appt_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#edit_appt_form" method="POST">
                 <?php
-                // foreach ($fields as $field) {
-                //     echo "CREATE AN INPUT";
-                // }
                 if ($show_date) {
                     ?>
                     <div class="form_label">
