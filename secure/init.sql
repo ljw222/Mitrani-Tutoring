@@ -29,7 +29,7 @@ CREATE TABLE appointments (
     time_end TEXT NOT NULL,
     location TEXT NOT NULL,
     comment TEXT,
-    user_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL
 );
 
 --Times Table
