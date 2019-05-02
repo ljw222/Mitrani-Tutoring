@@ -79,9 +79,9 @@ INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (2, '
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (3, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0); --password: user3
 INSERT INTO users (id,username,password,first_name,last_name,grade) VALUES (4, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5); --password: ariel
 INSERT INTO users (id,username,password,first_name,grade) VALUES (5, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5); --password: tzipora
-INSERT INTO users (id,username,password,first_name,grade) VALUES (6, 'dls','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 4); --password: dls NEED TO HASH!!!
-INSERT INTO users (id,username,password,first_name,grade) VALUES (7, 'bz','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','B.Z.', 2); --password: bz NEED TO HASH!!!
-INSERT INTO users (id,username,password,first_name,grade) VALUES (8, 'tk','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','T.K.', 1); --password: tk NEED TO HASH!!!
+INSERT INTO users (id,username,password,first_name,grade) VALUES (6, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4); --password: dls
+INSERT INTO users (id,username,password,first_name,grade) VALUES (7, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2); --password: bz
+INSERT INTO users (id,username,password,first_name,grade) VALUES (8, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1); --password: tk
 
 
 --Times Table
