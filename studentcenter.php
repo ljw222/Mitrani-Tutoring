@@ -2,7 +2,6 @@
    // DO NOT REMOVE!
    include("includes/init.php");
    // DO NOT REMOVE!
-
 //Delete appointment
 $deleted_appt = FALSE;
 if (isset($_POST['cancel_appointment'])) {
@@ -22,11 +21,9 @@ if (isset($_POST['cancel_appointment'])) {
   //cancel appt complete
   $deleted_appt = TRUE;
 }
-
 if (isset($_POST['submit_testimony'])) {
    echo testimonial_php();
 }
-
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +84,6 @@ if (isset($_POST['submit_testimony'])) {
     $end_time = date("G:i",strtotime('+1 hour',strtotime($time)));
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
-
     // check if given date + time overlaps with any other apptmt start or end time frames
     $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
     $params = array(
@@ -102,7 +98,17 @@ if (isset($_POST['submit_testimony'])) {
     } else { // AVAILABLE TIME
       $time_is_available = TRUE;
     }
+<<<<<<< HEAD
 
+=======
+    // $available = exec_sql_query($db, $sql, $params)->fetchAll();
+    // $time_is_available = false;
+    // var_dump(intval($available[0]));
+    // if(intval($available[0]) == 1){
+    //     $time_is_available = true;
+    // }
+    // var_dump($time_is_available);
+>>>>>>> cc776baffb811e025e3b39cf01c094066609e25a
     //validate form -- messages
     $valid_field = true;
     if ($date == NULL){
@@ -175,13 +181,11 @@ if (isset($_POST['submit_testimony'])) {
         ':user_id' => $current_user['id']
         );
       $result = exec_sql_query($db, $sql, $params);
-
       if ($result) {
         $records = $result->fetchAll();
         if (count($records) > 0) { // if there are records
           ?>
           <div class="table-div">
-
             <table>
                <tr>
                   <th>Date</th>
