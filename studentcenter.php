@@ -41,10 +41,10 @@ if (isset($_POST['submit_testimony'])) {
             <?php
                if (is_user_logged_in()) {
                  echo "<h2>Welcome Back, " . htmlspecialchars($current_user['first_name']) . " " . htmlspecialchars($current_user['last_name']) . "!</h2>";
-                 echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment.</p>";
+                 echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment. As a member, you can also submit testimonials.</p>";
                } else {
                  echo "<h2>What is the Student Center?</h2>";
-                 echo "<p>The Mitrani Tutoring Student Center is a place for students and parents to track and schedule tutoring sessions with Laurie. Sign in to access these exclusive tools!</p>";
+                 echo "<p>The Mitrani Tutoring Student Center is a place where students and parents can track and schedule tutoring sessions with Laurie. You can also submit testimonials. Sign in to access these exclusive tools!</p>";
                }
                ?>
          </div>
@@ -52,7 +52,7 @@ if (isset($_POST['submit_testimony'])) {
       </div>
   <?php
   if (!is_user_logged_in()) { ?>
-    <div class="body-div">
+    <div class="body-div" id="login_form_div">
       <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#login_form" method="post">
       <?php
         foreach ($session_messages as $session_messages) {

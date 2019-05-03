@@ -163,11 +163,6 @@ if (isset($_POST['edit_appt_location'])) {
         ':appt_id' => $appt_id
     );
     $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
-    // if (in_array($result['location'], ["Home", "School", "Office"])) { // valid changed location
-    //     $changed_location = TRUE;
-    // } else {
-    //     $changed_location = FALSE;
-    // }
 }
 
 //edit comments

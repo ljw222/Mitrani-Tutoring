@@ -428,17 +428,30 @@ input{
     display: inline-block;
 }
 
+/* LOGIN FORM */
+#login_form_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #login_form{
     padding-bottom: 20px;
 }
 
 #login_form .text_label{
+    display: inline-flex;
+    text-align: right;
+    width: 100px;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-right: 20px;
     padding-bottom: 15px;
-    padding-left: 40%;
 }
 
 #login_form button{
-    margin-left: 55%;
+    margin-left: 45%;
 }
 
 form .text_label{
@@ -557,17 +570,6 @@ form .form_label{
     display: block;
     margin-left: 150px;
 } */
-
-/* LOGIN FORM */
-#login_form .text_label{
-    display: inline-flex;
-    text-align: right;
-    width: 100px;
-    margin-bottom: 10px;
-    justify-content: flex-end;
-    align-items: flex-start;
-    margin-right: 20px;
-}
 
 
 
