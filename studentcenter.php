@@ -80,19 +80,20 @@ if (isset($_POST['submit_testimony'])) {
     // filter input for upload
     $date = format_date($_POST["date"]);
     $time = $_POST['start_time']; //filter input
-    $start_time = date("G:i", strtotime($time));
-    $end_time = date("G:i",strtotime('+1 hour',strtotime($time)));
+    $time_start = date("G:i", strtotime($time));
+    $time_end = date("G:i",strtotime('+1 hour',strtotime($time)));
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
     // check if given date + time overlaps with any other apptmt start or end time frames
-    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
+    // $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
+    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) ";
     $params = array(
       ':date' => $date,
       ':start_time' => $start_time,
-      ':end_time' => $end_time,
-      ':appt_id' => $appt_id
+      ':end_time' => $end_time
     );
     $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
+
     if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
       $time_is_available = FALSE;
     } else { // AVAILABLE TIME
@@ -108,16 +109,25 @@ if (isset($_POST['submit_testimony'])) {
         $valid_field = false;
         $valid_time = false;
     }
-    if ($all_subject == NULL){
+    //check if any subjects are checked
+    $subjects = array('reading','math','writing','organization','study','test','homework','project');
+    foreach($subjects as $subject){
+      if (isset($_POST[$subject])){
+        $subj_selected = TRUE;
+      };
+    }
+    if ( !isset($subj_selected)){
         $valid_field = false;
         $valid_subject = false;
     }
+
     if (!in_array($location, ["Home", "School", "Office"])) { // if given location NOT in valid options
       $valid_field = FALSE;
       $valid_location = FALSE;
     }
+
     //Upload Time of Appointment
-    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && $valid_location) {
+    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && !isset($valid_location)) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
@@ -125,7 +135,7 @@ if (isset($_POST['submit_testimony'])) {
         ':time_end' => $time_end,
         ':location' => $location,
         ':comment' => $comment,
-        ':user_id' => $current_user['id']
+        ':user_id' => intval($current_user['id'])
         );
       $result = exec_sql_query($db, $sql, $params);
       $appt_id =intval($db->lastInsertId("id"));
