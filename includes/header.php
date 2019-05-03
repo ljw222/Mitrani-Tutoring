@@ -10,7 +10,7 @@
 
             echo '<a href="' . $logout_url . '">Sign Out ' . htmlspecialchars($current_user['username']) . '</a>';
         } else {
-            echo "<a href ='studentcenter.php'>Student Center<span class='sign_in'> (Sign in)</span></a>";
+            echo "<a href ='studentcenter.php'>Student Center<p class='sign_in'>Sign in</p></a>";
         }; ?>
     </div>
 </div>
