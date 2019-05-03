@@ -116,7 +116,6 @@ if (isset($_POST['submit_testimony'])) {
       $valid_field = FALSE;
       $valid_location = FALSE;
     }
-
     //Upload Time of Appointment
     if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && $valid_location) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
@@ -130,7 +129,6 @@ if (isset($_POST['submit_testimony'])) {
         );
       $result = exec_sql_query($db, $sql, $params);
       $appt_id =intval($db->lastInsertId("id"));
-
       // update subjects
       // check for each subject that has been checked, insert respective subject id
       $new_id =intval($db->lastInsertId("id"));
@@ -271,4 +269,4 @@ if (isset($_POST['submit_testimony'])) {
       <?php
          } ?>
       <?php include("includes/footer.php"); ?>
-   </body>
+  </body>

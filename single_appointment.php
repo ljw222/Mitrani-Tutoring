@@ -2,11 +2,9 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
-
 if (isset($_GET['appt_id'])) {
     $appt_id = intval($_GET['appt_id']);
 }
-
 // GET DETAILS
 $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
         WHERE appointments.user_id = :user_id AND appointments.id = :appt_id;";
@@ -15,7 +13,6 @@ $params = array(
     ':appt_id' => $appt_id
 );
 $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
-
 function print_subjects($subjects)
 {
     $numSubjects = count($subjects);
@@ -24,7 +21,6 @@ function print_subjects($subjects)
     }
     echo $subjects[$numSubjects - 1][0];
 }
-
 // EDIT APPOINTMENT
 // CHOOSE FIELD FORM
 if (isset($_POST["choose_field_submit"])) {
@@ -48,20 +44,17 @@ if (isset($_POST["choose_field_submit"])) {
         }
     }
 }
-
 // UPDATING APPOINTMENT
 //edit date
 if (isset($_POST['edit_appt_date'])) {
     // filter new date
     $new_date = format_date($_POST['change_date']);
-
     // check that date is Sun - Fri
     if (date("l", strtolower($new_date)) == "Saturday") {
         $valid_day_of_week = FALSE;
     } else {
         $valid_day_of_week = TRUE;
     }
-
     if ($valid_day_of_week) {
         // check if that time is taken for NEW date
         $sql = "SELECT * FROM appointments WHERE (appointments.date = :new_date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
@@ -77,7 +70,6 @@ if (isset($_POST['edit_appt_date'])) {
         } else { // no matches -- AVAILABLE
             $ok_change_date = TRUE;
         }
-
         if ($ok_change_date) { // if ok to change date
             $sql = "UPDATE appointments SET date = :new_date WHERE id = :appt_id";
             $params = array(
@@ -88,12 +80,10 @@ if (isset($_POST['edit_appt_date'])) {
         }
     } // else: error message below
 }
-
 // edit times
 if (isset($_POST['edit_appt_times'])) {
     $new_start_time = date("G:i", strtotime($_POST['change_start_time']));
     $new_end_time = date("G:i", strtotime('+1 hour', strtotime($_POST['change_start_time'])));
-
     // check if existing appointments for that date and time
     $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:new_start_time < appointments.time_start AND appointments.time_start < :new_end_time) OR (:new_start_time < appointments.time_end AND appointments.time_end < :new_end_time))  AND NOT (appointments.id = :appt_id)";
     $params = array(
@@ -108,7 +98,6 @@ if (isset($_POST['edit_appt_times'])) {
     } else { // no matches -- AVAILABLE
         $ok_change_time = TRUE;
     }
-
     if ($ok_change_time) { // if ok to change time
         $sql = "UPDATE appointments SET time_start = :new_start_time, time_end = :new_end_time WHERE id = :appt_id";
         $params = array(
@@ -119,7 +108,6 @@ if (isset($_POST['edit_appt_times'])) {
         $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
     }
 }
-
 //edit subjects
 if (isset($_POST['edit_appt_subjects'])) {
     //delete all entries aka subjects that are tied to this appoinment id
@@ -128,7 +116,6 @@ if (isset($_POST['edit_appt_subjects'])) {
         ':appt_id' => $appt_id
     );
     $deleted_appt_subjs = exec_sql_query($db, $sql, $params);
-
     // check for each subject that has been checked, insert respective subject id
     $all_subjects = array(1 => 'reading', 2 => 'math', 3 => 'writing', 4 => 'organization', 5 => 'study', 6 => 'test', 7 => 'homework', 8 => 'project');
     foreach ($all_subjects as $all_subject) {
@@ -148,7 +135,6 @@ if (isset($_POST['edit_appt_subjects'])) {
         }
     }
 }
-
 // edit location
 if (isset($_POST['edit_appt_location'])) {
     if (in_array($_POST['change_location'], ["Home", "School", "Office"])) { // valid location
@@ -164,7 +150,6 @@ if (isset($_POST['edit_appt_location'])) {
     );
     $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
 }
-
 //edit comments
 if (isset($_POST['edit_appt_comment'])) {
     $new_comment = filter_input(INPUT_POST, 'change_comment', FILTER_SANITIZE_STRING);
@@ -180,8 +165,6 @@ if (isset($_POST['edit_appt_comment'])) {
         $changed_comment = FALSE;
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -212,7 +195,6 @@ if (isset($_POST['edit_appt_comment'])) {
         ':appt_id' => $appt_id
     );
     $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
-
     //gets the subjects
     $subjects = exec_sql_query(
         $db,
