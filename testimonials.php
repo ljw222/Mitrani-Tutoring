@@ -31,7 +31,7 @@ if (isset($_GET['grade_filter'])) {
     array_push($grade_filter_list, "users.grade = $grade");
   }
   $grade_filter_str = implode(" OR ", $grade_filter_list);
-  $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $grade_filter_str";
+  $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $grade_filter_str ORDER BY users.grade";
   $result = exec_sql_query($db, $sql, $params = array());
   if ($result) {
     $records = $result->fetchAll();

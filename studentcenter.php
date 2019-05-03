@@ -257,7 +257,7 @@ if (isset($_POST['submit_testimony'])) {
                      <textarea rows=5 cols=40 name="comment" id="comment" ></textarea>
                   </div>
                   <li>
-                     <button name="submit" type="submit">Submit</button>
+                     <button name="submit" type="submit">Schedule</button>
                   </li>
                </ul>
             </form>
