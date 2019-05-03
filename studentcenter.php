@@ -40,7 +40,7 @@ if (isset($_POST['submit_testimony'])) {
          <div>
             <?php
                if (is_user_logged_in()) {
-                 echo "<h2>Welcome Back, " . htmlspecialchars($current_user['first_name']) . " " . htmlspecialchars($current_user['last_name']) . "!</h2>";
+                 echo "<h2>Welcome, " . htmlspecialchars($current_user['first_name']) . " " . htmlspecialchars($current_user['last_name']) . "!</h2>";
                  echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment. As a member, you can also submit testimonials.</p>";
                } else {
                  echo "<h2>What is the Student Center?</h2>";
