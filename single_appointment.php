@@ -57,7 +57,7 @@ if (isset($_POST['edit_appt_date'])) {
     }
     if ($valid_day_of_week) {
         // check if that time is taken for NEW date
-        $sql = "SELECT * FROM appointments WHERE (appointments.date = :new_date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
+        $sql = "SELECT * FROM appointments WHERE (appointments.date = :new_date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time) AND NOT (appointments.id = :appt_id)";
         $params = array(
             ':new_date' => $new_date,
             ':start_time' => $result['time_start'],

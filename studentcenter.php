@@ -78,19 +78,21 @@ if (isset($_POST['submit_testimony'])) {
 } else {
   if (isset($_POST["submit"]) && is_user_logged_in()) {
     // filter input for upload
+    $appt_id =intval($db->lastInsertId("id"));
     $date = format_date($_POST["date"]);
     $time = $_POST['start_time']; //filter input
     $time_start = date("G:i", strtotime($time));
     $time_end = date("G:i",strtotime('+1 hour',strtotime($time)));
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
+
     // check if given date + time overlaps with any other apptmt start or end time frames
     // $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
-    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) ";
+    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time);";
     $params = array(
       ':date' => $date,
-      ':start_time' => $start_time,
-      ':end_time' => $end_time
+      ':start_time' => $time_start,
+      ':end_time' => $time_end
     );
     $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
 
@@ -208,6 +210,7 @@ if (isset($_POST['submit_testimony'])) {
          <div class="form-div">
             <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
+               <h4>(All appointments last <p class="underline">1 hour</p>)</h4>
                <p class="appt_error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
                <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
                <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
@@ -259,6 +262,7 @@ if (isset($_POST['submit_testimony'])) {
                         }
                         ?>
                     </select>
+                    <p class="office_address">Office Address: 301 Arthur Godfrey Rd. Penthouse</p>
                   </li>
                   <div id="comment">
                      <div class="form_label">
