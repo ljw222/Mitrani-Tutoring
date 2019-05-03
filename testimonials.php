@@ -134,7 +134,7 @@ if (isset($_POST['reset-sortby'])) {
     <h1>Testimonials</h1>
     <div>
       <h2>About the testimonials</h2>
-      <p>These reviews were submitted by past and current students and parents of Mitrani Tutoring. Curious what they thought of their experiences? Explore below to find out.</p>
+      <p>These reviews were submitted by past and current students and parents of Mitrani Tutoring. Curious about their experiences? Explore below to find out.</p>
     </div>
     <p class="source">Source: <a href="https://unsplash.com/photos/_lhefRJtT0U">Unsplash</a></p>
   </div>
