@@ -99,6 +99,13 @@ a:hover {
     font-size: 20px;
 }
 
+.sign_in {
+    font-size: 80%;
+    padding: 0px;
+    margin: 0px;
+    line-height: 50%;
+}
+
 .no_appt{
     text-align: center;
 }
