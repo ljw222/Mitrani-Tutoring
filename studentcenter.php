@@ -168,10 +168,10 @@ if (isset($_POST['submit_testimony'])) {
         if ($deleted_appt) {
           echo "<p class='success'>Appointment successfully cancelled!</p>";
         }
-
-        if (isset($result)){
+        if ($valid_field) {
           echo "<p class='success'>Appointment successfully scheduled!</p>";
         }
+
       ?>
       <h2>Existing appointments</h2>
       <?php
