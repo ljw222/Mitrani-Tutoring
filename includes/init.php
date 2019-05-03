@@ -255,7 +255,11 @@ function print_full_location($record) {
       ':user_id' => $current_user['id']
     );
     $user_record = exec_sql_query($db, $loc_sql, $params)->fetchAll()[0]; // get first record (should only be 1)
-    $location_full = "Home (" . $user_record['home'] . ")";
+    if ( $user_record['home'] != "") { // if home address given
+      $location_full = "Home (" . $user_record['home'] . ")";
+    } else {
+      $location_full = "Home\t<span class='error'>(NOTE: Address needed. Please contact Laurie.)</span>";
+    }
   } elseif ($record['location'] == "School") { // school
     // SQL QUERY FOR USER SCHOOL
     $loc_sql = "SELECT school FROM users WHERE users.id = :user_id";
@@ -263,7 +267,11 @@ function print_full_location($record) {
       ':user_id' => $current_user['id']
     );
     $user_record = exec_sql_query($db, $loc_sql, $params)->fetchAll()[0]; // get first record (should only be 1)
-    $location_full = "School (" . $user_record['school'] . ")";
+    if ($user_record[ 'school'] != "") { // if school address given
+      $location_full = "School (" . $user_record[ 'school'] . ")";
+    } else {
+      $location_full = "School\t<span class='error'>(NOTE: Address needed. Please contact Laurie.)</span>";
+    }
   } elseif ($record['location'] == "Office") { // office
     $location_full = "Office (301 Arthur Godfrey Rd. Penthouse, Miami Beach, FL 33140)";
   }

@@ -220,21 +220,25 @@ if (isset($_POST['edit_appt_comment'])) {
         } elseif (isset($ok_change_date) && $ok_change_date) {
             echo "<p class='success'>You have successfully changed the date to " . $new_date . "</p>";
         }
+
         if (isset($ok_change_time) && $ok_change_time) {
             echo "<p class='success'> You have successfully changed the time to " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " on " . $result['date'] . "</p>";
         } elseif (isset($ok_change_time) && $ok_change_time == FALSE) {
             echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . "</p>";
         }
+
         if (isset($changed_subjects) && $changed_subjects) {
             echo "<p class='success'>You have successfully changed the subjects for your appointment.</p>";
         } elseif (isset($changed_subjects) && $changed_subjects == FALSE) {
             echo "<p class='error'>Sorry, failed to change subjects for your appointment</p>";
         }
+
         if (isset($changed_location) && $changed_location) {
             echo "<p class='success'>You have successfully changed the location for your appointment to \"" . $new_location . ".\"</p>";
         } elseif (isset($changed_location) && $changed_location == FALSE) {
             echo "<p class='error'>Sorry, failed to change location for your appointment</p>";
         }
+
         if (isset($changed_comment) && $changed_comment) {
             echo "<p class='success'>You have successfully changed the comments for your appointment.</p>";
         } elseif (isset($changed_comment) && $changed_comment == FALSE) {
