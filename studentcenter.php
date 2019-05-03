@@ -157,9 +157,9 @@ if (isset($_POST['submit_testimony'])) {
         }
       }
     } else {
-        ?>
-        <p class='error'> "This time slot is not available. Please make an appointment with an open time slot."</p>
-    <?php
+
+        // <!-- <p class='error'> "This time slot is not available. Please make an appointment with an open time slot."</p> -->
+        $invalid_time_id = TRUE;
     }
   }
   ?>
@@ -167,6 +167,10 @@ if (isset($_POST['submit_testimony'])) {
       <?php
         if ($deleted_appt) {
           echo "<p class='success'>Appointment successfully cancelled!</p>";
+        }
+
+        if (isset($result)){
+          echo "<p class='success'>Appointment successfully scheduled!</p>";
         }
       ?>
       <h2>Existing appointments</h2>
@@ -212,15 +216,16 @@ if (isset($_POST['submit_testimony'])) {
                <h2>Schedule an Appointment</h2>
                <h4>(All appointments last <p class="underline">1 hour</p>)</h4>
                <p class="appt_error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
-               <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 7 PM</p>
+               <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 6 PM</p>
                <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
+               <p class="appt_error <?php if(!isset($invalid_time_id)) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
                <ul>
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
                         <label for="date">Date:</label>
                      </div>
-                     <input class="input_box" id="date" type="date" name="date" value="2019-04-29"/>
+                     <input class="input_box" id="date" type="date" name="date"/>
 
                   </li>
                   <li>
