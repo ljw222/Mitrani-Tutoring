@@ -83,7 +83,15 @@ if (isset($_POST['edit_appt_date'])) {
 // edit times
 if (isset($_POST['edit_appt_times'])) {
     $new_start_time = date("G:i", strtotime($_POST['change_start_time']));
+    echo "<script>console.log('" . $new_start_time . "')</script>";
     $new_end_time = date("G:i", strtotime('+1 hour', strtotime($_POST['change_start_time'])));
+
+    // ATTEMPT TO LIMIT VALID TIMES TO 9-5 (9-4 START TIME)
+    // $new_start_time < strtotime("09:00") || $new_start_time > strtotime("16:00") ||
+    if ($new_start_time == date("G:i", strtotime("0:00"))) { // not 9-5
+        $ok_change_time = FALSE;
+    }
+
     // check if existing appointments for that date and time
     $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:new_start_time < appointments.time_start AND appointments.time_start < :new_end_time) OR (:new_start_time < appointments.time_end AND appointments.time_end < :new_end_time))  AND NOT (appointments.id = :appt_id)";
     $params = array(
@@ -275,7 +283,7 @@ if (isset($_POST['edit_appt_comment'])) {
                         <label for="change_date">Date:</label>
                     </div>
                     <input class="input_box" id="change_date" type="date" name="change_date" />
-                    <button type="submit" name="edit_appt_date">Submit</button>
+                    <button type="submit" name="edit_appt_date">Change</button>
                 <?php
             } elseif ($show_time) {
                 ?>
@@ -284,8 +292,8 @@ if (isset($_POST['edit_appt_comment'])) {
                             <label for="change_start_time">Start Time:</label>
                         </div>
                         <input class="input_box" type="time" id="change_start_time" name="change_start_time" min="9:00" max="18:00">
+                        <button type="submit" name="edit_appt_times">Change</button>
                     </div>
-                    <button type="submit" name="edit_appt_times">Submit</button>
                 <?php
             } elseif ($show_subjects) {
                 ?>
@@ -300,7 +308,7 @@ if (isset($_POST['edit_appt_comment'])) {
                     <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
                     <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
                     <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
-                    <button type="submit" name="edit_appt_subjects">Submit</button>
+                    <button type="submit" name="edit_appt_subjects" class="edit_appt_submit_button">Change</button>
                 <?php
             } elseif ($show_location) {
                 ?>
@@ -308,8 +316,8 @@ if (isset($_POST['edit_appt_comment'])) {
                         <label for="change_location">Location:</label>
                     </div>
                     <select name="change_location" id="change_location" <?php if (isset($_POST['change_location'])) {
-                                                        echo "class = 'selected'";
-                                                    } ?>>
+                                                                            echo "class = 'selected'";
+                                                                        } ?>>
                         <?php
                         $all_locations = ["Home", "School", "Office"];
                         foreach ($all_locations as $chosen_location) {
@@ -322,17 +330,17 @@ if (isset($_POST['edit_appt_comment'])) {
                         }
                         ?>
                     </select>
-                    <button type="submit" name="edit_appt_location">Submit</button>
+                    <button type="submit" name="edit_appt_location">Change</button>
                 <?php
             } elseif ($show_comment) {
                 ?>
                     <div id="comment">
                         <div class="form_label">
-                            <label for="change_comment">Comment:</label>
+                            <label for="change_comment">Comments:</label>
                         </div>
                         <textarea rows=5 cols=40 name="change_comment" id="change_comment"></textarea>
                     </div>
-                    <button type="submit" name="edit_appt_comment">Submit</button>
+                    <button type="submit" name="edit_appt_comment" class="edit_appt_submit_button">Change</button>
                 <?php
             }
             ?>
