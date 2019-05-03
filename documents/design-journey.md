@@ -620,6 +620,16 @@ TO DO:
 - Querying for the appointment form did not work because of the format of the date and time, we fixed this by using military time and printing in am/pm
 - Submitting multiple subjects in the appointments table, we realized that the error was resetting the lastInsertId for each subject
 - we re-structured our database and queries to get valid appointment times (unlike static time slots we used initially)
+  - As we got further into the project, and thought more about how to prevent scheduling duplicate appointments, we realized that our database structures were very inefficient
+  - We had a times table, that was seeded with appointment times, in 1hr intervals (3-4, 4-5, etc). Each appointment entry also had a "date" field, as well as an "available" field which contained information about whether the appointment was taken. We realized that this was both inefficient for users and our client.
+    - Users would be limited to booking appointments at certain times (ex. only 4-5pm and not 4:15-5:15pm)
+    - Our client would have to update the table, because we wouldn't be able to manually seed times slots for every single day for a large number of days, or the database would be too large.
+    - The main reason we initially thought about designing the times table this was was so prevent users from scheduling appointments outside of Laurie's working hours
+      - We realized that this could easily be done by putting constraints on the form inputs (hours 9am-7pm, no saturday appointments)
+  - we ended up just deleting the times table and modifying the appointments table to include the dates
+  - because we realized this so late, we had to restructure a lot of the queries that dealt with appointments
+- Another issue was the confusion that surrounded solving merge requests
+  - because our interactivity elements are very concentrated on specific pages (specifically the student center), we were often working on different things but on the same page, which made merge conflicts very confusing to interpret
 
 --- <!-- ^^^ Milestone 3; vvv FINAL SUBMISSION-->
 

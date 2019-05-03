@@ -43,6 +43,9 @@ include("includes/init.php");
       <li>
         Competitive rates — contact for more information
       </li>
+      <li>
+        One hour tutoring sessions
+      </li>
     </ul>
     <div class="center">
       <h3>Hours: </h3>9am - 7pm, Sunday - Friday
