@@ -219,7 +219,8 @@ Each person will be assigned 2-3 pages to be in charge of for design and coding.
 
 [Share the feedback notes you received from your client about your initial design.]
 
-Our client was very happy with the design that we have so far.
+Overall our client was very happy with the initial design of our website. She was particularly excited about the design of the student center and the ability for each user to login and view their scheduled appointments and update or cancel the appointments as needed. She also gave us positive feedback for the testimonials page and liked the fact that potential clients in her target audience would be able to have insight into other clients' experiences. Our client liked the structure of the site, however she asked that the page that included information on her services not include the actual rates that she charges. Her rates vary from client to client, so we changed the pricing information to 'competitive rates.'
+
 
 ## Iterated Design
 
