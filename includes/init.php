@@ -229,15 +229,15 @@ function print_appt($record) {
   echo "<tr>";
   foreach ($categories as $category) {
     if ($category == "date") {
-      echo "<td class='rating-div'>";
+      echo "<td>";
       echo $record["date"];
       echo "</td>";
     } elseif ($category == "time") {
-      echo "<td class='rating-div'>";
+      echo "<td>";
       echo date("g:i", strtotime($record["time_start"])). "-". date("g:i a", strtotime($record["time_end"]));
       echo "</td>";
     } elseif ($category == "location") {
-      echo "<td class='rating-div'>". $record['location']."</td>";
+      echo "<td>". $record['location']."</td>";
     } else {
       echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>" . 'View Appointment' . "</a></td>";
     }
