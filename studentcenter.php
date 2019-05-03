@@ -41,10 +41,10 @@ if (isset($_POST['submit_testimony'])) {
             <?php
                if (is_user_logged_in()) {
                  echo "<h2>Welcome Back, " . htmlspecialchars($current_user['first_name']) . " " . htmlspecialchars($current_user['last_name']) . "!</h2>";
-                 echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment.</p>";
+                 echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment. As a member, you can also submit testimonials.</p>";
                } else {
                  echo "<h2>What is the Student Center?</h2>";
-                 echo "<p>The Mitrani Tutoring Student Center is a place for students and parents to track and schedule tutoring sessions with Laurie. Sign in to access these exclusive tools!</p>";
+                 echo "<p>The Mitrani Tutoring Student Center is a place where students and parents can track and schedule tutoring sessions with Laurie. You can also submit testimonials. Sign in to access these exclusive tools!</p>";
                }
                ?>
          </div>
@@ -52,7 +52,7 @@ if (isset($_POST['submit_testimony'])) {
       </div>
   <?php
   if (!is_user_logged_in()) { ?>
-    <div class="body-div">
+    <div class="body-div" id="login_form_div">
       <form id="login_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#login_form" method="post">
       <?php
         foreach ($session_messages as $session_messages) {
@@ -85,11 +85,12 @@ if (isset($_POST['submit_testimony'])) {
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
     // check if given date + time overlaps with any other apptmt start or end time frames
-    $sql = "SELECT * FROM appointments WHERE appointments.date = :date AND (:start_time <= appointments.time_start <= :end_time) OR (:start_time <= appointments.time_end <= :end_time) ";
+    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
     $params = array(
       ':date' => $date,
       ':start_time' => $start_time,
-      ':end_time' => $end_time
+      ':end_time' => $end_time,
+      ':appt_id' => $appt_id
     );
     $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
     if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
@@ -97,13 +98,6 @@ if (isset($_POST['submit_testimony'])) {
     } else { // AVAILABLE TIME
       $time_is_available = TRUE;
     }
-    // $available = exec_sql_query($db, $sql, $params)->fetchAll();
-    // $time_is_available = false;
-    // var_dump(intval($available[0]));
-    // if(intval($available[0]) == 1){
-    //     $time_is_available = true;
-    // }
-    // var_dump($time_is_available);
     //validate form -- messages
     $valid_field = true;
     if ($date == NULL){
@@ -122,7 +116,6 @@ if (isset($_POST['submit_testimony'])) {
       $valid_field = FALSE;
       $valid_location = FALSE;
     }
-
     //Upload Time of Appointment
     if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && $valid_location) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
@@ -136,7 +129,6 @@ if (isset($_POST['submit_testimony'])) {
         );
       $result = exec_sql_query($db, $sql, $params);
       $appt_id =intval($db->lastInsertId("id"));
-
       // update subjects
       // check for each subject that has been checked, insert respective subject id
       $new_id =intval($db->lastInsertId("id"));
@@ -170,7 +162,8 @@ if (isset($_POST['submit_testimony'])) {
       $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
         JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
         JOIN subjects ON appointment_subjects.subject_id = subjects.id
-        WHERE appointments.user_id = :user_id;";
+        WHERE appointments.user_id = :user_id
+        ORDER BY appointments.date";
       $params = array(
         ':user_id' => $current_user['id']
         );
@@ -222,15 +215,8 @@ if (isset($_POST['submit_testimony'])) {
                         <p class="required">*</p>
                         <label for="time">Start Time:</label>
                      </div>
-                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="17:00">
+                     <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="18:00">
                   </li>
-                  <!-- <li>
-                     <div class="form_label">
-                        <p class="required">*</p>
-                        <label for="time">End Time:</label>
-                     </div>
-                     <input class="input_box" type="time" id="time" name="end_time" min="9:00" max="17:00">
-                  </li> -->
                   <li>
                      <div class="form_label">
                         <p class="required">*</p>
@@ -244,6 +230,25 @@ if (isset($_POST['submit_testimony'])) {
                      <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
                      <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
                      <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
+                  </li>
+                  <li>
+                    <div class="form_label">
+                        <p class="required">*</p>
+                        <label for="location">Location:</label>
+                     </div>
+                    <select name="location" id="location" <?php if (isset($_POST['location'])) { echo "class = 'selected'";} ?>>
+                        <?php
+                        $all_locations = ["Home", "School", "Office"];
+                        foreach ($all_locations as $chosen_location) {
+                            if (isset($_POST['change_location']) && $_POST['change_location'] == $chosen_location) {
+                                $selected = "selected = 'selected' class='selected-option'";
+                            } else {
+                                $selected = "";
+                            }
+                            echo "<option value='" . $chosen_location . "' " . $selected . ">" . $chosen_location . "</option>";
+                        }
+                        ?>
+                    </select>
                   </li>
                   <div id="comment">
                      <div class="form_label">
@@ -264,4 +269,4 @@ if (isset($_POST['submit_testimony'])) {
       <?php
          } ?>
       <?php include("includes/footer.php"); ?>
-   </body>
+  </body>
