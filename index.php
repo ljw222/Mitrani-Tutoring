@@ -35,7 +35,7 @@ include("includes/init.php");
         Integration of several areas of study, including STEM, writing, science, social studies, and more
       </li>
       <li>
-        Many locations — in school, at home, in office, through FaceTime, and more
+        Many locations — in school, at home, in office, and more if needed
       </li>
       <li>
         Regular communication with parents and teachers if requested
