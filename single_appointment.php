@@ -83,37 +83,36 @@ if (isset($_POST['edit_appt_date'])) {
 // edit times
 if (isset($_POST['edit_appt_times'])) {
     $new_start_time = date("G:i", strtotime($_POST['change_start_time']));
-    echo "<script>console.log('" . $new_start_time . "')</script>";
+    $time_int = date("G", strtotime($_POST['change_start_time']));
     $new_end_time = date("G:i", strtotime('+1 hour', strtotime($_POST['change_start_time'])));
 
-    // ATTEMPT TO LIMIT VALID TIMES TO 9-5 (9-4 START TIME)
-    // $new_start_time < strtotime("09:00") || $new_start_time > strtotime("16:00") ||
-    if ($new_start_time == date("G:i", strtotime("0:00"))) { // not 9-5
-        $ok_change_time = FALSE;
-    }
-
-    // check if existing appointments for that date and time
-    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:new_start_time < appointments.time_start AND appointments.time_start < :new_end_time) OR (:new_start_time < appointments.time_end AND appointments.time_end < :new_end_time))  AND NOT (appointments.id = :appt_id)";
-    $params = array(
-        ':date' => $result['date'],
-        ':new_start_time' => $new_start_time,
-        ':new_end_time' => $new_end_time,
-        ':appt_id' => $appt_id
-    );
-    $taken_appt_time = exec_sql_query($db, $sql, $params)->fetchAll();
-    if (count($taken_appt_time) > 0) { // if there are matches already -- NOT AVAILABLE
-        $ok_change_time = FALSE;
-    } else { // no matches -- AVAILABLE
-        $ok_change_time = TRUE;
-    }
-    if ($ok_change_time) { // if ok to change time
-        $sql = "UPDATE appointments SET time_start = :new_start_time, time_end = :new_end_time WHERE id = :appt_id";
+    if ($time_int < date("G", strtotime("9 am")) || $time_int > date("G", strtotime("6 pm"))) { // not set, not 9-5
+        $incomplete_time = TRUE;
+    } else { // is set between 9-5
+        $incomplete_time = FALSE;
+        // check if existing appointments for that date and time
+        $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:new_start_time < appointments.time_start AND appointments.time_start < :new_end_time) OR (:new_start_time < appointments.time_end AND appointments.time_end < :new_end_time))  AND NOT (appointments.id = :appt_id)";
         $params = array(
+            ':date' => $result['date'],
             ':new_start_time' => $new_start_time,
             ':new_end_time' => $new_end_time,
             ':appt_id' => $appt_id
         );
-        $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+        $taken_appt_time = exec_sql_query($db, $sql, $params)->fetchAll();
+        if (count($taken_appt_time) > 0) { // if there are matches already -- NOT AVAILABLE
+            $ok_change_time = FALSE;
+        } else { // no matches -- AVAILABLE
+            $ok_change_time = TRUE;
+        }
+        if ($ok_change_time) { // if ok to change time
+            $sql = "UPDATE appointments SET time_start = :new_start_time, time_end = :new_end_time WHERE id = :appt_id";
+            $params = array(
+                ':new_start_time' => $new_start_time,
+                ':new_end_time' => $new_end_time,
+                ':appt_id' => $appt_id
+            );
+            $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+        }
     }
 }
 //edit subjects
@@ -229,7 +228,9 @@ if (isset($_POST['edit_appt_comment'])) {
             echo "<p class='success'>You have successfully changed the date to " . $new_date . "</p>";
         }
 
-        if (isset($ok_change_time) && $ok_change_time) {
+        if (isset($incomplete_time) && $incomplete_time) {
+            echo "<p class='error' >Please submit a valid start time from 9:00 am to 6:00 pm. Failed to change time.</p>";
+        } elseif (isset($ok_change_time) && $ok_change_time) {
             echo "<p class='success'> You have successfully changed the time to " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " on " . $result['date'] . "</p>";
         } elseif (isset($ok_change_time) && $ok_change_time == FALSE) {
             echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . "</p>";
