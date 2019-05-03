@@ -54,7 +54,6 @@ a:hover {
 }
 
 /* HEADER */
-
 #header-div {
     display: flex;
     flex-direction: row;
@@ -120,12 +119,10 @@ a:hover {
     text-decoration: none;
     font-size: 20px;
     color: white;
-    /* font-family: 'BrandonGrotesque'; */
 }
 
 .header_a:hover {
     background-color: white;
-    /* color: rgb(0, 0, 0, 0.8); */
 }
 
 .current_page{
@@ -136,7 +133,6 @@ a:hover {
 
 
 /* ALL PAGES TOP DIV */
-
 .top-page-div {
     display: flex;
     flex-direction: column;
@@ -144,7 +140,6 @@ a:hover {
     padding: 20px;
     height: 320px;
     background-size: cover;
-    /* justify-content: center; */
     align-items: center;
 
     background-image: url("../images/academic2.jpg");
@@ -167,13 +162,6 @@ a:hover {
 }
 
 #prek5-div {
-    background-image: url("../images/elementary.jpg");
-    /* Photo by pan xiaozhen on Unsplash */
-    background-position: 50% 50%;
-    background-image: url("../images/elementary2.jpg");
-    /* Pexels: https://www.pexels.com/photo/girls-on-desk-looking-at-notebook-159823/ */
-    background-position: 50% 30%;
-
     background-image: url("../images/elementary3.jpg");
     /* https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/ */
     background-position: 50% 75%;
@@ -199,7 +187,6 @@ a:hover {
 }
 
 .top-page-div>div {
-    /* margin: 0px 80px; */
     padding: 10px 40px;
     background-color: rgb(255, 255, 255, 0.8);
     margin: 10px 0px;
@@ -218,11 +205,9 @@ a:hover {
     font-size: 80%;
     color: gray;
     padding: 5px;
-    /* margin: 0px; */
 }
 
 h1 {
-    /* padding-top: 30px; */
     font-size: 40px;
     text-align: center;
     text-transform: uppercase;
@@ -235,7 +220,6 @@ h2{
     text-align: center;
     font-weight: normal;
     font-size: 20px;
-    /* font-style: italic; */
     margin: 0px;
     font-family: 'Lovelo';
 }
@@ -291,7 +275,6 @@ select {
 .filter_message {
     text-align: center;
     color:  rgb(17, 128, 255);
-    /* font-style: italic; */
     text-transform: uppercase;
 }
 
@@ -360,7 +343,6 @@ td {
 
 #testimony-credits {
     display: flex;
-    /* padding-right: 100px; */
     margin-top: 20px;
     justify-content: end;
 }
@@ -577,7 +559,6 @@ form .form_label{
 }
 
 /* FOOTER */
-
 .footer{
     margin-top:20px;
     display: flex;

@@ -85,8 +85,6 @@ if (count($records) > 0) {
     </div>
 
     <?php
-    // echo 'current user id is: ' . $current_user['id'];
-    // echo 'the author of this testimonial is: ' . (int)$id_of_author;
     if (isset($current_user) && ($id_of_author == $current_user['id'])) {
         $testimonial_to_delete = $single_testimony_id;
         ?>
