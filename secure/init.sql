@@ -56,9 +56,6 @@ CREATE TABLE testimonials (
     anonymous BIT NOT NULL
 );
 
-
-
-
 -- TODO: initial seed data
 
 -- TODO: FOR HASHED PASSWORDS, LEAVE A COMMENT WITH THE PLAIN TEXT PASSWORD!

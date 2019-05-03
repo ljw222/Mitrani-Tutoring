@@ -219,13 +219,20 @@ Each person will be assigned 2-3 pages to be in charge of for design and coding.
 
 [Share the feedback notes you received from your client about your initial design.]
 
-Our client was very happy with the design that we have so far.
+Overall our client was very happy with the initial design of our website. She was particularly excited about the design of the student center and the ability for each user to login and view their scheduled appointments and update or cancel the appointments as needed. She also gave us positive feedback for the testimonials page and liked the fact that potential clients in her target audience would be able to have insight into other clients' experiences. Our client liked the structure of the site, however she asked that the page that included information on her services not include the actual rates that she charges. Her rates vary from client to client, so we changed the pricing information to 'competitive rates.'
+
 
 ## Iterated Design
 
 [Improve your design based on the feedback you received from your client.]
 
-One of the things that we realized while corresponding with our client is that there isn't too much content to fill the pre-k-5th, 6th-12th grade pages, as well as the testimonial page. Therefore, we will probably include some supplementary information for the version of the site that we turn in for this class so that there is sufficient content on each page.
+One of the things that we realized while corresponding with our client is that there isn't too much content to fill the pre-k-5th, 6th-12th grade pages, as well as the testimonial page. So, we added special links for each page that led to the testimonials with a filter for all the relevant grades.
+
+- Add available locations to tables/appointments
+- Make 1 hour time slots only for appointments
+- Hours from 9 am - 7 pm
+- Capitalize all headings
+- If a user uploaded a testimonial, they should be able to delete it
 
 ## Evaluate your Design
 
@@ -380,9 +387,10 @@ There is a form message to let her know that she has canceled her appointment su
 
 An issue that was brought to our attention was the need for clear and constant feedback to the user. In order to let the user know that they have successfully made changes to their appointments, such as adding or canceling an appointment. If there is no feedback for the user, they may or may not know that they have accomplished these tasks successfully, other than the fact that they will be able to view new appointments in their student center or can no longer view an appointment that they canceled.
 
-Another design issue that was discovered through the cognitive walkthrough was the possibility of Abby not knowing how to access the 'create apppointment' form. Therefore we will include a message at the top of the Student Center page that prompts the user to log in in order to schedule an appointment.
+Another design issue that was discovered through the cognitive walkthrough was the possibility of Abby not knowing how to access the 'create appointment' form. Therefore we will include a message at the top of the Student Center page that prompts the user to log in in order to schedule an appointment.
 
 A similar design issue that came up from task 2, was needing to be able to log in to the student center to have the ability to delete an appointment. To address this design issue, we will also include a note at the top of the student center page to log in to delete an appointment.
+
 ## Final Design
 Updated sketches:
 
@@ -398,6 +406,13 @@ PreK-5
 [What changes did you make to your final design based on the results on your cognitive walkthrough?]
 - More consistency for easier understanding and use
 - better use of images to draw in users
+- added feedback to forms so users know if they have successfully completed tasks
+- better descriptions on tops of pages, including the student center that says once you login, you can schedule/edit/view/cancel appointments and submit testimonials
+- better use of colors that resemble academic life, such as greens, blues, chalkboard grey/black, white, and red
+- red asterisks next to required form inputs help guide users to know what parts are required
+- links are usually red and change color to blue upon hover
+- testimonials table is sorted according to the order that makes sense (i.e. grades filter is ascending, table is usually ordered by most recent date which most prospective users would prefer)
+- once users sign in, the student center tab appears in the nav while "Sign out [user name]" is at the top corner for easy signout UX.
 
 
 ## Database Schema
@@ -414,6 +429,8 @@ Table: users
 * field 4: first_name TEXT NOT NULL
 * field 5: last_name TEXT NOT NULL
 * field 6: grade INTEGER NOT NULL
+* field 7: home TEXT
+* field 8: school TEXT
 
 Table: sessions
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
@@ -422,45 +439,43 @@ Table: sessions
 
 Table: appointments
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
-* field 2: time_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
-* field 3: user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+* field 2: date TEXT NOT NULL
+* field 3: time_start TEXT NOT NULL
+* field 4: time_end TEXT NOT NULL
+* field 5: location TEXT NOT NULL
+* field 6: comment TEXT,
+* field 7: user_id INTEGER NOT NULL
 
 Table: appointment_subjects
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: appointment_id INTEGER NOT NULL
 * field 3: subject_id INTEGER NOT NULL
 
-Table: times
-* field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
-* field 2: date TEXT NOT NULL
-* field 3: time_start TEXT NOT NULL
-* field 4: time_end TEXT NOT NULL
-* field 5: available BOOLEAN NOT NULL
-
 Table: subjects
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: subject TEXT NOT NULL UNIQUE
 
-Table: Testimonials
+Table: testimonials
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: testimonial TEXT NOT NULL UNIQUE
 * field 3: rating INTEGER NOT NULL
 * field 4: date TEXT NOT NULL
 * field 5: role TEXT NOT NULL
 * field 6: user_id INTEGER NOT NULL UNIQUE
-
+* field 7: anonymous BIT NOT NULL
 
 ## Database Queries
 
 [Plan your database queries. You may use natural language, pseudocode, or SQL.]
 To get existing appointment:
   Select all appointments from the Appointment table where the user_id is equal to the one of the user who is signed in
-To make an appointmnet:
-  Insert date, time, current user id, subject_ids, duration into the appointment table
+To make an appointment:
+  Insert date, time, location, comment, current user id into the appointments table
+  insert appointment_ids and subject_ids into appointment_subjects table
 To add a testimonial
-  Insert current user id, testimonial, rating, and date into the testimonial table
+  Insert current user id, testimonial, rating, date, and role into the testimonial table (and anonymous)
 To sort testimonials
-  Select all of the testimonials in the table that match the selected rating/date/user grade
+  Select all of the testimonials in the table that match the selected rating/date/user grade/role
 
 ## PHP File Structure
 
@@ -602,9 +617,9 @@ TO DO:
 ## Issues & Challenges
 
 [Tell us about any issues or challenges you faced while trying to complete milestone 3. Bullet points preferred.]
-- Querying for the appointment form did not work because of the format of the date and time, we fixed this by converting out of military time
+- Querying for the appointment form did not work because of the format of the date and time, we fixed this by using military time and printing in am/pm
 - Submitting multiple subjects in the appointments table, we realized that the error was resetting the lastInsertId for each subject
-
+- we re-structured our database and queries to get valid appointment times (unlike static time slots we used initially)
 
 --- <!-- ^^^ Milestone 3; vvv FINAL SUBMISSION-->
 

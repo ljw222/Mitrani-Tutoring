@@ -26,7 +26,6 @@ if (isset($_POST['submit_testimony'])) {
       <h2>What we offer</h2>
       <p>We use various electronic and print materials, consult with teachers and school administrators, provide data-driven instruction, and aid in standardized test prep.</p>
     </div>
-    <!-- <p class="source">Source: <a href="https://www.pexels.com/photo/girls-on-desk-looking-at-notebook-159823/">Pexels</a></p> -->
     <p class="source">Source: <a href="https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/">Pexels</a></p>
   </div>
 
