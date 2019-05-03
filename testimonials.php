@@ -84,7 +84,7 @@ if (isset($_POST["submit-sortby"])) {
   }
 
   if (isset($sort_values_str)) { // specified WHERE ...
-    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $sort_values_str";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id WHERE $sort_values_str ORDER BY testimonials.date DESC";
     $result = exec_sql_query($db, $sql, $params = $given_sorts);
     if ($result) {
       $records = $result->fetchAll();
@@ -96,7 +96,7 @@ if (isset($_POST["submit-sortby"])) {
       }
     }
   } else { // show all
-    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id ORDER BY testimonials.date DESC";
     $result = exec_sql_query($db, $sql, $params = array());
     if ($result) {
       $records = $result->fetchAll();
@@ -141,13 +141,13 @@ if (isset($_POST['reset-sortby'])) {
 
   <div class="body-div" id="testimonial-table-div">
     <form id="sortby-form" action="testimonials.php#testimonial-table-div" method="POST">
-      <p>Sort by:</p>
+      <p>Filter by:</p>
       <select name="date" <?php if (isset($_POST['date'])) {
                             echo "class = 'selected'";
                           } ?>>
         <?php
         // SQL QUERY FOR DATES
-        $sql = "SELECT DISTINCT date FROM testimonials";
+        $sql = "SELECT DISTINCT date FROM testimonials ORDER BY date DESC";
         $result = exec_sql_query($db, $sql, $params = array());
         $all_dates = $result->fetchAll();
         echo "<option selected disabled>Date</option>";
@@ -166,7 +166,7 @@ if (isset($_POST['reset-sortby'])) {
                             } ?>>
         <?php
         // SQL QUERY FOR GRADES
-        $sql = "SELECT DISTINCT grade FROM users JOIN testimonials ON users.id = testimonials.user_id";
+        $sql = "SELECT DISTINCT grade FROM users JOIN testimonials ON users.id = testimonials.user_id ORDER BY grade";
         $result = exec_sql_query($db, $sql, $params = array());
         $all_grades = $result->fetchAll();
         echo "<option selected disabled>Grade </option>";
@@ -189,7 +189,7 @@ if (isset($_POST['reset-sortby'])) {
                             } ?>>
         <?php
         // SQL QUERY FOR RATINGS
-        $result = exec_sql_query($db, "SELECT DISTINCT rating FROM testimonials", $params = array());
+        $result = exec_sql_query($db, "SELECT DISTINCT rating FROM testimonials ORDER BY rating DESC", $params = array());
         $all_ratings = $result->fetchAll();
         echo "<option selected disabled>Rating </option>";
         foreach ($all_ratings as $rating) {
@@ -256,7 +256,7 @@ if (isset($_POST['reset-sortby'])) {
       </div>
     <?php
   } else {
-    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id ORDER BY testimonials.date DESC";
     $result = exec_sql_query($db, $sql, $params = array());
     if ($result) {
       $records = $result->fetchAll();

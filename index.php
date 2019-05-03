@@ -40,9 +40,6 @@ include("includes/init.php");
     <h2>What we offer</h2>
     <ul>
       <li>
-        Hours: 9am - 7pm, Sunday-Friday
-      </li>
-      <li>
         Remedial and enrichment services, individually created based on student’s needs and interests
       </li>
       <li>
@@ -58,15 +55,19 @@ include("includes/init.php");
         Competitive rates — contact for more information
       </li>
     </ul>
+    <div class="center">
+      <h3>Hours: </h3>9am - 7pm, Sunday - Friday
+    </div>
+    <!-- <p class="center">Sunday - Friday</p> -->
   </div>
 
   <div class="body-div">
     <h2>Why tutoring matters</h2>
-    <p>The demand for private tutoring is rising at an increasingly fast rate. Globally, the market is projected to pass $102.8 billion and it’s no surprise why. Studies demonstrate that private tutoring works with enormous impact. Tutoring positively impacts students who need remedial instruction, as well as those who require the challenge of enrichment education. Tutors help students with organizational and study skills and allow busy parents to focus on career and family obligations. Tutoring has been shown to improve grades, test scores, academic and social engagement, and overall student confidence.</p>
+    <p>The demand for private tutoring is rising at an increasingly fast rate. Globally, the market is projected to pass $102.8 billion, and it’s no surprise why. Studies demonstrate that private tutoring works with enormous impact. Tutoring positively impacts students who need remedial instruction, as well as those who require the challenge of enrichment education. Tutors help students with organizational and study skills and allow busy parents to focus on career and family obligations. Tutoring has been shown to improve grades, test scores, academic and social engagement, and overall student confidence.</p>
 
     <p>Mitrani Tutoring employs dedicated, knowledgeable tutors who consistently make a positive and measurable difference in the lives of students.</p>
 
-    <p>Tutoring matters- let us show you the impact we can have on your child.</p>
+    <p>Tutoring matters — let us show you the impact we can have on your child.</p>
 
 
 

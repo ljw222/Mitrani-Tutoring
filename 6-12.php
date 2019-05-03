@@ -23,13 +23,14 @@ if (isset($_POST['submit_testimony'])) {
   <div class="top-page-div" id="gr612-div">
     <h1>6th - 12th Grade</h1>
     <div>
-      <h2>Our services</h2>
-      <p>Report and research paper assistance, study skills and organizational strategies, standardized test prep.</p>
+      <h2>What we offer</h2>
+      <p>For middle through high school students, we provide report and research paper assistance, study skills and organizational strategies, and standardized test prep.</p>
     </div>
     <p class="source">Source: <a href="https://burst.shopify.com/photos/thoughtful-students-talk?q=education">Burst</a></p>
   </div>
 
   <div class="body-div">
+    <h2>Our services</h2>
     <ul>
       <li>Reading: decoding and comprehension</li>
       <li>Math Skills</li>

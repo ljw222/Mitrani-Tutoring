@@ -23,14 +23,15 @@ if (isset($_POST['submit_testimony'])) {
   <div class="top-page-div" id="prek5-div">
     <h1>Pre-K - 5th Grade</h1>
     <div>
-      <h2>Our services</h2>
-      <p>Use of electronic and print materials used include Explode the Code, Recipe for Reading, Lindamood-Bell programs for reading decoding and reading comprehension, Project-Based Learning, Writing Workshop, consultation with teachers and school administrators, data-driven instruction, standardized test prep.</p>
+      <h2>What we offer</h2>
+      <p>We use various electronic and print materials, consult with teachers and school administrators, provide data-driven instruction, and aid in standardized test prep.</p>
     </div>
     <!-- <p class="source">Source: <a href="https://www.pexels.com/photo/girls-on-desk-looking-at-notebook-159823/">Pexels</a></p> -->
     <p class="source">Source: <a href="https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/">Pexels</a></p>
   </div>
 
   <div class="body-div">
+    <h2>Our services</h2>
     <ul>
       <li>Reading: decoding and comprehension</li>
       <li>Math Skills: computation and word problems</li>
@@ -40,6 +41,7 @@ if (isset($_POST['submit_testimony'])) {
       <li>Homework assistance</li>
       <li>Standardized Test prep</li>
     </ul>
+    <p>Our resources include: <em>Explode the Code; Recipe for Reading; Lindamood-Bell programs for reading, decoding, and reading comprehension; Project-Based Learning;</em> and <em>Writing Workshop</em>, among others.
   </div>
 
   <div class="body-div">

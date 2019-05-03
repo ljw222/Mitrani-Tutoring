@@ -240,6 +240,11 @@ h2{
     font-family: 'Lovelo';
 }
 
+h3 {
+    text-align: center;
+    display: inline;
+}
+
 a>h1 {
     color: black;
 }
@@ -257,6 +262,10 @@ a h1:hover {
 }
 
 .link-testimony {
+    text-align: center;
+}
+
+.center {
     text-align: center;
 }
 
