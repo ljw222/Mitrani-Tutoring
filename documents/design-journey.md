@@ -543,8 +543,14 @@ if the user is logged in:
   show the sign out link (display: "Sign Out ___username___" )
 ```
 ### k-5.php
+```
+n/a
+```
 
 ### 6-12.php
+```
+n/a
+```
 
 ### testimonials.php
 ```
