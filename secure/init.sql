@@ -1,7 +1,5 @@
--- TODO: Put ALL SQL in between `BEGIN TRANSACTION` and `COMMIT`
 BEGIN TRANSACTION;
 
--- TODO: create tables
 --Users Table
 CREATE TABLE users (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -46,15 +44,6 @@ CREATE TABLE appointment_subjects (
 );
 
 --Testimonials Table
--- CREATE TABLE testimonials (
---     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
---     testimonial TEXT NOT NULL,
---     rating INTEGER NOT NULL,
---     date TEXT NOT NULL,
---     role TEXT NOT NULL,
---     user_id INTEGER,
---     anonymous BIT NOT NULL
--- );
 CREATE TABLE testimonials (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     testimonial TEXT NOT NULL,
@@ -64,12 +53,9 @@ CREATE TABLE testimonials (
     user_id INTEGER
 );
 
--- TODO: initial seed data
-
--- TODO: FOR HASHED PASSWORDS, LEAVE A COMMENT WITH THE PLAIN TEXT PASSWORD!
+-- Initial seed data
 
 --Users Table
--- INSERT INTO users (id,username,first_name) VALUES (0, 'anonymous',"Anonymous");
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'admin', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K', "Laurie", "Mitrani", NULL, "", ""); -- password: user1
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (2, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School'); --password: user1
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (3, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School'); --password: user2

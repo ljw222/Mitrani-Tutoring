@@ -413,7 +413,8 @@ PreK-5
 - links are usually red and change color to blue upon hover
 - testimonials table is sorted according to the order that makes sense (i.e. grades filter is ascending, table is usually ordered by most recent date which most prospective users would prefer)
 - once users sign in, the student center tab appears in the nav while "Sign out [user name]" is at the top corner for easy signout UX.
-
+- custom testimonial links on the Prek-5 and 6-12 pages are useful for prospective tutees, who are most likely to look at those sites, to learn more
+- added 'sign in' at the top with student center to make the affordance clearer. The entire link changes color upon hover, so users know to click on it as a whole.
 
 ## Database Schema
 
@@ -432,7 +433,7 @@ Table: users
 * field 3: password TEXT NOT NULL
 * field 4: first_name TEXT NOT NULL
 * field 5: last_name TEXT NOT NULL
-* field 6: grade INTEGER NOT NULL
+* field 6: grade INTEGER
 * field 7: home TEXT
 * field 8: school TEXT
 
@@ -466,7 +467,6 @@ Table: testimonials
 * field 4: date TEXT NOT NULL
 * field 5: role TEXT NOT NULL
 * field 6: user_id INTEGER NOT NULL UNIQUE
-* field 7: anonymous BIT NOT NULL
 
 ## Database Queries
 
@@ -641,11 +641,22 @@ TO DO:
 
 [Include any other information that your client needs to know about your final website design. For example, what client wants or needs were unable to be realized in your final product? Why were you unable to meet those wants/needs?]
 
+We did not have any unmet client wants or needs that were explicitly expressed. Client communicated great satisfaction with the site and found that we provided more than she needed or expected, such as some scheduling features, sorting features, and admin login.
 
 ## Final Notes to the Graders
 
 [1. Give us three specific strengths of your site that sets it apart from the previous website of the client (if applicable) and/or from other websites. Think of this as your chance to argue for the things you did really well.]
 
+- Our design is strong. It is clean, professional, and appropriate for the target audience and theme. We created consistency and appeal with tasteful images and fonts throughout the site.
+- We integrated multiple parts of our site together well. For instance, testimonials were not only on one page but integrated in the Prek-5 and 6-12 pages with custom links that filter the testimonial table based on the relevant grades.
+
 [2. Tell us about things that don't work, what you wanted to implement, or what you would do if you keep working with the client in the future. Give justifications.]
 
+Some additional features that we wanted to and would implement if continuing to work with client:
+- At the moment, new users cannot be added. However, we could implement this as long as new students only create new accounts when they have their first meeting with you. Client must be logged into Student Center, but the new user will create their own password that is hashed by the site and stored as hashed in the database. Client did not ask for this feature, but we address it in case it is brought up.
+- User accounts also cannot be deleted or edited. Client did not ask for this feature, but again, we address it in case it is brought up.
+- Client cannot schedule appointments from the admin account. However, we structured the database and scheduling form to work around client's given availability, so students are meant to adjust to the client's availability more than the other way around. Client did not ask for an admin scheduling feature, but we address it in case it is brought up.
+- Ideally, user accounts would also have contact information. However, for the purpose of our project, we did not include contact information for the users in our seed data to protect the actual privacy of Client's students.
+
 [3. Tell us anything else you need us to know for when we're looking at the project.]
+- Client preferred to simply not be able to delete testimonials for ethical reasons and wanted members to submit honest and open testimonials that they are ok with being tied to, so there is no anonymous feature for submitting a testimonial. This is also better for prospective tutees who want to know the grades and actual experiences of other students/parents.
