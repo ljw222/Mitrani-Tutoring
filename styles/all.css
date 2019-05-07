@@ -631,3 +631,6 @@ form .form_label{
     text-align: center;
 
 }
+.icon{
+    display:inline-block;
+}

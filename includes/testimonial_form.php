@@ -27,14 +27,46 @@
             <p class="required">*</p>
             <label for="rating">Rating:</label>
          </div>
-         <select name="form_rating" id="rating" value="<?php if (isset($_POST['form_rating'])) {
+         <!-- <select name="form_rating" id="rating" value="<?php if (isset($_POST['form_rating'])) {
             echo $_POST['form_rating'];
-            }; ?>">
-         <?php
-            for ($i = 5; $i > 0; $i--) {
-                echo "<option value='" . $i . "'>" . $i . "</option>";
-            }
+            }; ?>"> -->
+          <?php
+            // for ($i = 5; $i > 0; $i--) {
+            //     echo "<option value='" . $i . "'>" . $i . "</option>";
+            // }
             ?>
+            <form class="rating">
+  <label>
+    <input type="radio" name="stars" value="1" />
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="2" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="3" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="4" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="5" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+</form>
          </select>
       </div>
       <div>
