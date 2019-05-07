@@ -25,11 +25,19 @@ else{
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="styles/all.css" type="text/css" rel="stylesheet">
-    <title>View Appointment</title>
+    <title>View Student</title>
 </head>
 
 <body>
+
     <?php include("includes/header.php"); ?>
+
+    <div class="top-page-div" id="one-appointment-div">
+        <a href="<?php echo 'single_appointment.php?' . http_build_query(array('appt_id' => $appt_id)); ?>">
+            <h1>View Student</h1>
+        </a>
+        <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>
+    </div>
 
     <div class="body-div">
         <h3><em><?php echo $student["first_name"] . " " . $student["last_name"]; ?></em></h3>
