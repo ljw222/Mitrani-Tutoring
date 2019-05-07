@@ -198,7 +198,7 @@ if (isset($_POST['reset-sortby'])) {
           } else {
             $selected = "";
           }
-          echo "<option value='" . $rating["rating"] . "' " . $selected . ">" . $rating["rating"] . "</option>";
+          echo "<option value='" . $rating["rating"] . "' " . $selected . ">" . $rating["rating"] . " stars</option>";
         }
         ?>
       </select>

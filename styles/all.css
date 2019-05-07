@@ -529,6 +529,22 @@ form .text_label{
     margin-left: 0;
 }
 
+#rating-whole-div {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.form-rating-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-rating-option {
+    display: flex;
+    flex-direction: row;
+}
+
 /* STUDENT CENTER FORM */
 form .required{
     color: red;

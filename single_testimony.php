@@ -76,7 +76,7 @@ if (count($records) > 0) {
         </div>
     </div>
 
-    <?
+    <?php
     if (isset($current_user) && ($id_of_author == $current_user['id'])) {
         $testimonial_to_delete = $single_testimony_id;
         ?>
@@ -86,10 +86,8 @@ if (count($records) > 0) {
             </div>
         </form>
     <?php
-}
-?>
-
-    <?php include("includes/footer.php"); ?>
+    };
+    include("includes/footer.php"); ?>
 
 </body>
 
