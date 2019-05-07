@@ -398,11 +398,11 @@ About Me
 ![About Me](final-about.jpg)
 Testimonials
 ![Testimonials](final-testimonials.jpg)
+![testimonials, logged in](testimonyform.jpeg)
 PreK-5
 ![PreK-5](final-k-5.jpg)
 6-12
-![6-12](final-6-12.jpg)
-
+![6-12](612.jpeg)
 [What changes did you make to your final design based on the results on your cognitive walkthrough?]
 - More consistency for easier understanding and use
 - better use of images to draw in users
@@ -421,6 +421,10 @@ PreK-5
 
 Image of table planning:
 ![Tables](tables.jpg)
+
+Final Table Sketches:
+![Tables](dbsketch1.jpeg)
+![Tables](dbsketch2.jpeg)
 
 Table: users
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
