@@ -622,7 +622,18 @@ if isset(submit):
   else:
     show error message
 ```
+### single_student.php
+```
+if admin is logged in:
 
+display student info where student = user_id
+  echo Name
+  echo Grade
+  echo School
+  echo Home Address
+  echo Email
+  echo Phone Number
+```
 ## Additional Comments
 
 NOTES:
