@@ -19,11 +19,13 @@ if ($result) {
   $records = $result->fetchAll();
   if (count($records) > 0) { // if there are records
     $now = date('m/d/Y', time());
+
     $yesterday = date('m/d/Y', time() - 60 * 60 * 24);
-    $current_time = date('h:i');
+    $current_time = date("G:i");
+
     foreach ($records as $record) {
       $date = $record['date'];
-      if ($date <= $yesterday || ($date == $now && $record['time_start'] < $current_time)) {
+      if ($date <= $yesterday || (($date == $now) && ($record['time_start'] < $current_time))) {
         $appt_to_delete = $record['id'];
         //Delete from appointments table
         $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
