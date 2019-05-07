@@ -149,7 +149,7 @@ a:hover {
     background-size: cover;
     align-items: center;
 
-    background-image: url("../images/academic2.jpg");
+    background-image: url("../images/academic.jpg");
     /* Photo by Thomas Kolnowski on Unsplash */
     background-position: 50% 30%;
     text-align: justify;
@@ -169,7 +169,7 @@ a:hover {
 }
 
 #prek5-div {
-    background-image: url("../images/elementary3.jpg");
+    background-image: url("../images/elementary.jpg");
     /* https://www.pexels.com/photo/girl-in-red-short-sleeve-dress-and-flower-headband-holding-pen-and-writing-on-paper-on-table-159782/ */
     background-position: 50% 75%;
 }
