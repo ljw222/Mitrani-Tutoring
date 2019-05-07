@@ -325,8 +325,15 @@ button {
 }
 
 table {
-    background-color: rgb(218, 237, 255);
     width: 100%;
+    border-collapse: collapse;
+    border-top: rgb(218, 237, 255) 3px solid;
+}
+
+tr {
+    border-bottom: rgb(218, 237, 255) 3px solid;
+    border-right: rgb(218, 237, 255) 3px solid;
+    border-left: rgb(218, 237, 255) 3px solid;
 }
 
 th {
