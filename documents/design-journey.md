@@ -623,6 +623,14 @@ if isset(submit):
     show error message
 ```
 
+### single_testimonial.php
+```
+if (user is logged in and is the author of the testimony):
+  if isset(cancel button):
+    delete the testimonial
+    redirect the user to the testimonial page
+    display success message that the testimony was infact deleted
+```
 ## Additional Comments
 
 NOTES:

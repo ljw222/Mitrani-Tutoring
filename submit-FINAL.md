@@ -41,5 +41,5 @@ See the course website for a detailed citation policy with more information on u
 
 Each team member should sign their name and include today's date and time to submit **FINAL VERSION**.
 
-- Full Name of Each Contributing Team Member: Jamie Har, Eloise Tien
-- Date & Time:
+- Full Name of Each Contributing Team Member: Jamie Har, Eloise Tien, Lucy Wang
+- Date & Time: 5/7/19, 3:56pm
