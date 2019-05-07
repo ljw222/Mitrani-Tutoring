@@ -122,7 +122,6 @@ if ($result) {
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
     // check if given date + time overlaps with any other apptmt start or end time frames
-    // $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
     $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time);";
     $params = array(
       ':date' => $date,
@@ -135,24 +134,39 @@ if ($result) {
     } else { // AVAILABLE TIME
       $time_is_available = TRUE;
     }
+
     //validate form -- messages
     $valid_field = true;
+
+     //is date in the past?
+    $given = new DateTime($_POST["date"]);
+    echo "<script>console.log('".$given."')</script>";
+    $now = new DateTime();
+      //date is in the future, okay to schedule
+    if ($given > $now) {
+      $valid_date = TRUE;
+      $valid_field = TRUE;
+    } else { // date not in future
+      $valid_date = FALSE;
+      $valid_field = FALSE;
+    }
     if ($date == NULL){
         $valid_field = false;
         $valid_date = false;
     }
+
     if ($time == NULL){
         $valid_field = false;
         $valid_time = false;
     }
     //check if any subjects are checked
-    $subjects = array('reading','math','writing','organization','study','test','homework','project');
+    $subjects = exec_sql_query($db, "SELECT subject FROM subjects", $params=array())->fetchAll();
     foreach($subjects as $subject){
-      if (isset($_POST[$subject])){
+      if (isset($_POST[$subject['subject']])){
         $subj_selected = TRUE;
       };
     }
-    if ( !isset($subj_selected)){
+    if (!isset($subj_selected)){
         $valid_field = false;
         $valid_subject = false;
     }
@@ -161,16 +175,9 @@ if ($result) {
       $valid_location = FALSE;
     }
 
-    //is date in the past?
-    $date = new DateTime($_POST["date"]);
-    $now = new DateTime();
-      //date is in the future, okay to schedule
-    if($date > $now) {
-      $valid_date = TRUE;
-    }
-
     //Upload Time of Appointment
-    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && !isset($valid_location) && $valid_date) {
+    // $upload_info['error']== UPLOAD_ERR_OK &&
+    if ($time_is_available && $valid_field && !isset($valid_location) && $valid_date) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
@@ -184,11 +191,10 @@ if ($result) {
       $appt_id =intval($db->lastInsertId("id"));
       // update subjects
       // check for each subject that has been checked, insert respective subject id
-      $new_id =intval($db->lastInsertId("id"));
-      $all_subjects = array(1=>'reading',2=>'math',3=>'writing',4=>'organization',5=>'study',6=>'test',7=>'homework',8=>'project');
+      $all_subjects = exec_sql_query($db, "SELECT * FROM subjects", $params=array())->fetchAll();
       foreach ($all_subjects as $all_subject) {
-        $subj_id = array_search($all_subject, $all_subjects);
-        if (isset($_POST[$all_subject])){
+        $subj_id = $all_subject['id'];
+        if (isset($_POST[$all_subject['subject']])){
           $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES (:appt_id, :subj_id);";
           $params = array(
             ':appt_id' => $appt_id,
@@ -198,7 +204,6 @@ if ($result) {
         }
       }
     } else {
-        // <!-- <p class='error'> "This time slot is not available. Please make an appointment with an open time slot."</p> -->
         $invalid_time_id = TRUE;
     }
   }
@@ -254,7 +259,7 @@ if ($result) {
             <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
                <h4>(All appointments last <p class="underline">1 hour</p>)</h4>
-               <p class="appt_error <?php if(!isset($valid_date)) { echo "hidden";} ?>">Please enter a valid date</p>
+               <p class="appt_error <?php if(!isset($valid_date) OR $valid_date) { echo "hidden";} ?>">Please enter a valid date</p>
                <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 6 PM</p>
                <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
                <p class="appt_error <?php if(!isset($invalid_time_id)) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
@@ -275,18 +280,16 @@ if ($result) {
                      <input class="input_box" type="time" id="time" name="start_time" min="9:00" max="18:00">
                   </li>
                   <li>
-                     <div class="form_label">
-                        <p class="required">*</p>
-                        <label>Subject(s):</label>
-                     </div>
-                     <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
-                     <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
-                     <p class="subject"><input type="checkbox" name="writing" value="writing"> Writing</p>
-                     <p class="subject"><input type="checkbox" name="homework" value="homework"> Homework Help</p>
-                     <p class="subject"><input type="checkbox" name="project" value="project"> Project Assistance</p>
-                     <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
-                     <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
-                     <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
+                    <div class="form_label">
+                      <p class="required">*</p>
+                      <label>Subject(s):</label>
+                    </div>
+                    <?php
+                    $records = exec_sql_query($db, "SELECT subject FROM subjects", $params=array())->fetchAll();
+                    foreach ($records as $record) {
+                      echo "<p class='subject'><input type='checkbox' name='".$record['subject']."' value='".$record['subject']."'>".$record['subject']."</p>";
+                    }
+                     ?>
                   </li>
                   <li>
                     <div class="form_label">
