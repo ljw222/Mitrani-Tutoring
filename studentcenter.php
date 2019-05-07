@@ -5,6 +5,43 @@ include("includes/init.php");
 
 $appt_error_messages = array();
 
+//DELETE APPTS THAT HAVE PASSED
+$sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        WHERE appointments.user_id = :user_id
+        ORDER BY appointments.date";
+$params = array(
+  ':user_id' => $current_user['id']
+);
+$result = exec_sql_query($db, $sql, $params);
+if ($result) {
+  $records = $result->fetchAll();
+  if (count($records) > 0) { // if there are records
+    $now = date('m/d/Y', time());
+    $yesterday = date('m/d/Y', time() - 60 * 60 * 24);
+    $current_time = date('h:i');
+    foreach ($records as $record) {
+      $date = $record['date'];
+      if ($date <= $yesterday || ($date == $now && $record['time_start'] < $current_time)) {
+        $appt_to_delete = $record['id'];
+        //Delete from appointments table
+        $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
+        $params = array(
+          ':appt_to_delete' => $appt_to_delete
+        );
+        $result = exec_sql_query($db, $sql, $params);
+        //Delete from appointment_subjects table
+        $sql = "DELETE FROM appointment_subjects WHERE appointment_id = :appt_to_delete;";
+        $params = array(
+          ':appt_to_delete' => $appt_to_delete
+        );
+        $result = exec_sql_query($db, $sql, $params);
+      }
+    }
+  }
+}
+
 //Delete appointment
 $deleted_appt = FALSE;
 if (isset($_POST['cancel_appointment'])) {
@@ -26,42 +63,6 @@ if (isset($_POST['cancel_appointment'])) {
 }
 if (isset($_POST['submit_testimony'])) {
   echo testimonial_php();
-}
-
-//delete appts that are in the pst
-$sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location,   appointments.comment FROM appointments
-  JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
-  JOIN subjects ON appointment_subjects.subject_id = subjects.id
-  WHERE appointments.user_id = :user_id
-  ORDER BY appointments.date";
-$params = array(
-  ':user_id' => $current_user['id']
-);
-$result = exec_sql_query($db, $sql, $params);
-if ($result) {
-  $records = $result->fetchAll();
-  if (count($records) > 0) { // if there are records
-    foreach ($records as $record) {
-      $date = new DateTime($record['date']);
-      $now = new DateTime();
-
-      if ($date < $now) {
-        $appt_to_delete = $record['id'];
-        //Delete from appointments table
-        $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
-        $params = array(
-          ':appt_to_delete' => $appt_to_delete
-        );
-        $result = exec_sql_query($db, $sql, $params);
-        //Delete from appointment_subjects table
-        $sql = "DELETE FROM appointment_subjects WHERE appointment_id = :appt_to_delete;";
-        $params = array(
-          ':appt_to_delete' => $appt_to_delete
-        );
-        $result = exec_sql_query($db, $sql, $params);
-      }
-    }
-  }
 }
 ?>
 <!DOCTYPE html>
