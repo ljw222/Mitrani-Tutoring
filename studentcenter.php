@@ -61,6 +61,8 @@ if (isset($_POST['cancel_appointment'])) {
   //cancel appt complete
   $deleted_appt = TRUE;
 }
+
+//submit testimony
 if (isset($_POST['submit_testimony'])) {
   echo testimonial_php();
 }
@@ -287,15 +289,21 @@ if (isset($_POST['submit_testimony'])) {
                 <p class="required">*</p>
                 <label for="date">Date:</label>
               </div>
-              <input class="input_box" id="date" type="date" name="date" />
-
+              <input class="input_box" id="date" type="date" name="date" <?php
+                                                                          if( isset($_POST['date']) && !isset($submit_success) ){
+                                                                            echo 'value = '. $_POST['date'];
+                                                                          } ?> >
             </div>
             <div>
               <div class="form_label">
                 <p class="required">*</p>
                 <label for="time">Start Time:</label>
               </div>
-              <input class="input_box" type="time" id="time" name="start_time" min="09:00" max="18:00">
+              <input class="input_box" type="time" id="time" name="start_time" min="09:00" max="18:00" <?php
+                                                                          if( isset($_POST['start_time']) &&
+                                                                            !isset($submit_success) ){
+                                                                              echo 'value = '. $_POST['start_time'];
+                                                                          } ?> >
             </div>
             <div>
               <div class="form_label">
@@ -303,10 +311,16 @@ if (isset($_POST['submit_testimony'])) {
                 <label>Subject(s):</label>
               </div>
               <?php
-              $records = exec_sql_query($db, "SELECT subject FROM subjects", $params = array())->fetchAll();
-              foreach ($records as $record) {
-                echo "<p class='subject'><input type='checkbox' name='" . $record['subject'] . "' value='" . $record['subject'] . "'>" . $record['subject'] . "</p>";
-              }
+                $records = exec_sql_query($db, "SELECT subject FROM subjects", $params = array())->fetchAll();
+                foreach ($records as $record) {
+                  if( isset($_POST[$record['subject']]) && !isset($submit_success) ){
+                    $checked = 'checked';
+                  }
+                  else{
+                    $checked = '';
+                  }
+                  echo "<p class='subject'><input type='checkbox' name='" . $record['subject'] . "' value='" . $record['subject'] . "'" . $checked . ">" . $record['subject'] . "</p>";
+                }
               ?>
             </div>
             <div>
@@ -320,7 +334,7 @@ if (isset($_POST['submit_testimony'])) {
                 <?php
                 $all_locations = ["Home", "School", "Office"];
                 foreach ($all_locations as $chosen_location) {
-                  if (isset($_POST['change_location']) && $_POST['change_location'] == $chosen_location) {
+                  if (isset($_POST['location']) && $_POST['location'] == $chosen_location && !isset($submit_success) ) {
                     $selected = "selected = 'selected' class='selected-option'";
                   } else {
                     $selected = "";
@@ -335,7 +349,9 @@ if (isset($_POST['submit_testimony'])) {
               <div class="form_label">
                 <label for="comment">Comment:</label>
               </div>
-              <textarea rows=5 cols=40 name="comment" id="comment"></textarea>
+              <textarea rows=5 cols=40 name="comment" id="comment"><?php if( isset($comment) && !isset($submit_success) )
+                                                                  { echo $comment; } ?>
+              </textarea>
             </div>
             <div>
               <button name="submit" type="submit">Schedule</button>
