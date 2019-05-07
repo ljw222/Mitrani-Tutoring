@@ -593,6 +593,27 @@ if the new appointment form is submitted:
 include footer.php
 ```
 
+### single_appointment.php
+```
+include init.php, header.php
+if the admin is logged in:
+  display date,time,name of student,grade,subjects,location,comments,email,phone
+else if a user is logger in:
+  display appointment information
+  allow user to modify appointment
+    if location is selected
+      change location
+    if date is selected
+      change date
+    if time is selected
+      change time
+    if comment is selected
+      change comment
+    if subjects are selected
+      change subjects
+include footer.php
+```
+
 ### footer.php
   n/a
 
@@ -630,6 +651,8 @@ if (user is logged in and is the author of the testimony):
     delete the testimonial
     redirect the user to the testimonial page
     display success message that the testimony was infact deleted
+```
+
 ### single_student.php
 ```
 if admin is logged in:
