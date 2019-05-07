@@ -266,7 +266,7 @@ if ($result) {
                <p class="appt_error <?php if(!isset($valid_date) OR $valid_date) { echo "hidden";} ?>">Please enter a valid date</p>
                <p class="appt_error <?php if(!isset($valid_time) OR $valid_time) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 6 PM</p>
                <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
-               <p class="appt_error <?php if(!isset($invalid_time_id) OR $valid_time) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
+               <p class="appt_error <?php if(!isset($invalid_time_id)) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
                <ul>
                   <li>
                      <div class="form_label">
