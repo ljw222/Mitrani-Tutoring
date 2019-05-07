@@ -81,9 +81,9 @@ INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8,
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
-INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "04/29/2019","15:30", "16:30","School","First appointment!", 1);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "05/29/2019","15:30", "16:30","School","First appointment!", 1);
     --appointment for Fred (user1) on 4/30 at 3pm
-INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "04/30/2019","15:00", "16:00","Home","Second appointment.", 1);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "05/15/2019","15:00", "16:00","Home","Second appointment.", 1);
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");

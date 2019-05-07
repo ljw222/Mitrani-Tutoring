@@ -7,10 +7,13 @@
       foreach ($testimonial_error_messages as $error_message) {
          echo "<p class='error'>" . $error_message . "</p>";
       }
+<<<<<<< HEAD
       foreach ($testimonial_success_messages as $success_message) {
          echo "<p class='success'>" . $success_message . "</p>";
       }
    }
+=======
+>>>>>>> 1b218366a77be4ca5934b29f38e234b3c44a7429
    ?>
    <form id="testimonial_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#testimonial_form" method="POST">
       <div id="testimonial-text">
