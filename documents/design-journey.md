@@ -428,8 +428,8 @@ Image of table planning:
 ![Tables](tables.jpg)
 
 Final Table Sketches:
-![Tables](dbsketch1.jpeg)
-![Tables](dbsketch2.jpeg)
+![Tables](db1.jpeg)
+![Tables](db2.jpeg)
 
 
 Table: users
