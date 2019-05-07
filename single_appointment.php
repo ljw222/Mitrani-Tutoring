@@ -253,6 +253,8 @@ if (isset($_POST['edit_appt_comment'])) {
             <p>Subject(s): <?php print_subjects($subjects); ?> </p>
             <p>Location: <?php echo print_full_location($result); ?> </p>
             <p>Comments: <?php echo $result["comment"]; ?> </p>
+            <p>Student Email: <?php echo $result['email']; ?> </p>
+            <p>Student Phone: <?php echo $result['phone']; ?> </p>
         </div>
     <?php
 }

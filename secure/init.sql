@@ -9,7 +9,9 @@ CREATE TABLE users (
     last_name TEXT,
     grade INTEGER,
     home TEXT,
-    school TEXT
+    school TEXT,
+    email TEXT,
+    phone TEXT
 );
 
 -- Sessions Table
@@ -57,19 +59,19 @@ CREATE TABLE testimonials (
 
 --Users Table
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'admin', '$2y$10$53n/ZeKPSmr430z3z7HU1OnrJ/ENcp/v2ZJRq6ioPd2vr.1aa1QrK', "Laurie", "Mitrani", NULL, "", ""); -- password: admin
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (2, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School'); --password: user1
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (3, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School'); --password: user2
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (4, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0,'123 Beckett Way', 'Bridges Elementary School'); --password: user3
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (5, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5,'5 Pine Rd','Greenwood Elementary School'); --password: ariel
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (6, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5,'2 Wedgewood Dr','Bridges Elementary School'); --password: tzipora
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (7, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4,'10 Main Rd', 'Greenwood Elementary School'); --password: dls
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2,'43 Beckett Way','Bridges Elementary School'); --password: bz
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (9, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1,'184 Stone Rd','Greenwood Elementary School'); --password: tk
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school,email,phone) VALUES (2, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School','fred@gmail.com','123-456-7890'); --password: user1
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school,email,phone) VALUES (3, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School','erica@gmail.com','222-333-4444'); --password: user2
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school,email,phone) VALUES (4, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0,'123 Beckett Way', 'Bridges Elementary School','tim@gmail.com','133-432-4019'); --password: user3
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school,email,phone) VALUES (5, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5,'5 Pine Rd','Greenwood Elementary School','ariel@gmail.com','232-456-7890'); --password: ariel
+INSERT INTO users (id,username,password,first_name,grade,home,school,email,phone) VALUES (6, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5,'2 Wedgewood Dr','Bridges Elementary School','tzipora@gmail.com','456-222-9204'); --password: tzipora
+INSERT INTO users (id,username,password,first_name,grade,home,school,email,phone) VALUES (7, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4,'10 Main Rd', 'Greenwood Elementary School','dls@gmail.com','413-456-3491'); --password: dls
+INSERT INTO users (id,username,password,first_name,grade,home,school,email,phone) VALUES (8, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2,'43 Beckett Way','Bridges Elementary School','bz@gmail.com','301-444-1039'); --password: bz
+INSERT INTO users (id,username,password,first_name,grade,home,school,email,phone) VALUES (9, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1,'184 Stone Rd','Greenwood Elementary School','tk@gmail.com','344-120-3910'); --password: tk
 
 --Appointments Table
-    --appointment for Fred (user1) on 4/29 at 3:30pm
+    --appointment for Fred (user1) on 5/29 at 3:30pm
 INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "05/29/2019","15:30", "16:30","School","First appointment!", 2);
-    --appointment for Fred (user1) on 4/30 at 3pm
+    --appointment for Fred (user1) on 5/15 at 3pm
 INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "05/15/2019","15:00", "16:00","Home","Second appointment.", 2);
 
 --Subjects Table
