@@ -256,7 +256,8 @@ function print_all_appt($record) {
     } elseif ($category == "details") {
       echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>View Appointment</a></td>";
     } elseif ($category == "student") {
-      echo  "<td>" .  $record['first_name']." ". $record['last_name'] . "</td>";
+        $student_name = $record['first_name']." ". $record['last_name'];
+        echo "<td class='testimonial-div'><a href='single_student.php?" . http_build_query(array('appt_id' => $record['id']))."'>$student_name</a></td>";
     } else {
       echo  "<td>".  $record[$category]."</td>";
     }

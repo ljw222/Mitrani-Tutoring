@@ -73,7 +73,9 @@ INSERT INTO users (id,username,password,first_name,grade,home,school,email,phone
 INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "05/29/2019","15:30", "16:30","School","First appointment!", 2);
     --appointment for Fred (user1) on 5/15 at 3pm
 INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "05/15/2019","15:00", "16:00","Home","Second appointment.", 2);
-
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (3, "05/21/2019","10:00", "11:00","Office","Excited!", 3);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (4, "05/19/2019","13:00", "14:00","Home","I need to work on math.", 5);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (5, "05/24/2019","09:00", "10:00","School","Please help me with my book project.", 4);
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
 INSERT INTO subjects (id, subject) VALUES (2, "Math");
@@ -90,6 +92,9 @@ INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (1, 1, 
 INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (2, 1, 2);
     --Fred signed up to work on study skills on 4/30
 INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (3, 2, 5);
+INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (4, 3, 1);
+INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (5, 4, 2);
+INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (6, 5, 8);
 
 --Testimonials Table
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 3);
