@@ -11,7 +11,7 @@
               echo "<p class='success'>" . $success_message . "</p>";
           }
       }
-      ?>
+   ?>
    <form id="testimonial_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#testimonial_form" method="POST">
       <div id="testimonial-text">
          <div class="form_label">
