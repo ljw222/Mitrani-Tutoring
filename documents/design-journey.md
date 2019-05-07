@@ -221,6 +221,8 @@ Each person will be assigned 2-3 pages to be in charge of for design and coding.
 
 Overall our client was very happy with the initial design of our website. She was particularly excited about the design of the student center and the ability for each user to login and view their scheduled appointments and update or cancel the appointments as needed. She also gave us positive feedback for the testimonials page and liked the fact that potential clients in her target audience would be able to have insight into other clients' experiences. Our client liked the structure of the site, however she asked that the page that included information on her services not include the actual rates that she charges. Her rates vary from client to client, so we changed the pricing information to 'competitive rates.'
 
+One comment that Laurie had was that she wanted to be able to view the appointmnets for all of her students in one place, so that she is aware of what appointments she has each day.
+
 
 ## Iterated Design
 
@@ -233,6 +235,8 @@ One of the things that we realized while corresponding with our client is that t
 - Hours from 9 am - 7 pm
 - Capitalize all headings
 - If a user uploaded a testimonial, they should be able to delete it
+
+To allow Laurie to view all of her scheduled appointments in one place, we implemented an admin user. When Laurie signs in to the student center as an admin, she is able to view all scheduled appointments, as well as details about who the student is, their grade, contact information. She is also able to view where, when, and at what time the appointment is scheduled. She had the ability to delete appointments as well, incase a student tells Laurie that they need to cancel an appointment but forget to cancel the appointment on their own student center page.
 
 ## Evaluate your Design
 
