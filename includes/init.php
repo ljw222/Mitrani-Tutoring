@@ -327,29 +327,17 @@ function testimonial_php() {
       $valid_role = FALSE;
     }
 
-    //name
-    if( !isset($_POST['anonymous']) ){
-      $user_id = $current_user['id'];
-    } else {
-      $user_id = $current_user['id'];
-    }
-
-    if ($valid_testimonial && $valid_rating && $valid_role) { // all valid
-      if( !isset($_POST['anonymous']) ){
-        $anonymous = 0;
-      } else {
-        $anonymous = 1;
-      }
+    $user_id = $current_user['id'];
+    if ($valid_testimonial && $valid_rating && $valid_role) {
       $date = date("Y");
       // insert into testimonials
-      $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id, anonymous) VALUES (:testimonial, :rating, :date, :role, :user_id, :anonymous)";
+      $sql = "INSERT INTO testimonials (testimonial, rating, date, role, user_id) VALUES (:testimonial, :rating, :date, :role, :user_id)";
       $params = array(
         ':testimonial' => $testimonial,
         ':rating' => $rating,
         ':date' => $date,
         ':role' => $role,
-        ':user_id' => $user_id,
-        ':anonymous' => $anonymous
+        ':user_id' => $user_id
       );
       $results = exec_sql_query($db, $sql, $params);
       if ($results) { // successful exec
@@ -362,5 +350,6 @@ function testimonial_php() {
     }
   }
 }
+
 
 ?>
