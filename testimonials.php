@@ -256,7 +256,7 @@ if (isset($_POST['reset-sortby'])) {
       </div>
     <?php
   } else {
-    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id ORDER BY testimonials.date DESC";
+    $sql = "SELECT testimonials.id, testimonials.testimonial, testimonials.rating, users.grade, testimonials.date, testimonials.role FROM testimonials JOIN users ON testimonials.user_id = users.id OR users.id = NULL ORDER BY testimonials.date DESC";
     $result = exec_sql_query($db, $sql, $params = array());
     if ($result) {
       $records = $result->fetchAll();

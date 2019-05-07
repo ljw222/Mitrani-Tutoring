@@ -46,14 +46,22 @@ CREATE TABLE appointment_subjects (
 );
 
 --Testimonials Table
+-- CREATE TABLE testimonials (
+--     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+--     testimonial TEXT NOT NULL,
+--     rating INTEGER NOT NULL,
+--     date TEXT NOT NULL,
+--     role TEXT NOT NULL,
+--     user_id INTEGER,
+--     anonymous BIT NOT NULL
+-- );
 CREATE TABLE testimonials (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     testimonial TEXT NOT NULL,
     rating INTEGER NOT NULL,
     date TEXT NOT NULL,
     role TEXT NOT NULL,
-    user_id INTEGER,
-    anonymous BIT NOT NULL
+    user_id INTEGER
 );
 
 -- TODO: initial seed data
@@ -95,16 +103,16 @@ INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (2, 1, 
 INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (3, 2, 5);
 
 --Testimonials Table
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 2, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding. My only difficulty was figuring out how to meet because I didn't have a car to commute, but other than that, she was great.", 4, "2015", "Student", 2, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (3, "Teacher Laurie was really helpful in teaching me how to write better. She helped me with all the assignments I needed to check my spelling and grammar and so I did well in my class. Laurie is super nice and kind too!", 5, "2012", "Student", 1, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (4, "Laurie is the bestest! I like math now because she makes math fun for me all the time. We play games and she reads to me so I like Laurie.", 5, "2014", "Student", 3, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (5, "It is fun to work with Mrs. Mitrani. She helps me with everything and she makes learning really fun. Working with Mrs. Mitrani in 5th grade has made the year go much smoother.", 5, "2019", "Student",4, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (6, "Laurie Mitrani is an amazing tutor.  She’s the most exciting, funny, and most interesting tutor I ever had. She is always in a good mood and never gives up. If you want a good tutor Mrs. M is the one!! ", 5, "2019", "Student", 5, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (7, "I like working with Mrs. Mitrani. Last year on the FSA I scored high because she worked with me. Today I took the FSA for 4th grade and she also helped me.", 5, "2019", "Student", 6, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (8, "My child has been receiving tutoring services with Laurie Mitrani for the past 2 years. Laurie has given her confidence in her reading, made reading fun, and has encouraged a love for reading. Working with Laurie on a one on one basis has given my child the opportunity to have her skills built up in the areas which needed extra support.
-She has made excellent progress, I am so grateful to have such a wonderful tutor.", 5, "2019", "Parent", 7, 0);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id,anonymous) VALUES (9, "Laurie Mitrani has worked with my daughter for two years and my son for a year. She is truly one of a kind!  She has endless patience and the love of her students and her work. My children look forward to working with her and are eager to please her and put their best foot forward. My daughter has surpassed any goals we have set for her because Laurie told her she could and continued to encourage her. When my either of them is having an off day Laurie is so good at changing up their routine and keeping them interested. Laurie always keeps my Husband and I informed of our children’s progress and is so good at explaining everything they are working on.
-I would highly recommend Laurie Mitrani, we are so blessed to have her in our lives.", 5, "2019", "Parent", 8, 0);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 2);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding. My only difficulty was figuring out how to meet because I didn't have a car to commute, but other than that, she was great.", 4, "2015", "Student", 2);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (3, "Teacher Laurie was really helpful in teaching me how to write better. She helped me with all the assignments I needed to check my spelling and grammar and so I did well in my class. Laurie is super nice and kind too!", 5, "2012", "Student", 1);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (4, "Laurie is the bestest! I like math now because she makes math fun for me all the time. We play games and she reads to me so I like Laurie.", 5, "2014", "Student", 3);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (5, "It is fun to work with Mrs. Mitrani. She helps me with everything and she makes learning really fun. Working with Mrs. Mitrani in 5th grade has made the year go much smoother.", 5, "2019", "Student",4);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (6, "Laurie Mitrani is an amazing tutor.  She’s the most exciting, funny, and most interesting tutor I ever had. She is always in a good mood and never gives up. If you want a good tutor Mrs. M is the one!! ", 5, "2019", "Student", 5);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (7, "I like working with Mrs. Mitrani. Last year on the FSA I scored high because she worked with me. Today I took the FSA for 4th grade and she also helped me.", 5, "2019", "Student", 6);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (8, "My child has been receiving tutoring services with Laurie Mitrani for the past 2 years. Laurie has given her confidence in her reading, made reading fun, and has encouraged a love for reading. Working with Laurie on a one on one basis has given my child the opportunity to have her skills built up in the areas which needed extra support.
+She has made excellent progress, I am so grateful to have such a wonderful tutor.", 5, "2019", "Parent", 7);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (9, "Laurie Mitrani has worked with my daughter for two years and my son for a year. She is truly one of a kind!  She has endless patience and the love of her students and her work. My children look forward to working with her and are eager to please her and put their best foot forward. My daughter has surpassed any goals we have set for her because Laurie told her she could and continued to encourage her. When my either of them is having an off day Laurie is so good at changing up their routine and keeping them interested. Laurie always keeps my Husband and I informed of our children’s progress and is so good at explaining everything they are working on.
+I would highly recommend Laurie Mitrani, we are so blessed to have her in our lives.", 5, "2019", "Parent", 8);
 
 COMMIT;

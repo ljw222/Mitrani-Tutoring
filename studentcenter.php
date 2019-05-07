@@ -24,7 +24,43 @@ if (isset($_POST['cancel_appointment'])) {
 if (isset($_POST['submit_testimony'])) {
    echo testimonial_php();
 }
-   ?>
+
+//delete appts that are in the pst
+$sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location,   appointments.comment FROM appointments
+  JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+  JOIN subjects ON appointment_subjects.subject_id = subjects.id
+  WHERE appointments.user_id = :user_id
+  ORDER BY appointments.date";
+$params = array(
+  ':user_id' => $current_user['id']
+);
+$result = exec_sql_query($db, $sql, $params);
+if ($result) {
+  $records = $result->fetchAll();
+  if (count($records) > 0) { // if there are records
+    foreach ($records as $record) {
+      $date = new DateTime($record['date']);
+      $now = new DateTime();
+
+      if($date < $now) {
+        $appt_to_delete = $record['id'];
+        //Delete from appointments table
+        $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
+        $params = array(
+         ':appt_to_delete' => $appt_to_delete
+        );
+        $result = exec_sql_query($db, $sql, $params);
+        //Delete from appointment_subjects table
+        $sql = "DELETE FROM appointment_subjects WHERE appointment_id = :appt_to_delete;";
+        $params = array(
+       ':appt_to_delete' => $appt_to_delete
+        );
+        $result = exec_sql_query($db, $sql, $params);
+      }
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -85,7 +121,6 @@ if (isset($_POST['submit_testimony'])) {
     $time_end = date("G:i",strtotime('+1 hour',strtotime($time)));
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
-
     // check if given date + time overlaps with any other apptmt start or end time frames
     // $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) AND NOT (appointments.id = :appt_id)";
     $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time);";
@@ -95,7 +130,6 @@ if (isset($_POST['submit_testimony'])) {
       ':end_time' => $time_end
     );
     $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
-
     if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
       $time_is_available = FALSE;
     } else { // AVAILABLE TIME
@@ -122,14 +156,21 @@ if (isset($_POST['submit_testimony'])) {
         $valid_field = false;
         $valid_subject = false;
     }
-
     if (!in_array($location, ["Home", "School", "Office"])) { // if given location NOT in valid options
       $valid_field = FALSE;
       $valid_location = FALSE;
     }
 
+    //is date in the past?
+    $date = new DateTime($_POST["date"]);
+    $now = new DateTime();
+      //date is in the future, okay to schedule
+    if($date > $now) {
+      $valid_date = TRUE;
+    }
+
     //Upload Time of Appointment
-    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && !isset($valid_location)) {
+    if ($upload_info['error']== UPLOAD_ERR_OK && $time_is_available && $valid_field && !isset($valid_location) && $valid_date) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
@@ -157,7 +198,6 @@ if (isset($_POST['submit_testimony'])) {
         }
       }
     } else {
-
         // <!-- <p class='error'> "This time slot is not available. Please make an appointment with an open time slot."</p> -->
         $invalid_time_id = TRUE;
     }
@@ -171,7 +211,6 @@ if (isset($_POST['submit_testimony'])) {
         if ($valid_field) {
           echo "<p class='success'>Appointment successfully scheduled!</p>";
         }
-
       ?>
       <h2>Existing appointments</h2>
       <?php

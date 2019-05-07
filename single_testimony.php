@@ -8,12 +8,6 @@ if (isset($_GET['id'])) {
     $single_testimony_id = intval($_GET['id']);
 }
 
-//get whether the testimony was submitted anonymously (AKA anonymous bit value)
-$sql = "SELECT testimonials.anonymous FROM testimonials WHERE testimonials.id = :id;";
-$result = exec_sql_query($db, $sql, $params = array(':id' => $single_testimony_id));
-$anonymous = $result->fetchAll();
-$anonymous = $anonymous[0][0];
-
 //get the user id of the person who wrote the testimonial
 $sql = "SELECT testimonials.user_id FROM testimonials WHERE testimonials.id = :id;";
 $result = exec_sql_query($db, $sql, $params = array(':id' => $single_testimony_id));
@@ -61,9 +55,7 @@ if (count($records) > 0) {
                 <div>
                     <?php
                     // role and name
-                    if ($anonymous == 1) {
-                        echo "<p><em><strong>" . "Anonymous" . "</strong></em></p>";
-                    } else if ($record["role"] == "Parent" && $id_of_author != 0) {
+                    if ($record["role"] == "Parent" && $id_of_author != 0) {
                         echo "<p><em><strong>" . $record["role"] . " of " . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
                     } else if ($record["role"] != "Parent" && $id_of_author != 0) {
                         echo "<p><em><strong>" . $record["first_name"] . " " . $record["last_name"] . "</strong></em></p>";
@@ -84,7 +76,7 @@ if (count($records) > 0) {
         </div>
     </div>
 
-    <?php
+    <?
     if (isset($current_user) && ($id_of_author == $current_user['id'])) {
         $testimonial_to_delete = $single_testimony_id;
         ?>
