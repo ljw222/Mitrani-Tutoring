@@ -630,6 +630,17 @@ if (user is logged in and is the author of the testimony):
     delete the testimonial
     redirect the user to the testimonial page
     display success message that the testimony was infact deleted
+### single_student.php
+```
+if admin is logged in:
+
+display student info where student = user_id
+  echo Name
+  echo Grade
+  echo School
+  echo Home Address
+  echo Email
+  echo Phone Number
 ```
 ## Additional Comments
 
