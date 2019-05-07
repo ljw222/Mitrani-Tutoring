@@ -19,11 +19,13 @@ if ($result) {
   $records = $result->fetchAll();
   if (count($records) > 0) { // if there are records
     $now = date('m/d/Y', time());
+
     $yesterday = date('m/d/Y', time() - 60 * 60 * 24);
-    $current_time = date('h:i');
+    $current_time = date("G:i");
+
     foreach ($records as $record) {
       $date = $record['date'];
-      if ($date <= $yesterday || ($date == $now && $record['time_start'] < $current_time)) {
+      if ($date <= $yesterday || (($date == $now) && ($record['time_start'] < $current_time))) {
         $appt_to_delete = $record['id'];
         //Delete from appointments table
         $sql = "DELETE FROM appointments WHERE id = :appt_to_delete;";
@@ -61,9 +63,12 @@ if (isset($_POST['cancel_appointment'])) {
   //cancel appt complete
   $deleted_appt = TRUE;
 }
+
+//submit testimony
 if (isset($_POST['submit_testimony'])) {
   echo testimonial_php();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -287,15 +292,21 @@ if (isset($_POST['submit_testimony'])) {
                 <p class="required">*</p>
                 <label for="date">Date:</label>
               </div>
-              <input class="input_box" id="date" type="date" name="date" />
-
+              <input class="input_box" id="date" type="date" name="date" <?php
+                                                                          if( isset($_POST['date']) && !isset($submit_success) ){
+                                                                            echo 'value = '. $_POST['date'];
+                                                                          } ?> >
             </div>
             <div>
               <div class="form_label">
                 <p class="required">*</p>
                 <label for="time">Start Time:</label>
               </div>
-              <input class="input_box" type="time" id="time" name="start_time" min="09:00" max="18:00">
+              <input class="input_box" type="time" id="time" name="start_time" min="09:00" max="18:00" <?php
+                                                                          if( isset($_POST['start_time']) &&
+                                                                            !isset($submit_success) ){
+                                                                              echo 'value = '. $_POST['start_time'];
+                                                                          } ?> >
             </div>
             <div>
               <div class="form_label">
@@ -303,10 +314,16 @@ if (isset($_POST['submit_testimony'])) {
                 <label>Subject(s):</label>
               </div>
               <?php
-              $records = exec_sql_query($db, "SELECT subject FROM subjects", $params = array())->fetchAll();
-              foreach ($records as $record) {
-                echo "<p class='subject'><input type='checkbox' name='" . $record['subject'] . "' value='" . $record['subject'] . "'>" . $record['subject'] . "</p>";
-              }
+                $records = exec_sql_query($db, "SELECT subject FROM subjects", $params = array())->fetchAll();
+                foreach ($records as $record) {
+                  if( isset($_POST[$record['subject']]) && !isset($submit_success) ){
+                    $checked = 'checked';
+                  }
+                  else{
+                    $checked = '';
+                  }
+                  echo "<p class='subject'><input type='checkbox' name='" . $record['subject'] . "' value='" . $record['subject'] . "'" . $checked . ">" . $record['subject'] . "</p>";
+                }
               ?>
             </div>
             <div>
@@ -320,7 +337,7 @@ if (isset($_POST['submit_testimony'])) {
                 <?php
                 $all_locations = ["Home", "School", "Office"];
                 foreach ($all_locations as $chosen_location) {
-                  if (isset($_POST['change_location']) && $_POST['change_location'] == $chosen_location) {
+                  if (isset($_POST['location']) && $_POST['location'] == $chosen_location && !isset($submit_success) ) {
                     $selected = "selected = 'selected' class='selected-option'";
                   } else {
                     $selected = "";
@@ -335,7 +352,9 @@ if (isset($_POST['submit_testimony'])) {
               <div class="form_label">
                 <label for="comment">Comment:</label>
               </div>
-              <textarea rows=5 cols=40 name="comment" id="comment"></textarea>
+              <textarea rows=5 cols=40 name="comment" id="comment"><?php if( isset($comment) && !isset($submit_success) )
+                                                                  { echo $comment; } ?>
+              </textarea>
             </div>
             <div>
               <button name="submit" type="submit">Schedule</button>
@@ -357,12 +376,39 @@ if (isset($_POST['submit_testimony'])) {
       }
       ?>
       <h2>Scheduled appointments</h2>
+
+      <form id="sort_appts-form" action="studentcenter.php#existing_appointments_div" method="POST">
+        <p>Sort by:</p>
+        <select name="sort_by_name">
+          <option value="student_first_name" name="student_first_name">Student First Name</option>
+          <option value="student_last_name" name="student_last_name">Student Last Name</option>
+          <option value="date" name="date">Date</option>
+        </select>
+        <button type="submit" name="submit-sortappt">Sort</button>
+      </form>
+
       <?php
-      $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
-      JOIN appointments ON users.id = appointments.user_id
-      JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
-      JOIN subjects ON appointment_subjects.subject_id = subjects.id
-      ORDER BY appointments.date";
+      if( isset($_POST['submit-sortappt']) && $_POST['sort_by_name'] == "student_first_name"){
+        $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+        JOIN appointments ON users.id = appointments.user_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        ORDER BY users.first_name";
+      }
+      elseif( isset($_POST['submit-sortappt']) && $_POST['sort_by_name'] == "student_last_name"){
+        $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+        JOIN appointments ON users.id = appointments.user_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        ORDER BY users.last_name";
+      }
+      else{
+        $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+        JOIN appointments ON users.id = appointments.user_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        ORDER BY appointments.date";
+      }
       $params = array();
       $result = exec_sql_query($db, $sql, $params);
       if ($result) {
