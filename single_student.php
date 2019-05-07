@@ -89,11 +89,11 @@ function print_subjects($subjects)
     ?>
         <div class="body-div">
             <h3><em><?php echo $result["first_name"] . " " . $result["last_name"]." (grade ".$result["grade"].")"; ?></em></h3>
-            <p>Location: <?php echo print_full_location($result); ?> </p>
 
             <p>Student Email: <?php echo $result['email']; ?> </p>
             <p>Student Phone: <?php echo $result['phone']; ?> </p>
-            <p>Student
+            <p>Student Address: <?php echo $result['home']; ?></p>
+            <p> Student School: <?php echo $result['school']; ?></p>
         </div>
     <?php
 }
