@@ -2,6 +2,10 @@
    // DO NOT REMOVE!
    include("includes/init.php");
    // DO NOT REMOVE!
+
+   $appt_error_messages = array();
+   $appt_success_messages = array();
+
 //Delete appointment
 $deleted_appt = FALSE;
 if (isset($_POST['cancel_appointment'])) {
@@ -114,74 +118,74 @@ if ($result) {
 } else {
   if (isset($_POST["submit"]) && is_user_logged_in()) {
     // filter input for upload
-    $appt_id =intval($db->lastInsertId("id"));
     $date = format_date($_POST["date"]);
     $time = $_POST['start_time']; //filter input
     $time_start = date("G:i", strtotime($time));
     $time_end = date("G:i",strtotime('+1 hour',strtotime($time)));
+    echo "<script>console.log('date time: ".$time."')</script>";
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
-    // check if given date + time overlaps with any other apptmt start or end time frames
-    $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time);";
-    $params = array(
-      ':date' => $date,
-      ':start_time' => $time_start,
-      ':end_time' => $time_end
-    );
-    $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
-    if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
-      $time_is_available = FALSE;
-    } else { // AVAILABLE TIME
-      $time_is_available = TRUE;
+
+     if ($date == "//" OR $time == NULL) { // no date and time
+      $valid_date_time = false;
+      if ($date == "//") { // date is empty
+        array_push($appt_error_messages, "Please provide a date.");
+      }
+      if ($time == NULL) { // time is null
+        array_push($appt_error_messages, "Please provide a start time between 9 AM and 6 PM.");
+      }
+    } else { // given date and time
+      //is date in the past?
+      $test_time = date("G:i:s", strtotime($time));
+      $test_date_time = $date." ".$test_time;
+      $now = date('m/d/Y G:i:s', time());
+      echo "<script>console.log('given v now: ".$test_date_time, $now."')</script>";
+        //date is in the future, okay to schedule
+      if ($test_date_time > $now) {
+        $valid_date_time = TRUE;
+        // check if given date + time overlaps with any other apptmt start or end time frames
+        $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time);";
+        $params = array(
+          ':date' => $date,
+          ':start_time' => $time_start,
+          ':end_time' => $time_end
+        );
+        $time_overlap = exec_sql_query($db, $sql, $params)->fetchAll();
+        if (count($time_overlap) > 0) { // if overlap -- NOT AVAILABLE
+          $time_is_available = FALSE;
+          array_push($appt_error_messages, "Sorry, this time slot is not available. Please try another date and start time between 9 AM and 6 PM.");
+        } else { // AVAILABLE TIME
+          $time_is_available = TRUE;
+        }
+      } elseif ($test_date_time <= $now) { // date not in future
+        $valid_date_time = FALSE;
+        array_push($appt_error_messages, "Please schedule the appointment in a future date and time.");
+      }
     }
 
-    //validate form -- messages
-    $valid_field = true;
-
-     //is date in the past?
-    // $given = new DateTime($_POST["date"]);
-    $test_time = date("h:i:s a", strtotime($time));
-    $test_date_time = $date." ".$test_time;
-    // $now = new DateTime();
-    $now = date('m/d/Y h:i:s a', time());
-      //date is in the future, okay to schedule
-    if ($test_date_time > $now) {
-      $valid_date = TRUE;
-      $valid_time = TRUE;
-      $valid_field = TRUE;
-    } else { // date not in future
-      $valid_date = FALSE;
-      $valid_time = FALSE;
-      $valid_field = FALSE;
-    }
-    if ($date == NULL){
-        $valid_field = false;
-        $valid_date = false;
-    }
-
-    if ($time == NULL){
-        $valid_field = false;
-        $valid_time = false;
-    }
     //check if any subjects are checked
-    $subjects = exec_sql_query($db, "SELECT subject FROM subjects", $params=array())->fetchAll();
-    foreach($subjects as $subject){
-      if (isset($_POST[$subject['subject']])){
+    $subj_selected == FALSE;
+    $subjects = exec_sql_query($db, "SELECT * FROM subjects", $params=array())->fetchAll();
+    foreach ($subjects as $subject) {
+      $subj = $subject['subject'];
+      if (isset($_POST[$subj])) {
         $subj_selected = TRUE;
       };
     }
-    if (!isset($subj_selected)){
-        $valid_field = false;
-        $valid_subject = false;
+    if ($subj_selected == FALSE) {
+      array_push($appt_error_messages, "Please select at least one subject for your appointment.");
     }
+
+    // location
     if (!in_array($location, ["Home", "School", "Office"])) { // if given location NOT in valid options
-      $valid_field = FALSE;
+      array_push($appt_error_messages, "Invalid location. Please select one of the given locations.");
       $valid_location = FALSE;
+    } else {
+      $valid_location = TRUE;
     }
 
     //Upload Time of Appointment
-    // $upload_info['error']== UPLOAD_ERR_OK &&
-    if ($time_is_available && $valid_time && !isset($valid_location) && $valid_date && $valid_field) {
+    if ($time_is_available && $valid_date_time && $subj_selected && $valid_location) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
@@ -205,19 +209,20 @@ if ($result) {
             ':subj_id' => $subj_id
           );
           $result = exec_sql_query($db, $sql, $params);
+          if ($result) {
+            $submit_success = TRUE;
+          }
         }
       }
-    } else {
-        $invalid_time_id = TRUE;
     }
   }
   ?>
     <div class="body-div" id="existing_appointments_div">
       <?php
-        if ($deleted_appt) {
+        if (isset($deleted_appt) && $deleted_appt) {
           echo "<p class='success'>Appointment successfully cancelled!</p>";
         }
-        if ($valid_field) {
+        if (isset($submit_success) && $submit_success) {
           echo "<p class='success'>Appointment successfully scheduled!</p>";
         }
       ?>
@@ -263,10 +268,11 @@ if ($result) {
             <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
                <h2>Schedule an Appointment</h2>
                <h4>(All appointments last <p class="underline">1 hour</p>)</h4>
-               <p class="appt_error <?php if(!isset($valid_date) OR $valid_date) { echo "hidden";} ?>">Please enter a valid date</p>
-               <p class="appt_error <?php if(!isset($valid_time) OR $valid_time) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 6 PM</p>
-               <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
-               <p class="appt_error <?php if(!isset($invalid_time_id)) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
+               <?php
+               foreach ($appt_error_messages as $appt_error_message) {
+                 echo "<p class='appt_error'>".$appt_error_message."</p>";
+               }
+               ?>
                <ul>
                   <li>
                      <div class="form_label">
