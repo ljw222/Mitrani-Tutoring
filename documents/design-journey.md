@@ -687,6 +687,7 @@ We did not have any unmet client wants or needs that were explicitly expressed. 
 
 - Our design is strong. It is clean, professional, and appropriate for the target audience and theme. We created consistency and appeal with tasteful images and fonts throughout the site.
 - We integrated multiple parts of our site together well. For instance, testimonials were not only on one page but integrated in the Prek-5 and 6-12 pages with custom links that filter the testimonial table based on the relevant grades.
+- Our website is also very usable for both the client and the users. For example, users are able to modify appointments, rather than having to delete the entire appointment and then making another one just to change one field. In addition, the site is usable to our client as she has her own admin page, where she has control over appoinments. The use of the single appointment and student pages helps her get more information about who she is tutoring and where she has to go for each appointment.
 
 [2. Tell us about things that don't work, what you wanted to implement, or what you would do if you keep working with the client in the future. Give justifications.]
 
