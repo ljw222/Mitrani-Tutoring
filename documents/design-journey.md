@@ -485,6 +485,16 @@ To add a testimonial
 To sort testimonials
   Select all of the testimonials in the table that match the selected rating/date/user grade/role
 
+- If user cancels appointment: "DELETE FROM appointment_subjects WHERE appointment_id = :appt_id;";
+- If user makes an appointment: "INSERT INTO appointment_subjects (appointment_id, subject_id) VALUES (:appt_id, :subj_id);";
+- If user updates appointment field (date, time, subject, location, comments): "UPDATE appointments SET location = :new_location WHERE id = :appt_id"; (for each respective field)
+- If user submits a testimony: "INSERT INTO testimonials (testimonial, rating, date, role, user_id) VALUES (:testimonial, :rating, :date, :role, :user_id)";
+- Delete appointments that have passed: "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location,   appointments.comment FROM appointments
+  JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+  JOIN subjects ON appointment_subjects.subject_id = subjects.id
+  WHERE appointments.user_id = :user_id
+  ORDER BY appointments.date";
+
 ## PHP File Structure
 
 [List the PHP files you will have. You will probably want to do this with a bulleted list.]
