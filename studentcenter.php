@@ -68,6 +68,7 @@ if (isset($_POST['cancel_appointment'])) {
 if (isset($_POST['submit_testimony'])) {
   echo testimonial_php();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -375,12 +376,39 @@ if (isset($_POST['submit_testimony'])) {
       }
       ?>
       <h2>Scheduled appointments</h2>
+
+      <form id="sort_appts-form" action="studentcenter.php#existing_appointments_div" method="POST">
+        <p>Sort by:</p>
+        <select name="sort_by_name">
+          <option value="student_first_name" name="student_first_name">Student First Name</option>
+          <option value="student_last_name" name="student_last_name">Student Last Name</option>
+          <option value="date" name="date">Date</option>
+        </select>
+        <button type="submit" name="submit-sortappt">Sort</button>
+      </form>
+
       <?php
-      $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
-      JOIN appointments ON users.id = appointments.user_id
-      JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
-      JOIN subjects ON appointment_subjects.subject_id = subjects.id
-      ORDER BY appointments.date";
+      if( isset($_POST['submit-sortappt']) && $_POST['sort_by_name'] == "student_first_name"){
+        $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+        JOIN appointments ON users.id = appointments.user_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        ORDER BY users.first_name";
+      }
+      elseif( isset($_POST['submit-sortappt']) && $_POST['sort_by_name'] == "student_last_name"){
+        $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+        JOIN appointments ON users.id = appointments.user_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        ORDER BY users.last_name";
+      }
+      else{
+        $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+        JOIN appointments ON users.id = appointments.user_id
+        JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+        JOIN subjects ON appointment_subjects.subject_id = subjects.id
+        ORDER BY appointments.date";
+      }
       $params = array();
       $result = exec_sql_query($db, $sql, $params);
       if ($result) {

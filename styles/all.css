@@ -592,6 +592,21 @@ form .form_label{
     font-size: 13px;
 }
 
+#sort_appts-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#sort_appts-form>select {
+    text-align: center;
+    height: 20px;
+    margin: 5px;
+}
+
+
+
+
 /* SINGLE APPOINTMENT */
 #cancel_appointment{
     display: flex;
