@@ -91,7 +91,7 @@ if (isset($_POST['submit_testimony'])) {
         echo "<p>In the Student Center, you can view existing appointments, edit appointments, schedule a new appointment, or cancel an appointment. As a member, you can also submit testimonials.</p>";
       } else {
         echo "<h2>What is the Student Center?</h2>";
-        echo "<p>The Mitrani Tutoring Student Center is a place where students and parents can track and schedule tutoring sessions with Laurie. You can also submit testimonials. Sign in to access these exclusive tools!</p>";
+        echo "<p>The Mitrani Tutoring Student Center is a place where students and parents can track and schedule tutoring sessions with Laurie. Schedule or cancel an appointment or submit a testimony! Sign in to access these exclusive tools!</p>";
       }
       ?>
     </div>

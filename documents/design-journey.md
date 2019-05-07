@@ -23,6 +23,7 @@ Our client is Laurie Mitrani, a certified teacher and UVA grad. She is an educat
 ## Purpose & Content
 
 [Tell us the purpose of the website and what it is all about.]
+
 The purpose of this website is to give Laurie's company/tutoring business and online presence. She currently gets business through word of mouth, but the website will allow anybody to learn about the educational services she offers, her experience, and allow them to get in contact with Laurie if they are interested. The site will include testimonials, a brief bio, and descriptions of the services that she offers, grouped by age group.
 
 ## Target Audience(s)
@@ -221,7 +222,7 @@ Each person will be assigned 2-3 pages to be in charge of for design and coding.
 
 Overall our client was very happy with the initial design of our website. She was particularly excited about the design of the student center and the ability for each user to login and view their scheduled appointments and update or cancel the appointments as needed. She also gave us positive feedback for the testimonials page and liked the fact that potential clients in her target audience would be able to have insight into other clients' experiences. Our client liked the structure of the site, however she asked that the page that included information on her services not include the actual rates that she charges. Her rates vary from client to client, so we changed the pricing information to 'competitive rates.'
 
-One comment that Laurie had was that she wanted to be able to view the appointmnets for all of her students in one place, so that she is aware of what appointments she has each day.
+One comment that Laurie had was that she wanted to be able to view the appointments for all of her students in one place, so that she is aware of what appointments she has each day.
 
 
 ## Iterated Design
@@ -478,6 +479,7 @@ Table: testimonials
 ## Database Queries
 
 [Plan your database queries. You may use natural language, pseudocode, or SQL.]
+
 To get existing appointment:
   Select all appointments from the Appointment table where the user_id is equal to the one of the user who is signed in
 To make an appointment:
@@ -673,7 +675,7 @@ Some additional features that we wanted to and would implement if continuing to 
 - At the moment, new users cannot be added. However, we could implement this as long as new students only create new accounts when they have their first meeting with you. Client must be logged into Student Center, but the new user will create their own password that is hashed by the site and stored as hashed in the database. Client did not ask for this feature, but we address it in case it is brought up.
 - User accounts also cannot be deleted or edited. Client did not ask for this feature, but again, we address it in case it is brought up.
 - Client cannot schedule appointments from the admin account. However, we structured the database and scheduling form to work around client's given availability, so students are meant to adjust to the client's availability more than the other way around. Client did not ask for an admin scheduling feature, but we address it in case it is brought up.
-- Ideally, user accounts would also have contact information. However, for the purpose of our project, we did not include contact information for the users in our seed data to protect the actual privacy of Client's students.
+
 
 [3. Tell us anything else you need us to know for when we're looking at the project.]
 - Client preferred to simply not be able to delete testimonials for ethical reasons and wanted members to submit honest and open testimonials that they are ok with being tied to, so there is no anonymous feature for submitting a testimonial. This is also better for prospective tutees who want to know the grades and actual experiences of other students/parents.
