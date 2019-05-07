@@ -139,15 +139,19 @@ if ($result) {
     $valid_field = true;
 
      //is date in the past?
-    $given = new DateTime($_POST["date"]);
-    echo "<script>console.log('".$given."')</script>";
-    $now = new DateTime();
+    // $given = new DateTime($_POST["date"]);
+    $test_time = date("h:i:s a", strtotime($time));
+    $test_date_time = $date." ".$test_time;
+    // $now = new DateTime();
+    $now = date('m/d/Y h:i:s a', time());
       //date is in the future, okay to schedule
-    if ($given > $now) {
+    if ($test_date_time > $now) {
       $valid_date = TRUE;
+      $valid_time = TRUE;
       $valid_field = TRUE;
     } else { // date not in future
       $valid_date = FALSE;
+      $valid_time = FALSE;
       $valid_field = FALSE;
     }
     if ($date == NULL){
@@ -177,7 +181,7 @@ if ($result) {
 
     //Upload Time of Appointment
     // $upload_info['error']== UPLOAD_ERR_OK &&
-    if ($time_is_available && $valid_field && !isset($valid_location) && $valid_date) {
+    if ($time_is_available && $valid_time && !isset($valid_location) && $valid_date && $valid_field) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
@@ -260,9 +264,9 @@ if ($result) {
                <h2>Schedule an Appointment</h2>
                <h4>(All appointments last <p class="underline">1 hour</p>)</h4>
                <p class="appt_error <?php if(!isset($valid_date) OR $valid_date) { echo "hidden";} ?>">Please enter a valid date</p>
-               <p class="appt_error <?php if(!isset($valid_time)) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 6 PM</p>
+               <p class="appt_error <?php if(!isset($valid_time) OR $valid_time) { echo "hidden";} ?>">Please enter a valid time, between 9 AM and 6 PM</p>
                <p class="appt_error <?php if(!isset($valid_subject)) { echo "hidden";} ?>">Please select a subject for your appointment</p>
-               <p class="appt_error <?php if(!isset($invalid_time_id)) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
+               <p class="appt_error <?php if(!isset($invalid_time_id) OR $valid_time) { echo "hidden";} ?>">This time slot is not available. Please make an appointment with an open time slot</p>
                <ul>
                   <li>
                      <div class="form_label">
