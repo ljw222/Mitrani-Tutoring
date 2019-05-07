@@ -244,7 +244,7 @@ if (isset($_POST['edit_appt_comment'])) {
             <p>Comments: <?php echo $result["comment"]; ?> </p>
         </div>
     <?php
-} else { // admin
+    } else { // admin
     ?>
         <div class="body-div">
             <h3><em><?php echo $result["first_name"] . " " . $result["last_name"]." (grade ".$result["grade"].")"; ?></em></h3>
@@ -391,7 +391,6 @@ if (isset($_POST['edit_appt_comment'])) {
     </div>
 
     <div class="body-div">
-        <!-- INSERT PHP ABOUT CURRENT PAGE ID FOR ACTION -->
         <form id="cancel_appt_form" action="<?php echo "studentcenter.php?" . http_build_query(array('appt_to_delete' => $appt_id)); ?>" method="POST" enctype="multipart/form-data">
             <div id="cancel_appointment">
                 <button name="cancel_appointment" type="submit">Cancel Appointment</button>

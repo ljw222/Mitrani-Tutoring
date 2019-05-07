@@ -44,7 +44,7 @@ include("includes/init.php");
         Competitive rates — contact for more information
       </li>
       <li>
-        One hour tutoring sessions
+        1-hour tutoring sessions
       </li>
     </ul>
     <div class="center">
