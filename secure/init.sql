@@ -56,7 +56,7 @@ CREATE TABLE testimonials (
 -- Initial seed data
 
 --Users Table
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'admin', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K', "Laurie", "Mitrani", NULL, "", ""); -- password: user1
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'admin', '$2y$10$53n/ZeKPSmr430z3z7HU1OnrJ/ENcp/v2ZJRq6ioPd2vr.1aa1QrK', "Laurie", "Mitrani", NULL, "", ""); -- password: admin
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (2, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School'); --password: user1
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (3, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School'); --password: user2
 INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (4, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0,'123 Beckett Way', 'Bridges Elementary School'); --password: user3
