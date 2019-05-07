@@ -9,7 +9,7 @@ CREATE TABLE users (
     password TEXT NOT NULL,
     first_name TEXT NOT NULL,
     last_name TEXT,
-    grade INTEGER NOT NULL,
+    grade INTEGER,
     home TEXT,
     school TEXT
 );
@@ -70,20 +70,21 @@ CREATE TABLE testimonials (
 
 --Users Table
 -- INSERT INTO users (id,username,first_name) VALUES (0, 'anonymous',"Anonymous");
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School'); --password: user1
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (2, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School'); --password: user2
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (3, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0,'123 Beckett Way', 'Bridges Elementary School'); --password: user3
-INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (4, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5,'5 Pine Rd','Greenwood Elementary School'); --password: ariel
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (5, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5,'2 Wedgewood Dr','Bridges Elementary School'); --password: tzipora
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (6, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4,'10 Main Rd', 'Greenwood Elementary School'); --password: dls
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (7, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2,'43 Beckett Way','Bridges Elementary School'); --password: bz
-INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1,'184 Stone Rd','Greenwood Elementary School'); --password: tk
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (1, 'admin', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K', "Laurie", "Mitrani", NULL, "", ""); -- password: user1
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (2, 'user1', '$2y$10$BAJ3Zglrt49eztL4l1LlUeG0k75zi4J2JTtrjognFyiD8RYR1Yb0K',"Fred","Smith",2,'11 Pine Rd','Greenwood Elementary School'); --password: user1
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (3, 'user2', '$2y$10$h5SXw2BWV6Lp25HRrWrjruktNQaHjhkwTWYyatRK9XSV4ZOsglsCC',"Erica","Jones",11,'24 Main Rd','Miami High School'); --password: user2
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (4, 'user3', '$2y$10$XToMCm9QSDhRgSe4zBwKxu8MAQ4nwUlWWbwn1u4nF0uU6dKeBA5Aq',"Tim","Lee",0,'123 Beckett Way', 'Bridges Elementary School'); --password: user3
+INSERT INTO users (id,username,password,first_name,last_name,grade,home,school) VALUES (5, 'ariel','$2y$10$ynNq4caJnvZJUJCXqXzJdOKf/CVK4cf7sNvQ/WSR5AMlqIQCLBE7K','Ariel','C.', 5,'5 Pine Rd','Greenwood Elementary School'); --password: ariel
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (6, 'tzipora','$2y$10$Q51mGxZtgDsREShV97ETBOUGZ2u2uWfnNhEoD4OIS/XqT4Vbh4bo2','D.L.S', 5,'2 Wedgewood Dr','Bridges Elementary School'); --password: tzipora
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (7, 'dls','$2y$10$ciShg8By0OO2rrk96CzYxuW6A8H6x9QwMluEHybjv0baxpyZnp2fW','D.L.S', 4,'10 Main Rd', 'Greenwood Elementary School'); --password: dls
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (8, 'bz','$2y$10$3EI88eJujiyIrG2D.jSF..7N09wv.QDpwCiJMi2Nvh2232BaEqjaK','B.Z.', 2,'43 Beckett Way','Bridges Elementary School'); --password: bz
+INSERT INTO users (id,username,password,first_name,grade,home,school) VALUES (9, 'tk','$2y$10$qSGR.8LzimZ8PUdEvEpp7.xvTqpiFkCTaT1JzlV9xph8QdvgarOiu','T.K.', 1,'184 Stone Rd','Greenwood Elementary School'); --password: tk
 
 --Appointments Table
     --appointment for Fred (user1) on 4/29 at 3:30pm
-INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "05/29/2019","15:30", "16:30","School","First appointment!", 1);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (1, "05/29/2019","15:30", "16:30","School","First appointment!", 2);
     --appointment for Fred (user1) on 4/30 at 3pm
-INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "05/15/2019","15:00", "16:00","Home","Second appointment.", 1);
+INSERT INTO appointments (id,date,time_start,time_end,location,comment,user_id) VALUES (2, "05/15/2019","15:00", "16:00","Home","Second appointment.", 2);
 
 --Subjects Table
 INSERT INTO subjects (id, subject) VALUES (1, "Reading");
@@ -103,16 +104,16 @@ INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (2, 1, 
 INSERT INTO appointment_subjects (id, appointment_id, subject_id) VALUES (3, 2, 5);
 
 --Testimonials Table
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 2);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding. My only difficulty was figuring out how to meet because I didn't have a car to commute, but other than that, she was great.", 4, "2015", "Student", 2);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (3, "Teacher Laurie was really helpful in teaching me how to write better. She helped me with all the assignments I needed to check my spelling and grammar and so I did well in my class. Laurie is super nice and kind too!", 5, "2012", "Student", 1);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (4, "Laurie is the bestest! I like math now because she makes math fun for me all the time. We play games and she reads to me so I like Laurie.", 5, "2014", "Student", 3);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (5, "It is fun to work with Mrs. Mitrani. She helps me with everything and she makes learning really fun. Working with Mrs. Mitrani in 5th grade has made the year go much smoother.", 5, "2019", "Student",4);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (6, "Laurie Mitrani is an amazing tutor.  She’s the most exciting, funny, and most interesting tutor I ever had. She is always in a good mood and never gives up. If you want a good tutor Mrs. M is the one!! ", 5, "2019", "Student", 5);
-INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (7, "I like working with Mrs. Mitrani. Last year on the FSA I scored high because she worked with me. Today I took the FSA for 4th grade and she also helped me.", 5, "2019", "Student", 6);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (1, "Laurie is an amazing teacher, who genuinely cares about her students and their well being.", 5, "2017", "Parent", 3);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (2, "I couldn't have gotten through my AP Chemistry course without Laurie's help. She has amazing patience and depth of understanding. My only difficulty was figuring out how to meet because I didn't have a car to commute, but other than that, she was great.", 4, "2015", "Student", 3);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (3, "Teacher Laurie was really helpful in teaching me how to write better. She helped me with all the assignments I needed to check my spelling and grammar and so I did well in my class. Laurie is super nice and kind too!", 5, "2012", "Student", 2);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (4, "Laurie is the bestest! I like math now because she makes math fun for me all the time. We play games and she reads to me so I like Laurie.", 5, "2014", "Student", 4);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (5, "It is fun to work with Mrs. Mitrani. She helps me with everything and she makes learning really fun. Working with Mrs. Mitrani in 5th grade has made the year go much smoother.", 5, "2019", "Student",5);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (6, "Laurie Mitrani is an amazing tutor.  She’s the most exciting, funny, and most interesting tutor I ever had. She is always in a good mood and never gives up. If you want a good tutor Mrs. M is the one!! ", 5, "2019", "Student", 6);
+INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (7, "I like working with Mrs. Mitrani. Last year on the FSA I scored high because she worked with me. Today I took the FSA for 4th grade and she also helped me.", 5, "2019", "Student", 7);
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (8, "My child has been receiving tutoring services with Laurie Mitrani for the past 2 years. Laurie has given her confidence in her reading, made reading fun, and has encouraged a love for reading. Working with Laurie on a one on one basis has given my child the opportunity to have her skills built up in the areas which needed extra support.
-She has made excellent progress, I am so grateful to have such a wonderful tutor.", 5, "2019", "Parent", 7);
+She has made excellent progress, I am so grateful to have such a wonderful tutor.", 5, "2019", "Parent", 8);
 INSERT INTO testimonials (id, testimonial, rating, date, role, user_id) VALUES (9, "Laurie Mitrani has worked with my daughter for two years and my son for a year. She is truly one of a kind!  She has endless patience and the love of her students and her work. My children look forward to working with her and are eager to please her and put their best foot forward. My daughter has surpassed any goals we have set for her because Laurie told her she could and continued to encourage her. When my either of them is having an off day Laurie is so good at changing up their routine and keeping them interested. Laurie always keeps my Husband and I informed of our children’s progress and is so good at explaining everything they are working on.
-I would highly recommend Laurie Mitrani, we are so blessed to have her in our lives.", 5, "2019", "Parent", 8);
+I would highly recommend Laurie Mitrani, we are so blessed to have her in our lives.", 5, "2019", "Parent", 9);
 
 COMMIT;

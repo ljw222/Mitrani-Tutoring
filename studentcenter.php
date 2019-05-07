@@ -114,7 +114,7 @@ if ($result) {
       </form>
     </div>
   <?php
-} else {
+} elseif (is_user_logged_in() && $current_user['id'] != 1) { // signed in, NOT admin
   if (isset($_POST["submit"]) && is_user_logged_in()) {
     // filter input for upload
     $date = format_date($_POST["date"]);
@@ -342,7 +342,52 @@ if ($result) {
       <div class="body-div">
          <?php include("includes/testimonial_form.php");?>
       </div>
+<?php
+} elseif (is_user_logged_in() && $current_user['id'] == 1) { // admin
+  ?>
+  <div class="body-div" id="existing_appointments_div">
       <?php
-         } ?>
-      <?php include("includes/footer.php"); ?>
+        if (isset($deleted_appt) && $deleted_appt) {
+          echo "<p class='success'>Appointment successfully cancelled!</p>";
+        }
+      ?>
+    <h2>Scheduled appointments</h2>
+    <?php
+    $sql = "SELECT DISTINCT appointments.id as id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment, users.first_name, users.last_name FROM users
+      JOIN appointments ON users.id = appointments.user_id
+      JOIN appointment_subjects ON appointments.id = appointment_subjects.appointment_id
+      JOIN subjects ON appointment_subjects.subject_id = subjects.id
+      ORDER BY appointments.date";
+    $params = array();
+    $result = exec_sql_query($db, $sql, $params);
+    if ($result) {
+      $records = $result->fetchAll();
+      if (count($records) > 0) { // if there are records
+        ?>
+        <div class="table-div">
+          <table>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Student</th>
+                <th>Location</th>
+                <th>Details</th>
+            </tr>
+            <?php
+                foreach ($records as $record) {
+                  print_all_appt($record);
+                }
+                ?>
+          </table>
+      </div>
+      <?php
+      } else {
+          echo "<p class='no_appt'>You do not have any scheduled appointments.</p>";
+      }
+    } ?>
+  </div>
+  <?php
+}
+?>
+    <?php include("includes/footer.php"); ?>
   </body>

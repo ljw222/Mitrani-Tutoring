@@ -225,7 +225,7 @@ function print_record($record) {
 }
 
 function print_appt($record) {
-  $categories = ["date", "time", "location", "subjects"];
+  $categories = ["date", "time", "location", "details"];
   echo "<tr>";
   foreach ($categories as $category) {
     if ($category == "date") {
@@ -239,7 +239,26 @@ function print_appt($record) {
     } elseif ($category == "location") {
       echo "<td>". $record['location']."</td>";
     } else {
-      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>" . 'View Appointment' . "</a></td>";
+      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>View Appointment</a></td>";
+    }
+  }
+  echo "</tr>";
+}
+
+function print_all_appt($record) {
+  $categories = ["date", "time", "student", "location", "details"];
+  echo "<tr>";
+  foreach ($categories as $category) {
+    if ($category == "time") {
+      echo "<td>";
+      echo date("g:i", strtotime($record["time_start"])). "-". date("g:i a", strtotime($record["time_end"]));
+      echo "</td>";
+    } elseif ($category == "details") {
+      echo "<td class='testimonial-div'><a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>View Appointment</a></td>";
+    } elseif ($category == "student") {
+      echo  "<td>" .  $record['first_name']." ". $record['last_name'] . "</td>";
+    } else {
+      echo  "<td>".  $record[$category]."</td>";
     }
   }
   echo "</tr>";
@@ -251,26 +270,38 @@ function print_full_location($record) {
   if ($record['location'] == "Home") { // home
     // SQL QUERY FOR USER HOME
     $loc_sql = "SELECT home FROM users WHERE users.id = :user_id";
-    $params = array(
-      ':user_id' => $current_user['id']
-    );
+    if ($current_user['id'] != 1) { // not admin
+      $params = array(
+        ':user_id' => $current_user['id']
+      );
+    } else { // if admin
+      $params = array(
+        ':user_id' => $record['user_id']
+      );
+    }
     $user_record = exec_sql_query($db, $loc_sql, $params)->fetchAll()[0]; // get first record (should only be 1)
     if ( $user_record['home'] != "") { // if home address given
       $location_full = "Home (" . $user_record['home'] . ")";
     } else {
-      $location_full = "Home\t<span class='error'>(NOTE: Address needed. Please contact Laurie.)</span>";
+      $location_full = "Home\t<span class='error'>(NOTE: Address needed.)</span>";
     }
   } elseif ($record['location'] == "School") { // school
     // SQL QUERY FOR USER SCHOOL
     $loc_sql = "SELECT school FROM users WHERE users.id = :user_id";
-    $params = array(
-      ':user_id' => $current_user['id']
-    );
+    if ($current_user['id'] != 1) { // not admin
+      $params = array(
+        ':user_id' => $current_user['id']
+      );
+    } else { // if admin
+      $params = array(
+        ':user_id' => $record['user_id']
+      );
+    }
     $user_record = exec_sql_query($db, $loc_sql, $params)->fetchAll()[0]; // get first record (should only be 1)
-    if ($user_record[ 'school'] != "") { // if school address given
-      $location_full = "School (" . $user_record[ 'school'] . ")";
+    if ($user_record['school'] != "") { // if school address given
+      $location_full = "School (" . $user_record['school'] . ")";
     } else {
-      $location_full = "School\t<span class='error'>(NOTE: Address needed. Please contact Laurie.)</span>";
+      $location_full = "School\t<span class='error'>(NOTE: Address needed.)</span>";
     }
   } elseif ($record['location'] == "Office") { // office
     $location_full = "Office (301 Arthur Godfrey Rd. Penthouse, Miami Beach, FL 33140)";

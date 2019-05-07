@@ -6,13 +6,22 @@ if (isset($_GET['appt_id'])) {
     $appt_id = intval($_GET['appt_id']);
 }
 // GET DETAILS
-$sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
+if ($current_user['id'] != 1) {
+    $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
         WHERE appointments.user_id = :user_id AND appointments.id = :appt_id;";
-$params = array(
-    ':user_id' => $current_user['id'],
-    ':appt_id' => $appt_id
-);
-$result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+    $params = array(
+        ':user_id' => $current_user['id'],
+        ':appt_id' => $appt_id
+    );
+    $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+} else {
+    $sql = "SELECT DISTINCT * FROM appointments JOIN users ON appointments.user_id = users.id
+        WHERE appointments.id = :appt_id;";
+    $params = array(
+        ':appt_id' => $appt_id
+    );
+    $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+}
 
 function print_subjects($subjects)
 {
@@ -130,10 +139,11 @@ if (isset($_POST['edit_appt_subjects'])) {
     );
     $deleted_appt_subjs = exec_sql_query($db, $sql, $params);
     // check for each subject that has been checked, insert respective subject id
-    $all_subjects = array(1 => 'reading', 2 => 'math', 3 => 'writing', 4 => 'organization', 5 => 'study', 6 => 'test', 7 => 'homework', 8 => 'project');
+    $all_subjects = exec_sql_query($db, "SELECT * FROM subjects", $params = array())->fetchAll();
     foreach ($all_subjects as $all_subject) {
-        $subj_id = array_search($all_subject, $all_subjects);
-        if (isset($_POST[$all_subject])) {
+        $subj_id = $all_subject['id'];
+        $subj = str_replace(' ', '_', $all_subject['subject']);
+        if (isset($_POST[$subj])) {
             $sql = "INSERT INTO appointment_subjects (appointment_id, subject_id) VALUES (:appt_id, :subj_id);";
             $params = array(
                 ':appt_id' => $appt_id,
@@ -201,27 +211,52 @@ if (isset($_POST['edit_appt_comment'])) {
 
     <?php
     // GET DETAILS
-    $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
+    if ($current_user['id'] != 1) {
+        $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
         WHERE appointments.user_id = :user_id AND appointments.id = :appt_id;";
-    $params = array(
-        ':user_id' => $current_user['id'],
-        ':appt_id' => $appt_id
-    );
-    $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+        $params = array(
+            ':user_id' => $current_user['id'],
+            ':appt_id' => $appt_id
+        );
+        $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+    } else {
+        $sql = "SELECT DISTINCT * FROM appointments JOIN users ON appointments.user_id = users.id
+        WHERE appointments.id = :appt_id;";
+        $params = array(
+            ':appt_id' => $appt_id
+        );
+        $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+    }
     //gets the subjects
     $subjects = exec_sql_query(
         $db,
         "SELECT subjects.subject FROM subjects WHERE subjects.id IN (SELECT appointment_subjects.subject_id FROM appointment_subjects WHERE appointment_subjects.appointment_id = :appt_id);",
         array(':appt_id' => $appt_id)
     )->fetchAll();
+
+    if ($current_user['id'] != 1) { // not admin
+        ?>
+        <div class="body-div">
+            <p>Date: <?php echo $result["date"]; ?></p>
+            <p>Time: <?php echo date("g:i", strtotime($result["time_start"])) .  "-" . date("g:i a", strtotime($result["time_end"])); ?> </p>
+            <p>Subject(s): <?php print_subjects($subjects); ?> </p>
+            <p>Location: <?php echo print_full_location($result); ?> </p>
+            <p>Comments: <?php echo $result["comment"]; ?> </p>
+        </div>
+    <?php
+} else { // admin
     ?>
-    <div class="body-div">
-        <p>Date: <?php echo $result["date"]; ?> </p>
-        <p>Time: <?php echo date("g:i", strtotime($result["time_start"])) .  "-" . date("g:i a", strtotime($result["time_end"])); ?> </p>
-        <p>Subject(s): <?php print_subjects($subjects); ?> </p>
-        <p>Location: <?php echo print_full_location($result); ?> </p>
-        <p>Comments: <?php echo $result["comment"]; ?> </p>
-    </div>
+        <div class="body-div">
+            <h3><em><?php echo $result["first_name"] . " " . $result["last_name"]." (grade ".$result["grade"].")"; ?></em></h3>
+            <p>Date: <?php echo $result["date"]; ?> </p>
+            <p>Time: <?php echo date("g:i", strtotime($result["time_start"])) .  "-" . date("g:i a", strtotime($result["time_end"])); ?> </p>
+            <p>Subject(s): <?php print_subjects($subjects); ?> </p>
+            <p>Location: <?php echo print_full_location($result); ?> </p>
+            <p>Comments: <?php echo $result["comment"]; ?> </p>
+        </div>
+    <?php
+}
+?>
 
     <div class="body-div">
         <h2>Edit Appointment</h2>
@@ -307,14 +342,12 @@ if (isset($_POST['edit_appt_comment'])) {
                     <div class="form_label">
                         <label>Subject(s):</label>
                     </div>
-                    <p class="subject"><input type="checkbox" name="math" value="math"> Math</p>
-                    <p class="subject"><input type="checkbox" name="reading" value="reading"> Reading</p>
-                    <p class="subject"><input type="checkbox" name="writing" value="writing"> Writing</p>
-                    <p class="subject"><input type="checkbox" name="homework" value="homework"> Homework Help</p>
-                    <p class="subject"><input type="checkbox" name="project" value="project"> Project Assistance</p>
-                    <p class="subject"><input type="checkbox" name="organization" value="organization"> Organizational Skills</p>
-                    <p class="subject"><input type="checkbox" name="study" value="study"> Study Skills</p>
-                    <p class="subject"><input type="checkbox" name="test" value="test"> Standardized Test Preparation</p>
+                    <?php
+                    $records = exec_sql_query($db, "SELECT subject FROM subjects", $params = array())->fetchAll();
+                    foreach ($records as $record) {
+                        echo "<p class='subject'><input type='checkbox' name='" . str_replace(' ', '_', $record['subject']) . "' value='" . $record['subject'] . "'>" . $record['subject'] . "</p>";
+                    }
+                    ?>
                     <button type="submit" name="edit_appt_subjects" class="edit_appt_submit_button">Change</button>
                 <?php
             } elseif ($show_location) {
