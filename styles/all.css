@@ -412,10 +412,6 @@ td {
     list-style: none;
 }
 
-#signup_form li{
-    list-style: none;
-}
-
 #existing_appointments_div h2 {
     margin-bottom: 10px;
 }
@@ -578,7 +574,7 @@ form .form_label{
     padding-right: 0;
 }
 
-#comment {
+#comment-div {
     display: flex;
     flex-direction: row;
     align-items: flex-start;

@@ -203,7 +203,7 @@ if (isset($_POST['edit_appt_comment'])) {
     <?php include("includes/header.php"); ?>
 
     <div class="top-page-div" id="one-appointment-div">
-        <a href=<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?' . http_build_query(array('appt_id' => $appt_id)); ?>>
+        <a href="<?php echo 'single_appointment.php?' . http_build_query(array('appt_id' => $appt_id)); ?>">
             <h1>View Appointment</h1>
         </a>
         <p class="source">Source: <a href="https://www.pexels.com/photo/desk-office-pen-ruler-2097/">Pexels</a></p>

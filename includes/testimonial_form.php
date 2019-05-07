@@ -18,29 +18,30 @@
             <p class="required">*</p>
             <label for="testimonial">Testimonial:</label>
          </div>
-         <textarea rows=10 cols=40 name="form_testimonial" id="testimonial" value="<?php if (isset($_POST['form_testimonial'])) {
-                                                                                       echo $_POST['form_testimonial'];
-                                                                                    }; ?>"></textarea>
+         <textarea rows=10 cols=40 name="form_testimonial" id="testimonial"><?php global $testimonial;
+                                                                              if (isset($testimonial)) {
+                                                                                 echo $testimonial;
+                                                                              }; ?></textarea>
       </div>
       <div id="rating-whole-div">
          <div class="form_label">
             <p class="required">*</p>
-            <label for="rating">Rating:</label>
+            <label>Rating:</label>
          </div>
          <div class="form-rating-div">
-         <?php
-         for ($i = 5; $i > 0; $i--) {
-            if (isset($_POST['form_rating']) && $_POST['form_rating'] == $i) {
-               $checked = "checked";
-            } else {
-               $checked = "";
+            <?php
+            for ($i = 5; $i > 0; $i--) {
+               if (isset($_POST['form_rating']) && $_POST['form_rating'] == $i) {
+                  $checked = "checked";
+               } else {
+                  $checked = "";
+               }
+               echo "<div class='form-rating-option'>";
+               echo "<input type='radio' name='form_rating' value='" . $i . "' id='" . $i . "' " . $checked . "/>";
+               echo "<label for='" . $i . "'>" . print_stars($i) . "</label>";
+               echo "</div>";
             }
-            echo "<div class='form-rating-option'>";
-            echo "<input type='radio' name='form_rating' value='".$i."' id='".$i."' ".$checked."/>";
-            echo "<label for='".$i."'>".print_stars($i)."</label>";
-            echo "</div>";
-         }
-         ?>
+            ?>
          </div>
       </div>
       <div>
@@ -48,11 +49,18 @@
             <p class="required">*</p>
             <label for="role">Role:</label>
          </div>
-         <select name="form_role" id="role" value="<?php if (isset($_POST['form_role'])) {
-                                                      echo $_POST['form_role'];
-                                                   }; ?>">
-            <option value="Student">Student</option>
-            <option value="Parent">Parent</option>
+         <select name="form_role" id="role">
+            <?php
+            $all_roles = ['Student', 'Parent'];
+            foreach ($all_roles as $role) {
+               if (isset($_POST['form_role']) && $_POST['form_role'] == $role) {
+                  $selected = "selected = 'selected' class='selected-option'";
+               } else {
+                  $selected = "";
+               }
+               echo "<option value='" . $role . "' " . $selected . ">" . $role . "</option>";
+            }
+            ?>
          </select>
       </div>
       <button type="submit" name="submit_testimony">Submit</button>

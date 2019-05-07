@@ -37,7 +37,7 @@ if (count($records) > 0) {
 <body>
     <?php include("includes/header.php"); ?>
     <div class="top-page-div" id="one-testimony-div">
-        <a href=<?php echo htmlspecialchars($_SERVER['PHP_SELF']) . '?' . http_build_query(array('id' => $single_testimony_id)); ?>>
+        <a href="<?php echo 'single_testimony.php?' . http_build_query(array('id' => $single_testimony_id)); ?>">
             <h1>View Full Testimony</h1>
         </a>
         <p class="source">Source: <a href="https://unsplash.com/photos/_lhefRJtT0U">Unsplash</a></p>
