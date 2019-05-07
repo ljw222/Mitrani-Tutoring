@@ -35,7 +35,7 @@ include("includes/init.php");
         Integration of several areas of study, including STEM, writing, science, social studies, and more
       </li>
       <li>
-        Many locations — in school, at home, and in office.
+        Many locations — in school, at home, and in office
       </li>
       <li>
         Regular communication with parents and teachers if requested
