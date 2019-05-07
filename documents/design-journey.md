@@ -431,6 +431,7 @@ Final Table Sketches:
 ![Tables](db1.jpeg)
 ![Tables](db2.jpeg)
 
+
 Table: users
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
 * field 2: username TEXT NOT NULL UNIQUE
@@ -440,6 +441,8 @@ Table: users
 * field 6: grade INTEGER
 * field 7: home TEXT
 * field 8: school TEXT
+* field 9: email TEXT
+* field 10: phone TEXT
 
 Table: sessions
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
@@ -466,11 +469,11 @@ Table: subjects
 
 Table: testimonials
 * field 1: id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE
-* field 2: testimonial TEXT NOT NULL UNIQUE
+* field 2: testimonial TEXT NOT NULL
 * field 3: rating INTEGER NOT NULL
 * field 4: date TEXT NOT NULL
 * field 5: role TEXT NOT NULL
-* field 6: user_id INTEGER NOT NULL UNIQUE
+* field 6: user_id INTEGER
 
 ## Database Queries
 
