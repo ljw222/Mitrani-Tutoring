@@ -35,7 +35,7 @@ include("includes/init.php");
         <!-- <p class="quote">I make learning fun, with proven results!</p> -->
         <p>My name is Laurie Mitrani, and I am a <strong>compassionate, child-oriented tutor</strong> who makes learning fun. I have been a <strong>certified teacher</strong> for 30+ years, and have a wide variety of teaching experience. I graduated with a Masters in Education from the University of Virginia, and have experience teaching preschool through high school age students. I have been a elementary classroom teacher, assistant principal, and a principal. In addition, I have <strong>specialized training</strong> in reading. I have been trained in the Orton-Gillingham Approach to help students with reading impairments such as dyslexia. I have also been trained in the Lindamood Bell Approach to help students with reading and comprehension.</p>
         <div id="whole-about-contacts">
-          <h2>Contacts</h2>
+          <h2>Learn More</h2>
           <div id="about-contacts">
             <div>
               <a href="mailto:lmitrani114@gmail.com"><img class="contact-icon" src="images/email-black.png" alt="email" /></a>
