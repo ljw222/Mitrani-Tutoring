@@ -351,5 +351,7 @@ function testimonial_php() {
   }
 }
 
+// default timezone is Eastern time since based in Florida
+date_default_timezone_set("America/New_York");
 
 ?>

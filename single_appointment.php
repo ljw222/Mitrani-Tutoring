@@ -13,14 +13,16 @@ $params = array(
     ':appt_id' => $appt_id
 );
 $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+
 function print_subjects($subjects)
 {
     $numSubjects = count($subjects);
     for ($i = 0; $i < count($subjects) - 1; $i++) {
-        echo $subjects[$i][0] . ", ";
+        echo $subjects[$i]['subject'] . ", ";
     }
-    echo $subjects[$numSubjects - 1][0];
+    echo $subjects[$numSubjects - 1]['subject'];
 }
+
 // EDIT APPOINTMENT
 // CHOOSE FIELD FORM
 if (isset($_POST["choose_field_submit"])) {
@@ -50,19 +52,18 @@ if (isset($_POST['edit_appt_date'])) {
     // filter new date
     $new_date = format_date($_POST['change_date']);
     // check that date is Sun - Fri
-    if (date("l", strtolower($new_date)) == "Saturday") {
+    if (date("l", strtotime($new_date)) == "Saturday") {
         $valid_day_of_week = FALSE;
     } else {
         $valid_day_of_week = TRUE;
     }
     if ($valid_day_of_week) {
         // check if that time is taken for NEW date
-        $sql = "SELECT * FROM appointments WHERE (appointments.date = :new_date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time) AND NOT (appointments.id = :appt_id)";
+        $sql = "SELECT * FROM appointments WHERE (appointments.date = :new_date) AND (((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time = appointments.time_start AND appointments.time_end = :end_time))";
         $params = array(
             ':new_date' => $new_date,
             ':start_time' => $result['time_start'],
-            ':end_time' => $result['time_end'],
-            ':appt_id' => $appt_id
+            ':end_time' => $result['time_end']
         );
         $taken_appt = exec_sql_query($db, $sql, $params)->fetchAll();
         if (count($taken_appt) > 0) { // if there are matches already -- NOT AVAILABLE
@@ -71,12 +72,17 @@ if (isset($_POST['edit_appt_date'])) {
             $ok_change_date = TRUE;
         }
         if ($ok_change_date) { // if ok to change date
-            $sql = "UPDATE appointments SET date = :new_date WHERE id = :appt_id";
-            $params = array(
-                ':new_date' => $new_date,
-                ':appt_id' => $appt_id
-            );
-            $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+            $now = date('m/d/Y', time());
+            if ($new_date > $now) { //date is in the future, okay to schedule
+                $sql = "UPDATE appointments SET date = :new_date WHERE id = :appt_id";
+                $params = array(
+                    ':new_date' => $new_date,
+                    ':appt_id' => $appt_id
+                );
+                $result = exec_sql_query($db, $sql, $params)->fetchAll();
+            } else {
+                $ok_change_date = FALSE;
+            }
         }
     } // else: error message below
 }
@@ -111,7 +117,7 @@ if (isset($_POST['edit_appt_times'])) {
                 ':new_end_time' => $new_end_time,
                 ':appt_id' => $appt_id
             );
-            $result = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+            $result = exec_sql_query($db, $sql, $params)->fetchAll();
         }
     }
 }
@@ -223,35 +229,35 @@ if (isset($_POST['edit_appt_comment'])) {
         if (isset($valid_day_of_week) && $valid_day_of_week == FALSE) {
             echo "<p class='error'>You may only schedule appointments Sundays - Fridays.</p>";
         } elseif (isset($ok_change_date) && $ok_change_date == FALSE) {
-            echo "<p class='error'>Sorry, that time is unavailable on " . $new_date . "</p>";
+            echo "<p class='error'>Sorry, that time is unavailable on " . $new_date . ".</p>";
         } elseif (isset($ok_change_date) && $ok_change_date) {
-            echo "<p class='success'>You have successfully changed the date to " . $new_date . "</p>";
+            echo "<p class='success'>You have successfully changed the date to " . $new_date . ".</p>";
         }
 
         if (isset($incomplete_time) && $incomplete_time) {
             echo "<p class='error' >Please submit a valid start time from 9:00 am to 6:00 pm. Failed to change time.</p>";
         } elseif (isset($ok_change_time) && $ok_change_time) {
-            echo "<p class='success'> You have successfully changed the time to " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " on " . $result['date'] . "</p>";
+            echo "<p class='success'> You have successfully changed the time to " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " on " . $result['date'] . ".</p>";
         } elseif (isset($ok_change_time) && $ok_change_time == FALSE) {
-            echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . "</p>";
+            echo "<p class='error' > Sorry, " . date("g:i", strtotime($new_start_time)) . "-" . date("g:i a", strtotime($new_end_time)) . " is unavailable on " . $result['date'] . ".</p>";
         }
 
         if (isset($changed_subjects) && $changed_subjects) {
             echo "<p class='success'>You have successfully changed the subjects for your appointment.</p>";
         } elseif (isset($changed_subjects) && $changed_subjects == FALSE) {
-            echo "<p class='error'>Sorry, failed to change subjects for your appointment</p>";
+            echo "<p class='error'>Sorry, failed to change subjects for your appointment.</p>";
         }
 
         if (isset($changed_location) && $changed_location) {
             echo "<p class='success'>You have successfully changed the location for your appointment to \"" . $new_location . ".\"</p>";
         } elseif (isset($changed_location) && $changed_location == FALSE) {
-            echo "<p class='error'>Sorry, failed to change location for your appointment</p>";
+            echo "<p class='error'>Sorry, failed to change location for your appointment.</p>";
         }
 
         if (isset($changed_comment) && $changed_comment) {
             echo "<p class='success'>You have successfully changed the comments for your appointment.</p>";
         } elseif (isset($changed_comment) && $changed_comment == FALSE) {
-            echo "<p class='error'>Sorry, failed to change comments for your appointment</p>";
+            echo "<p class='error'>Sorry, failed to change comments for your appointment.</p>";
         }
         ?>
         <form id="choose_field_form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>#choose_field_form" method="POST">

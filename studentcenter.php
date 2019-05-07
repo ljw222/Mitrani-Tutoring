@@ -4,7 +4,6 @@
    // DO NOT REMOVE!
 
    $appt_error_messages = array();
-   $appt_success_messages = array();
 
 //Delete appointment
 $deleted_appt = FALSE;
@@ -122,7 +121,6 @@ if ($result) {
     $time = $_POST['start_time']; //filter input
     $time_start = date("G:i", strtotime($time));
     $time_end = date("G:i",strtotime('+1 hour',strtotime($time)));
-    echo "<script>console.log('date time: ".$time."')</script>";
     $location = filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING);
     $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_STRING);
 
@@ -139,12 +137,18 @@ if ($result) {
       $test_time = date("G:i:s", strtotime($time));
       $test_date_time = $date." ".$test_time;
       $now = date('m/d/Y G:i:s', time());
-      echo "<script>console.log('given v now: ".$test_date_time, $now."')</script>";
-        //date is in the future, okay to schedule
-      if ($test_date_time > $now) {
+      // is time 9-7?
+      $time_int = date("G", strtotime($time));
+      if ($time_int < date("G", strtotime("9 am")) || $time_int > date("G", strtotime("6 pm"))) { // not 9-7
+        $valid_time = FALSE;
+      } else {
+        $valid_time = TRUE;
+      }
+      //date is in the future, Sun-Fri, 9-7, then okay to schedule
+      if (($test_date_time > $now) && (date("l", strtotime($date)) != "Saturday") && $valid_time) {
         $valid_date_time = TRUE;
         // check if given date + time overlaps with any other apptmt start or end time frames
-        $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND ((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time == appointments.time_start AND appointments.time_end == :end_time);";
+        $sql = "SELECT * FROM appointments WHERE (appointments.date = :date) AND (((:start_time < appointments.time_start AND appointments.time_start < :end_time) OR (:start_time < appointments.time_end AND appointments.time_end < :end_time)) OR (:start_time = appointments.time_start AND appointments.time_end = :end_time));";
         $params = array(
           ':date' => $date,
           ':start_time' => $time_start,
@@ -157,14 +161,14 @@ if ($result) {
         } else { // AVAILABLE TIME
           $time_is_available = TRUE;
         }
-      } elseif ($test_date_time <= $now) { // date not in future
+      } else { // date not in future
         $valid_date_time = FALSE;
-        array_push($appt_error_messages, "Please schedule the appointment in a future date and time.");
+        array_push($appt_error_messages, "Please select a valid future date and time. 1-hour appointments are Sunday - Friday, starting at 9 AM - 6 PM.");
       }
     }
 
     //check if any subjects are checked
-    $subj_selected == FALSE;
+    $subj_selected = FALSE;
     $subjects = exec_sql_query($db, "SELECT * FROM subjects", $params=array())->fetchAll();
     foreach ($subjects as $subject) {
       $subj = $subject['subject'];
@@ -185,7 +189,7 @@ if ($result) {
     }
 
     //Upload Time of Appointment
-    if ($time_is_available && $valid_date_time && $subj_selected && $valid_location) {
+    if (isset($time_is_available) && $time_is_available && $valid_date_time && $subj_selected && $valid_location) {
       $sql = "INSERT INTO appointments (date,time_start,time_end,location,comment,user_id) VALUES (:date,:time_start,:time_end,:location,:comment,:user_id)";
       $params = array(
         ':date' => $date,
@@ -202,17 +206,18 @@ if ($result) {
       $all_subjects = exec_sql_query($db, "SELECT * FROM subjects", $params=array())->fetchAll();
       foreach ($all_subjects as $all_subject) {
         $subj_id = $all_subject['id'];
-        if (isset($_POST[$all_subject['subject']])){
+        $subj = $all_subject['subject'];
+        if (isset($_POST[$subj])){
           $sql = "INSERT INTO 'appointment_subjects' (appointment_id, subject_id) VALUES (:appt_id, :subj_id);";
           $params = array(
             ':appt_id' => $appt_id,
             ':subj_id' => $subj_id
           );
           $result = exec_sql_query($db, $sql, $params);
-          if ($result) {
-            $submit_success = TRUE;
-          }
         }
+      }
+      if ($result) {
+        $submit_success = TRUE;
       }
     }
   }
@@ -221,9 +226,6 @@ if ($result) {
       <?php
         if (isset($deleted_appt) && $deleted_appt) {
           echo "<p class='success'>Appointment successfully cancelled!</p>";
-        }
-        if (isset($submit_success) && $submit_success) {
-          echo "<p class='success'>Appointment successfully scheduled!</p>";
         }
       ?>
       <h2>Existing appointments</h2>
@@ -269,9 +271,12 @@ if ($result) {
                <h2>Schedule an Appointment</h2>
                <h4>(All appointments last <p class="underline">1 hour</p>)</h4>
                <?php
-               foreach ($appt_error_messages as $appt_error_message) {
-                 echo "<p class='appt_error'>".$appt_error_message."</p>";
-               }
+              foreach ($appt_error_messages as $appt_error_message) {
+                echo "<p class='appt_error'>".$appt_error_message."</p>";
+              }
+              if (isset($submit_success) && $submit_success) {
+                echo "<p class='success'>Appointment successfully scheduled!</p>";
+              }
                ?>
                <ul>
                   <li>
