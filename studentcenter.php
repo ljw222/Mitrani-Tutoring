@@ -4,6 +4,7 @@ include("includes/init.php");
 // DO NOT REMOVE!
 
 $appt_error_messages = array();
+$register_error_messages = array();
 
 //DELETE APPTS THAT HAVE PASSED
 $sql = "SELECT DISTINCT appointments.id, appointments.date, appointments.time_start, appointments.time_end, appointments.location, appointments.comment FROM appointments
@@ -275,7 +276,7 @@ if (isset($_POST['submit_testimony'])) {
     <!-- Appointment Form -->
     <div class="body-div">
       <div class="form-div">
-        <form id="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
+        <form id="signup_form" class="signup_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>#signup_form" method="post">
           <h2>Schedule an Appointment</h2>
           <h4>(All appointments last <span class="underline">1 hour</span>)</h4>
           <?php
@@ -368,6 +369,78 @@ if (isset($_POST['submit_testimony'])) {
     </div>
   <?php
 } elseif (is_user_logged_in() && $current_user['id'] == 1) { // admin
+  if (isset($_POST["register"]) && is_user_logged_in() && $current_user['id'] == 1) {
+    // filter input for upload
+    $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
+    $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
+    $new_username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    // $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    if (isset($_POST['password']) && trim($_POST['password']) != '') {
+      $new_password = trim( $_POST["password"] );
+      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    }
+    //hash password
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
+    $grade = filter_input(INPUT_POST, 'grade', FILTER_VALIDATE_INT);
+    $home = filter_input(INPUT_POST, 'home', FILTER_VALIDATE_INT);
+    $school = filter_input(INPUT_POST, 'school', FILTER_VALIDATE_INT);
+
+    // var_dump($grade);
+
+    if ($first_name == "" or $last_name == "") { // no first or last name
+      $valid_name = false;
+      if ($first_name == "") { // first name is empty
+        array_push($register_error_messages, "Please enter your first name.");
+      }
+      if ($last_name == "") { // last name is empty
+        array_push($register_error_messages, "Please enter your last name.");
+      }
+    }
+    if($new_username == ""){
+      $valid_username = false;
+      array_push($register_error_messages, "Please enter a username.");
+    } else {
+      $existing_usernames = exec_sql_query(
+        $db,
+        "SELECT username FROM users",
+        array())->fetchAll();
+      // var_dump($existing_usernames);
+      if( in_array("$new_username", $existing_usernames) ){
+        $valid_username = false;
+        array_push($register_error_messages, "Username is already taken. Please enter a different username.");
+      }
+    }
+    if ($email == "" or $phone == ""){
+      $valid_contact_info = false;
+      if ($email == ""){
+        array_push($register_error_messages, "Please enter an email address.");
+      }
+      if ($phone == ""){
+        array_push($register_error_messages, "Please enter a phone number.");
+      }
+    }
+    //Register User
+    if (!isset($valid_name) && !isset($valid_username) && !isset($valid_contact_info))  {
+      $sql = "INSERT INTO users (username,password,first_name,last_name,grade,home,school,email,phone) VALUES (:username,:password,:first_name,:last_name,:grade,:home,:school,:email,:phone)";
+      $params = array(
+        ':username' => $new_username,
+        ':password' => $hashed_password,
+        ':first_name' => $first_name,
+        ':last_name' => $last_name,
+        ':grade' => $grade,
+        ':home' => $home,
+        ':school' => $school,
+        ':email' => $email,
+        ':phone' => $phone
+      );
+      $result = exec_sql_query($db, $sql, $params);
+      if ($result) {
+        $register_success = TRUE;
+      }
+    }
+  }
+
   ?>
     <div class="body-div" id="existing_appointments_div">
       <?php
@@ -437,6 +510,125 @@ if (isset($_POST['submit_testimony'])) {
       }
     } ?>
     </div>
+    <!-- Register Form -->
+    <div class="body-div" id="register_div">
+      <h2>Register a New Student</h2>
+      <?php
+          foreach ($register_error_messages as $register_error_message) {
+            echo "<p class='appt_error'>" . $register_error_message . "</p>";
+          }
+          if (isset($register_success) && $register_success) {
+            echo "<p class='success'>Student successfully Registered!</p>";
+          }
+      ?>
+      <form action="studentcenter.php#register_div" method="POST">
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="first_name">First Name</label>
+          </div>
+          <input class="input_box" id="first_name" type="text" name="first_name" <?php
+                                                                      if( isset($_POST['first_name']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['first_name'];
+                                                                      } ?> >
+        </div>
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="last_name">Last Name</label>
+          </div>
+          <input class="input_box" id="last_name" type="text" name="last_name" <?php
+                                                                      if( isset($_POST['last_name']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['last_name'];
+                                                                      } ?> >
+        </div>
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="username">Username</label>
+          </div>
+          <input class="input_box" id="username" type="text" name="username" <?php
+                                                                      if( isset($_POST['username']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['username'];
+                                                                      } ?> >
+        </div>
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="password">Password</label>
+          </div>
+          <input class="input_box" id="password" type="password" name="password">
+        </div>
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="email">Email</label>
+          </div>
+          <input class="input_box" id="email" type="email" name="email" <?php
+                                                                      if( isset($_POST['email']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['email'];
+                                                                      } ?> >
+        </div>
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="phone">Phone Number</label>
+          </div>
+          <input class="input_box" id="phone" type="text" name="phone" <?php
+                                                                      if( isset($_POST['phone']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['phone'];
+                                                                      } ?> >
+        </div>
+        <div>
+          <div class="form_label">
+            <p class="required">*</p>
+            <label for="grade">Grade</label>
+          </div>
+          <select name="grade">
+            <?php
+              for($g = -1; $g <=12; $g++){
+                if($g == -1){
+                  echo "<option value='k'>Pre-K</option>";
+                }
+                else if($g == 0){
+                  echo "<option value='k'>Kindergarten</option>";
+                }
+                else{
+                  echo "<option value='$g'>$g</option>";
+                }
+              }
+            ?>
+          </select>
+        </div>
+        <div>
+          <div class="form_label">
+            <label for="home">Home Address</label>
+          </div>
+          <input class="input_box" id="home" type="text" name="home" <?php
+                                                                      if( isset($_POST['home']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['home'];
+                                                                      } ?> >
+        </div>
+        <div>
+          <div class="form_label">
+            <label for="school">School</label>
+          </div>
+          <input class="input_box" id="school" type="text" name="school" <?php
+                                                                      if( isset($_POST['school']) && !isset($register_success) ){
+                                                                        echo 'value = '. $_POST['school'];
+                                                                      } ?> >
+        </div>
+
+        <button type="submit" name="register">Register</button>
+      </form>
+    </div>
+    <!-- all students
+    <div class="body-div" id="existing_appointments_div">
+      <h2>All Students</h2>
+
+
+      <a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>View Appointment</a>
+    </div> -->
   <?php
 }
 ?>

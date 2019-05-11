@@ -63,8 +63,10 @@ if (count($records) > 0) {
                     // rating
                     echo print_stars($record["rating"]);
                     // grade
-                    if ($record["grade"] == 0) {
+                    if ($record["grade"] == -1) {
                         echo "<p><em>Pre-K</em></p>";
+                    } elseif ($record["grade"] == 0) {
+                        echo "<p><em>Kindergarten</em></p>";
                     } elseif ($record["grade"] != NULL) {
                         echo "<p><em>Grade " . $record["grade"] . "</em></p>";
                     }

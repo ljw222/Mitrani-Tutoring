@@ -10,10 +10,11 @@ $result = intval(exec_sql_query($db, $sql, $params)->fetchAll()[0][0]);
 $sql = "SELECT first_name, last_name, grade, school, home, phone, email FROM users WHERE id = $result;";
 $student = exec_sql_query($db, $sql, $params)->fetchAll()[0];
 
-if($student['grade'] == 0){
+if($student['grade'] == -1){
     $grade = "Pre-K";
-}
-else{
+} else if($student['grade'] == 0){
+    $grade = "Kindergarten";
+} else{
     $grade = $student['grade'];
 }
 
