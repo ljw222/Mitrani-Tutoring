@@ -399,10 +399,13 @@ if (isset($_POST['submit_testimony'])) {
     } else {
       $existing_usernames = exec_sql_query(
         $db,
-        "SELECT username FROM users",
+        "SELECT users.username FROM users",
         array())->fetchAll();
-      // var_dump($existing_usernames);
-      if( in_array("$new_username", $existing_usernames) ){
+      $unavail_usernames = array();
+      foreach($existing_usernames as $existing_username){
+        array_push($unavail_usernames,$existing_username['username']);
+      }
+      if( in_array("$new_username", $unavail_usernames) ){
         $valid_username = false;
         array_push($register_error_messages, "Username is already taken. Please enter a different username.");
       }
