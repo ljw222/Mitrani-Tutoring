@@ -718,3 +718,30 @@ form .form_label{
 .icon{
     display:inline-block;
 }
+
+.all_students{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.all_students li{
+    margin-left: 0;
+    text-align: center;
+}
+
+.register_form select{
+    width: 108px;
+}
+
+.register_form .input_box{
+    width: 100px;
+}
+
+.register_form button {
+    margin-left: 20%;
+}
+
+.register_form{
+    padding-top: 20px;
+    margin-left: 35%;
+}

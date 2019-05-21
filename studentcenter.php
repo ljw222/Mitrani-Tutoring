@@ -374,19 +374,15 @@ if (isset($_POST['submit_testimony'])) {
     $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
     $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
     $new_username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    // $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
     if (isset($_POST['password']) && trim($_POST['password']) != '') {
       $new_password = trim( $_POST["password"] );
-      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+      $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
     }
-    //hash password
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING);
-    $grade = filter_input(INPUT_POST, 'grade', FILTER_VALIDATE_INT);
-    $home = filter_input(INPUT_POST, 'home', FILTER_VALIDATE_INT);
-    $school = filter_input(INPUT_POST, 'school', FILTER_VALIDATE_INT);
-
-    // var_dump($grade);
+    $grade = filter_input(INPUT_POST, 'grade', FILTER_SANITIZE_STRING);
+    $home = filter_input(INPUT_POST, 'home', FILTER_SANITIZE_STRING);
+    $school = filter_input(INPUT_POST, 'school', FILTER_SANITIZE_STRING);
 
     if ($first_name == "" or $last_name == "") { // no first or last name
       $valid_name = false;
@@ -521,7 +517,7 @@ if (isset($_POST['submit_testimony'])) {
             echo "<p class='success'>Student successfully Registered!</p>";
           }
       ?>
-      <form action="studentcenter.php#register_div" method="POST">
+      <form class="register_form" action="studentcenter.php#register_div" method="POST">
         <div>
           <div class="form_label">
             <p class="required">*</p>
@@ -622,13 +618,22 @@ if (isset($_POST['submit_testimony'])) {
         <button type="submit" name="register">Register</button>
       </form>
     </div>
-    <!-- all students
+    <!-- display all students -->
     <div class="body-div" id="existing_appointments_div">
       <h2>All Students</h2>
-
-
-      <a href='single_appointment.php?" . http_build_query(array('appt_id' => $record['id']))."'>View Appointment</a>
-    </div> -->
+      <?php
+        $users = exec_sql_query(
+          $db,
+          "SELECT * FROM users WHERE id != 1 ORDER BY first_name ASC",
+          array())->fetchAll();
+        foreach($users as $user){
+          $student_name = $user['first_name']." ". $user['last_name'];
+          echo "<ul class='all_students'>";
+          echo "<li><a href='single_student.php?" . http_build_query(array('user_id' => $user['id']))."'>$student_name</a></li>";
+          echo "</ul>";
+        }
+      ?>
+    </div>
   <?php
 }
 ?>

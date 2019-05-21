@@ -2,13 +2,24 @@
 // DO NOT REMOVE!
 include("includes/init.php");
 // DO NOT REMOVE!
-$appt_id =$_GET['appt_id'];
-$sql = "SELECT appointments.user_id FROM appointments WHERE id = $appt_id;";
-$result = intval(exec_sql_query($db, $sql, $params)->fetchAll()[0][0]);
+if(isset($_GET['appt_id'])){
+    $appt_id =$_GET['appt_id'];
+    $sql = "SELECT appointments.user_id FROM appointments WHERE id = $appt_id;";
+    $result = intval(exec_sql_query($db, $sql, $params)->fetchAll()[0][0]);
+    $sql = "SELECT first_name, last_name, grade, school, home, phone, email FROM users WHERE id = $result;";
+    $student = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+} elseif (isset($_GET['user_id'])){
+    $user_id =$_GET['user_id'];
+    $sql = "SELECT first_name, last_name, grade, school, home, phone, email FROM users WHERE id = $user_id;";
+    $student = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+}
+// $appt_id =$_GET['appt_id'];
+// $sql = "SELECT appointments.user_id FROM appointments WHERE id = $appt_id;";
+// $result = intval(exec_sql_query($db, $sql, $params)->fetchAll()[0][0]);
 
 
-$sql = "SELECT first_name, last_name, grade, school, home, phone, email FROM users WHERE id = $result;";
-$student = exec_sql_query($db, $sql, $params)->fetchAll()[0];
+// $sql = "SELECT first_name, last_name, grade, school, home, phone, email FROM users WHERE id = $result;";
+// $student = exec_sql_query($db, $sql, $params)->fetchAll()[0];
 
 if($student['grade'] == -1){
     $grade = "Pre-K";
