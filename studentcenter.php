@@ -521,6 +521,7 @@ if (isset($_POST['submit_testimony'])) {
             echo "<p class='success'>Student successfully Registered!</p>";
           }
       ?>
+      <div class="form-div">
       <form action="studentcenter.php#register_div" method="POST">
         <div>
           <div class="form_label">
@@ -618,6 +619,7 @@ if (isset($_POST['submit_testimony'])) {
                                                                         echo 'value = '. $_POST['school'];
                                                                       } ?> >
         </div>
+                                                                    </div>
 
         <button type="submit" name="register">Register</button>
       </form>
