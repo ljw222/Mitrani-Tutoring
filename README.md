@@ -6,4 +6,4 @@ We worked with client Laurie Mitrani to design a site that fits the needs of her
 
 View the website here: https://mitrani-tutoring.herokuapp.com/index.php
 
-For testing purposes, username and password admin show a preview of the admin center, and username and password user1 simulate the student center from a student's point of view.
+For testing purposes, username and password "admin" show a preview of the admin center, and username and password "user1" simulate the student center from a student's point of view.
